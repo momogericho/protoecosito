@@ -44,19 +44,3 @@ $menuItems = [
   </ul>
 </nav>
 
-<script>
-const btnMenuToggle = document.getElementById('menuToggle');
-const menu = document.getElementById('sideMenu');
-const overlay = document.getElementById('menuOverlay');
-
-btnMenuToggle.addEventListener('click', () => {
-  menu.classList.add('active');
-  overlay.classList.add('active');
-});
-
-overlay.addEventListener('click', () => {
-  menu.classList.remove('active');
-  overlay.classList.remove('active');
-});
-</script>
-

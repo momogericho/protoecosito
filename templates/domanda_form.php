@@ -9,7 +9,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['is_artigiano']) || (int)$_S
       <p><a href="login.php">Vai al login</a></p>
     </main>
     <?php
-    require_once __DIR__ . '/../templates/footer.php';
+    require_once __DIR__ . '/footer.php';
     exit;
 }
 ?>
@@ -21,7 +21,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['is_artigiano']) || (int)$_S
   
   <!-- FILTRO DATA -->
   <section class="card filter">
-  <?php require_once __DIR__ . '/../templates/filtro_data_form.php'; ?>
+  <?php require_once __DIR__ . '/filtro_data_form.php'; ?>
   </section>
   
   <!-- LISTA MATERIALI -->
@@ -31,7 +31,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['is_artigiano']) || (int)$_S
     <?php if (empty($materiali)): ?>
       <p class="muted">Non ci sono materiali disponibili al momento.</p>
     <?php else: ?>
-      <form id="selezioneForm" method="post" action="conferma.php" novalidate>
+      <form id="selezioneForm" method="post" action="../conferma.php" novalidate>
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
 
         <div class="materials-list">

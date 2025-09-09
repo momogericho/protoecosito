@@ -1,9 +1,9 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
-require_once __DIR__ . '/templates/header.php';
-require_once __DIR__ . '/security/csrf.php';
-require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/../templates/header.php';
+require_once __DIR__ . '/../security/csrf.php';
+require_once __DIR__ . '/../config/db.php';
 
 // Accesso: solo aziende loggate
 if (empty($_SESSION['user_id']) || !isset($_SESSION['is_artigiano']) || (int)$_SESSION['is_artigiano'] === 1) {
@@ -40,7 +40,3 @@ if ($myIds) {
 }
 
 ?>
-<link rel="stylesheet" href="/public/css/offerta.css">
-
-<main class="offerta">
-  <h1>Gestione materiali (Azienda)</h1>

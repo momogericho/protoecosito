@@ -1,7 +1,7 @@
 <?php
 if (empty($_SESSION['last_purchase'])) {
     echo '<main class="card"><p>Nessuna transazione da visualizzare.</p></main>';
-    require_once __DIR__ . '/templates/footer.php';
+    require_once __DIR__ . '/footer.php';
     exit;
 }
 ?>

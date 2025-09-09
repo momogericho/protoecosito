@@ -1,4 +1,8 @@
- <!-- SEZIONE: elenco materiali esistenti -->
+<link rel="stylesheet" href="/public/css/offerta.css">
+
+<main class="offerta">
+  <h1>Gestione materiali (Azienda)</h1>
+<!-- SEZIONE: elenco materiali esistenti -->
   <section class="card">
     <div class="card__head">
       <h2>I tuoi materiali</h2>
@@ -10,7 +14,7 @@
     <?php else: ?>
       <div class="list">
         <?php foreach ($materiali as $m): ?>
-          <form class="item" method="post" action="/app/modificaMateriale.php" novalidate>
+          <form class="item" method="post" action="/../app/modificaMateriale.php" novalidate>
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
             <input type="hidden" name="id" value="<?= (int)$m['id'] ?>">
 

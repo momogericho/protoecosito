@@ -2,7 +2,7 @@
   <h2>Riepilogo acquisto</h2>
 
   <?php if (empty($items)): ?>
-    <p>Nessun materiale disponibile tra quelli selezionati. <a href="domanda.php">Torna a lista</a></p>
+    <p>Nessun materiale disponibile tra quelli selezionati. <a href="../domanda.php">Torna a lista</a></p>
   <?php else: ?>
     <table class="confirm-table">
       <thead><tr><th>Nome</th><th>Qtà</th><th>Prezzo unit.</th><th>Subtotale</th></tr></thead>
@@ -24,22 +24,22 @@
 
     <?php if ($total > $credit): ?>
       <p class="error">Credito insufficiente per completare l'acquisto.</p>
-      <form method="post" action="conferma.php" style="display:inline">
+      <form method="post" action="../conferma.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
         <!-- Indietro: mantiene cart in sessione, torna a domanda -->
         <button type="submit" name="action" value="back" class="btn">Indietro</button>
       </form>
-      <form method="post" action="app/reset_selection.php" style="display:inline">
+      <form method="post" action="../app/reset_selection.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
         <button type="submit" class="btn btn-secondary">Reset</button>
       </form>
     <?php else: ?>
       <!-- Totale <= credito -->
-      <form method="post" action="app/process_purchase.php" style="display:inline">
+      <form method="post" action="../app/process_purchase.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
         <button type="submit" class="btn btn-primary">Concludi</button>
       </form>
-      <form method="post" action="app/reset_selection.php" style="display:inline">
+      <form method="post" action="../app/reset_selection.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
         <button type="submit" class="btn btn-secondary">Reset</button>
       </form>

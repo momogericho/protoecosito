@@ -10,7 +10,7 @@ $csrf_token = generateCsrfToken();
     <p class="error"><?= htmlspecialchars($error) ?></p>
   <?php endif; ?>
 
-  <form method="post" action="login.php" id="loginForm">
+  <form method="post" action="../login.php" id="loginForm">
     <label for="user">Username:</label>
     <input type="text" id="user" name="user" value="<?= htmlspecialchars($cookie_user) ?>" required>
 
