@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/registration_controller.php';
-require_once __DIR__ . '/../security/crsf.php';
+require_once __DIR__ . '/../security/csrf.php';
 
 // Possibile iniezione risorse 
 $pageTitle = "Registrazione";
