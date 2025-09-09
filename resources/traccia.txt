@@ -1,0 +1,242 @@
+Sviluppare in tecnologia PHP un sito web inerente alla seguente tematica:
+
+“Ogni anno, tonnellate di materiali tessili, cartacei, plastici o 
+compositi vengono scartati dalle aziende di produzione e finiscono in 
+discarica. Allo stesso tempo, migliaia di artigiani, designer e startup 
+sostenibili lottano per accedere a materie prime a costi accessibili. 
+Questo sito nasce dall’idea che limitare questa disconnessione sia 
+possibile” 
+
+Il sito deve avere la seguente struttura:
+
+La pagina iniziale (HOME, corrispondente al file home.php) fornisce una 
+presentazione generale del sito e delle possibili funzionalità.
+Gli utenti possono essere di tipo “azienda” o “artigiano”: 
+i primi sono utenti che possono inserire nuovi capi da riciclare e 
+stabilirne le caratteristiche generali, 
+mentre i secondi sono utenti che vogliono comprare materiali in vendita.
+Qualora un utente si sia autenticato con successo, nella parte in alto a 
+destra di ogni pagina, fino al logout,dovrà essere presente l’indicazione
+dello username dell’utente ed il saldo dell’utente stesso, o “non loggato”
+e zero se non fosse ancora avvenuta autenticazione.
+Il sito deve chiedere esplicitamente se l’utente voglia esser “ricordato”
+ o meno, in caso positivo, facendo accessi successivi alla pagina LOGIN 
+ dal medesimo browser (anche in giorni diversi ma nelle 72 ore
+successive all’ultimo login), i campo username e password devono essere 
+precompilati con l’ultimo valore usato con successo da quel browser nella
+pagina LOGIN.
+OFFERTA (offerta.php) è la pagina per l’inserimento di nuovi materiali che
+deve essere accessibile solo agli organizzatori e permette solo ad un 
+utente autenticato di tipo azienda di inserire un nuovo materiale, o
+modificare caratteristiche di uno inserito in precedenza (della stessa 
+azienda).
+La distinzione tra aziende ed artigiani avviene grazie ad un 
+campo Booleano (la colonna “artigiano”) nel database degli utenti 
+settato al valore true (1) per “artigiani”, o false (0) per le aziende. 
+In una sezione la OFFERTA presenta l’elenco dei materiali, dando per 
+ciascuno la possibilità di modificarne descrizione,quantità disponibile, 
+e costo unitario. In un’altra sezione la pagina permette di inserire un 
+nuovo materiale,specificandone i seguenti dati:
+• nome deve essere una stringa di minimo 10 e massimo 40 caratteri, con
+ solo lettere, numeri e spazi come caratteri accettabili;
+• descrizione deve essere una stringa libera di massimo 250 caratteri;
+• data deve essere una data in formato aaaa-mm-gg e rappresenta la data 
+di inserimento del bene;
+• quantità deve essere un numero intero che indichi la quantità ancora 
+disponibile;
+• costo deve essere il costo espresso in euro, con la precisione dei 
+centesimi (ma come valori ammissibili nei centesimi sono ammissibili 
+solo multipli di 5, ad esempio 5,25 euro è un valore valido, 12,34 no);
+DOMANDA (domanda.php) è la pagina per l’acquisto di nuovi materiali da 
+parte degli artigiani che deve essere accessibile solo agli artigiani 
+stessi e permette solo ad un utente autenticato di tipo artigiano di
+acquistare del materiale. Questa pagina elenca i materiali in vendita 
+inseriti dalle aziende indicando le varie caratteristiche 
+(nome, descrizione, quantità, etc). 
+L’artigiano da questa pagina può decidere di acquistare un numero 
+qualsiasi di materiali presenti, in accordo con il denaro disponibile. 
+L’artigiano deve poter impostare un filtro che possa selezionare solo 
+materiali inseriti dopo una certa data. 
+In quel caso, i materiali più vecchi non devono poter essere acquistati 
+e non devono essere presentati all’artigiano.
+Un pulsante (Annulla) permette di deselezionare tutti i materiali 
+acquistati, mentre un altro pulsante (Acquista) permette di andare ad 
+una pagina riepilogativa per confermare la lista dei prescelti
+(CONFERMA, corrispondente al file conferma.php).
+Se un utente non autenticato provasse ad accedere alla pagina domanda, 
+allora la pagina presenterebbe solo il seguente avviso:
+“Attenzione! Questa pagina è riservata agli artigiani registrati. 
+Inserisci le credenziali prima di procedere all’acquisto.”
+La pagina di registrazione (REGISTRA, corrispondente a registrazione.php)
+è composta da due sezioni
+• una sezione permette ad un’azienda di registrarsi, indicando la ragione
+  sociale (campo “ragione”),indirizzo (campo “address2”), username 
+  (campo “nick”) e password (campo “password”). 
+  La ragione sociale deve essere una stringa di massimo 30 caratteri, 
+  con lettere numeri e i caratteri “&” e spazio come caratteri accettabili
+  e deve necessariamente iniziare con una lettera maiuscola.
+  Indirizzo deve essere nella forma “Via/Corso nome numeroCivico, Città”, 
+  dove nome può contenere caratteri alfabetici e spazi, 
+  numeroCivico deve essere un numero naturale composto da 1 a 3 cifre 
+  decimali, Città il nome di una città (o presunta tale). 
+  Username deve essere una stringa lunga da 4 a 10 caratteri, con solo 
+  lettere, numeri e ‘-’ o ‘_’ come valori ammessi e deve cominciare
+  con un carattere alfabetico e password deve essere una stringa lunga 
+  da 8 a 16 caratteri, che può contenere lettere, numeri e 
+  caratteri speciali, e deve contenere almeno 1 lettera maiuscola, 
+  1 lettera minuscola, 1 numero,1 caratteri speciale tra i seguenti (.;+=).
+• La seconda sezione permette ad un artigiano o designer di registrarsi 
+  indicando nome (campo “name”), cognome (campo “surname”), data di 
+  nascita (campo “birthdate”), credito (campo “credit”), indirizzo (campo
+   “address”), username (campo “nick”) e password (campo “password”).
+  Nome deve essere una stringa di minimo 4 e massimo 14 caratteri, con 
+  solo lettere ed il carattere spazio come caratteri accettabili. 
+  Cognome deve essere una stringa di minimo 4 e massimo 16 caratteri, 
+  con solo lettere ed i caratteri spazio o “’” (apostrofo) come caratteri
+  accettabili. Data di nascita deve essere nella forma “aaaa-mm-gg” 
+  (dove il valore 0 in posizione più significativa nel mese e nel giorno 
+  può eventualmente essere omesso), credito un numero che rappresenta il 
+  credito in euro, caricato dagli utenti, con precisione dei centesimi 
+  (ma che nei centesimi deve considerare variazioni da 5 unità per volta).
+  Indirizzo, username e password devono rispettare le medesime regole 
+  indicate in precedenza.
+La pagina di identificazione (LOGIN, corrispondente al file login.php) 
+permette all’utente di introdurre il suo username e la sua password per 
+autenticarsi. La pagina contiene due campi testuali – aventi ID user e pwd
+ – per inserire i dati, un ulteriore check per indicare se l’utente vuole
+essere ricordato, e due bottoni che rispettivamente cancellano il 
+contenuto di tutti i campi (pulsante CANCELLA) o li inviano al server 
+per il controllo d’accesso (pulsante INVIA). Se l’autenticazione fallisce,
+si rimane nella stessa pagina segnalando l’errore ed invitando l’utente 
+a ritentare il login.
+Se l’autenticazione ha successo, l’utente viene inviato direttamente 
+alla pagina Offerta in caso di azienda,
+o alla pagina domanda in caso di artigiano.
+La pagina CONFERMA deve contenere il riepilogo dei materiali scelti 
+ed il costo totale ad essi corrispondente. Nella pagina, un pulsante 
+(Reset) permette di annullare la selezione fatta nella sessione
+corrente, tornando alla pagina DOMANDA. Qualora il costo complessivo 
+fosse superiore al credito del compratore, allora la pagina dovrebbe 
+segnalare l’impossibilità a procedere nell’acquisto per mancanza di
+denaro e proporre un pulsante (Indietro) per tornare alla pagina DOMANDA
+con i beni precedentemente opzionati già selezionati, in modo che il 
+compratore possa modificare il suo piano d’acquisto a partire dalla
+situazione precedente. Se il costo complessivo fosse invece inferiore 
+o uguale al credito, allora la pagina proporrebbe un pulsante (Concludi) 
+che permette di rendere esecutivo l’acquisto. 
+In caso di assenza di errori viene segnalato che l’acquisto è stato 
+eseguito con una pagina dedicata (CONCLUSIONE, corrispondente
+al file fine.php) e contestualmente vengono aggiornato opportunamente 
+i vari parametri (credito del compratore e quantità disponibili).
+Il sito contiene anche una pagina indicante i materiali disponibili 
+(pagina LISTA, corrispondente al file lista.php) che fornisce l’elenco 
+dei materiali, visualizzandone nome e descrizione. 
+Inoltre, per utenti artigiani, la pagina fornisce anche quantità e 
+costo unitario. Se l’utente ha attivato un filtro sulle date di
+inserimento dei materiali, in questa pagina, non devono essere 
+visualizzati materiali più vecchi.
+Tutte le pagine devono contenere nella medesima posizione un menu comune 
+per andare alle pagine HOME,LISTA, OFFERTA, DOMANDA, REGISTRA, LOGIN. 
+La voce OFFERTA devo essere sempre presente,ma attiva solo per gli 
+opportuni utenti autenticati. 
+Inoltre, il menù contiene una voce che permette in qualunque momento di 
+uscire dal sistema (LOGOUT) tornando allo stato precedente la procedura di
+autenticazione. Questa voce non è attiva se l’utente non si è ancora 
+autenticato. Viceversa, la voce LOGIN deve essere presente 
+ma non attiva per un utente autenticato.
+La tabella “utenti” contiene i record degli utenti registrati ed e 
+organizzata su quattro campi:
+• il campo “id” è un identificativo numerico auto-incrementante;
+• il campo “nick” è lo username dell’utente;
+• il campo “password” è la password associata all’utente;
+• il campo “artigiano” indica se l’utente sia un artigiano o 
+  un’azienda (settato al valore “true” nel primo caso
+La tabella “dati_aziende” contiene i dati inerenti un’azienda, ed è 
+organizzata su quattro campi
+• il campo “id” è un identificativo numerico auto-incrementante;
+• il campo “id_utente” è l’identificativo dell’utente 
+  (nella tabella utenti)
+• il campo “ragione” è il nome dell’azienda
+• Il campo “address2” è l’indirizzo dell’azienda
+La tabella “dati_artigiani” contiene i dati inerenti un’artigiano, 
+ed è organizzata su sette campi
+• il campo “id” è un identificativo numerico auto-incrementante;
+• il campo “id_utente” è l’identificativo dell’utente 
+  (nella tabella utenti)
+• il campo “name” è il nome dell’utente;
+• il campo “surname” è il cognome dell’utente;
+• il campo “birthdate” è la data di nascita dell’utente;
+• Il campo “credit” è il credito dell’utente
+• Il campo “address” è il domicilio dell’artigiano
+La tabella “materiali” contiene i dati inerenti i materiali inseriti 
+dall’azienda ed è organizzata su sei campi
+• il campo “id” è un identificativo numerico auto-incrementante;
+• il campo “nome” indica il nome del materiale
+• il campo “descrizione” contiene una descrizione del materiale
+• Il campo “data” contiene la data di inserimento del materiale nella 
+  lista
+• Il campo “quantità” indica la quantità di materiale disponibile
+• Il campo “costo” indica il costo unitario del materiale
+Il sito deve essere impaginato e formattato in modo coerente in tutte le 
+pagine che devono avere lo stesso stile grafico facilmente controllabile
+mediante un foglio di stile. Ogni pagina deve contenere – come dati
+comuni e facilmente modificabili – un header (col nome del sito) ed un 
+footer (che indica il nome del file e l’autore della pagina). 
+Ove possibile e sensato, queste informazioni devono essere calcolate 
+automaticamente. Il sito deve essere installabile in una qualunque 
+cartella di un server web; le pagine non devono quindi avere dipendenze 
+da path o indirizzi di rete specifici. 
+Tutti i contenuti devono essere aderenti agli standard W3C e nello 
+sviluppo del sito si devono mettere in pratica le norme di 
+buona programmazione web apprese a lezione. 
+Nell’accesso al DB si richiede di minimizzare i privilegi assegnati a 
+ciascuna pagina,usando in modo opportuno i due utenti predefiniti nel DB 
+(“lettore” e “modificatore”);
+si noti inoltre che non è permesso usare l’utente “admin” o altri utenti
+non definiti nel DB fornito.
+Istruzioni di consegna: una volta terminato lo sviluppo del sito, 
+fare l’upload nell’area “Elaborati” del corso sul portale della didattica
+di un archivio ZIP (denominato cognome_nome_matricola.zip) contenente
+tutti i file che costituiscono il sito. 
+Nel caso che il cognome o il nome contengano spazi o caratteri non
+alfabetici, tali caratteri devono essere sostituiti dal carattere ‘+’. 
+Inviare una mail ai docenti (titolare ed esercitatore) per segnalare la 
+richiesta di valutazione. 
+La mail deve essere spedita dal sistema di posta del Politecnico, 
+avere come Subject il testo: “PWR / richiesta valutazione sito web” 
+e nel corpo della mail devono essere indicati nome, cognome e matricola 
+del richiedente.
+L’esito della valutazione del sito verrà comunicato via mail.
+A corredo della consegna, devono essere presenti due ulteriori file, 
+entrambi presenti nella stessa cartella del file home, 
+secondo la seguente specifica
+1. un file chiamato “progettoSito.txt” contenente la descrizione generale
+   del sito, indicante le scelte progettuali del sito, in cui siano 
+   discusse criticamente le motivazioni delle scelte operate 
+   (ad esempio, quali norme di buona programmazione, tra quelle viste 
+   nel sito, si sono seguite, e perché le specifiche scelte, ad opinione 
+   dello sviluppatore, le rispettino
+2. un file chiamato s_struttura.txt (dove è la matricola dello studente) 
+   posizionato nella stessa cartella in cui è contenuto home.php. 
+   In questo file deve esser presente la lista di tutte le pagine 
+   componenti il sito, elencate una per riga, e, sulla stessa riga, 
+   tutti i form ed i controlli di input usati in quella pagina con 
+   rispettivo identificativo, secondo il formato form:<idform>,
+   <tipodiinput1>:<idinput1>,<tipodiinput2>:<idinput2>,...
+   Ove <idinput> può essere sia il “name” sia l’”id” usato per 
+   identificare il controllo, a seconda del modo usato per identificare 
+   il controllo (se presenti entrambi, da prefereire “id”)
+   Ad esempio, se nel sito fossero presenti le paginw home.php e login.php
+   ,la prima senza alcun controllo di input, la seconda con un form quale
+   
+   ....
+   <form method=”post” id=”login” action=””>
+   <input type=”text” name=”username”>
+   <input type=”password” name=”pwd”>
+   <input type=”submit” value="INVIA" id="btn1">
+   <input type=”reset” id=”btn2”' value='CANCELLA'>
+   </form>
+   ...
+   s_struttura.txt dovrebbe contenere le seguenti due righe:
+   home.php
+   login.php,form:login,text:username,password:pwd,submit:btn1,reset:btn2

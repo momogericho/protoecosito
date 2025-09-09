@@ -1,0 +1,44 @@
+/* public/css/lista.css — mobile-first, tabella trasformabile in card */
+:root{
+  --bg:#f6f7f9; --card:#fff; --muted:#6b7280; --border:#e5e7eb;
+  --primary:#0f62fe;
+}
+body{ background:var(--bg); color:#111; font-family:Inter, Arial, sans-serif; }
+.container{ max-width:1100px; margin:0 auto; padding:1rem; }
+.card{ background:var(--card); border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,.04); padding:1rem; }
+.muted{ color:var(--muted); }
+.page-head{ display:flex; flex-direction:column; gap:.8rem; align-items:flex-start; margin-bottom:.6rem; }
+.page-head h1{ margin:0; font-size:1.4rem; }
+.filter-form{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+.filter-form input[type="date"]{ padding:.4rem; border-radius:6px; border:1px solid var(--border); }
+.btn{ padding:.5rem .8rem; border-radius:8px; border:0; cursor:pointer; background:var(--primary); color:#fff; }
+.btn-link{ background:transparent; color:#111; text-decoration:underline; }
+.filter-note{ margin:.4rem 0 .8rem; color:#374151; }
+
+.table-wrapper{ overflow:auto; }
+.materials-table{ width:100%; border-collapse:collapse; }
+.materials-table th, .materials-table td{ border-bottom:1px solid var(--border); padding:.6rem; text-align:left; }
+.materials-table th{ background:#f8fafc; font-weight:600; }
+
+/* Accessibilità: helper per nascondere caption visivamente ma non agli screen reader */
+.visually-hidden {
+  position:absolute !important; height:1px; width:1px; overflow:hidden;
+  clip:rect(1px, 1px, 1px, 1px); white-space:nowrap;
+}
+
+/* Mobile: mostra come cards (stack) */
+@media (max-width: 640px) {
+  .materials-table thead { display:none; }
+  .materials-table tr {
+    display:block; border:1px solid var(--border); border-radius:10px; margin-bottom:.8rem; background:#fff;
+  }
+  .materials-table td {
+    display:flex; justify-content:space-between; align-items:flex-start;
+    border-bottom:1px dashed var(--border);
+  }
+  .materials-table td:last-child { border-bottom:none; }
+  .materials-table td::before {
+    content: attr(data-label);
+    font-weight:600; margin-right:1rem; color:#374151;
+  }
+}
