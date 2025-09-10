@@ -1,11 +1,10 @@
 <?php
 // templates/menu.php
-session_start();
 
 // Recupero stato utente
-$isLogged    = !empty($_SESSION['user_id']);
-$isAzienda   = $isLogged && isset($_SESSION['$isArtigiano']) && $_SESSION['$isArtigiano'] === False;
-$isArtigiano   = $isLogged && isset($_SESSION['$isArtigiano']) && $_SESSION['$isArtigiano'] === True;
+$isLogged = !empty($_SESSION['user_id']);
+$isAzienda = $isLogged && isset($_SESSION['artigiano']) && !$_SESSION['artigiano'];
+$isArtigiano = $isLogged && !empty($_SESSION['artigiano']);
 
 $menuItems = [
     ['label' => 'Home',    'url' => '/home.php',    'enabled' => true],

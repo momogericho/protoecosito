@@ -18,10 +18,21 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Se cookie "ricordami" presenti, precompila
-$cookies = getRememberCookies();
-$cookie_user = $cookies['user'];
-$cookie_pwd  = $cookies['pwd'];
+// Login automatico tramite token "ricordami"
+$token = getRememberToken();
+if ($token && $auth->loginWithToken($token)) {
+    if ($_SESSION['artigiano']) {
+        header("Location: domanda.php");
+    } else {
+        header("Location: offerta.php");
+    }
+    exit;
+}
+
+// Valori di default per il form
+$cookie_user = "";
+$cookie_pwd  = "";
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
@@ -33,14 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pwd = $_POST['pwd'] ?? '';
     $remember = isset($_POST['remember']);
 
-    if ($auth->login($nick, $pwd, $remember)) {
-        if ($remember) {
-            setRememberCookies($nick, $pwd);
-        } else {
-            clearRememberCookies();
-        }
-        // ...redirect...
-    } else {
+    if (!$auth->login($nick, $pwd, $remember)) {
         $error = "Credenziali errate, riprova.";
     }
 }

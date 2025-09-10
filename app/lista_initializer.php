@@ -1,7 +1,7 @@
 <?php
 
 // 1) Determina ruolo: artigiano autenticato?
-$isArtigiano = (!empty($_SESSION['user_id']) && isset($_SESSION['is_artigiano']) && (int)$_SESSION['is_artigiano'] === 1);
+$isArtigiano = (!empty($_SESSION['user_id']) && isset($_SESSION['artigiano']) && (int)$_SESSION['artigiano'] === 1);
 
 // 2) Gestione filtro data: accetta GET after_date, valida e salva in sessione per persistenza cross-pagina
 if (isset($_GET['after_date'])) {

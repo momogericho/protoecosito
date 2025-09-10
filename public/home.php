@@ -1,4 +1,7 @@
-<?php $pageTitle = "Home"; ?>
+<?php
+session_start();
+$pageTitle = "Home";
+?>
 
 <?php include __DIR__ . "/../templates/header.php"; ?>
 

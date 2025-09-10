@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/security/csrf.php";
+require_once __DIR__ . "/../security/csrf.php";
 
 
 // Genero token CSRF per il logout

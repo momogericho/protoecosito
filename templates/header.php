@@ -45,9 +45,9 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
       <?= htmlspecialchars($siteName) ?>
     </div>
     <nav class="site-nav">
-        require 'templates/menu.php';
+        <?php require __DIR__.'/menu.php'; ?>
     </nav>
     <div> 
-      require 'templates/user_status.php';
+      <?php require __DIR__.'/user_status.php'; ?>
     </div>
   </header>

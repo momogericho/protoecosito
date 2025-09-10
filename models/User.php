@@ -23,4 +23,26 @@ class User {
         }
         return "0.00";
     }
+
+    // Salva token "ricordami" per l'utente
+    public function storeRememberToken($userId, $token) {
+        $hash = hash('sha256', $token);
+        $stmt = $this->pdo->prepare("UPDATE utenti SET remember_token = :token WHERE id = :id");
+        $stmt->execute(['token' => $hash, 'id' => $userId]);
+    }
+
+    // Recupera utente tramite token "ricordami"
+    public function getByRememberToken($token) {
+        $hash = hash('sha256', $token);
+        $stmt = $this->pdo->prepare("SELECT * FROM utenti WHERE remember_token = :token LIMIT 1");
+        $stmt->execute(['token' => $hash]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Cancella il token "ricordami"
+    public function clearRememberToken($userId) {
+        $stmt = $this->pdo->prepare("UPDATE utenti SET remember_token = NULL WHERE id = :id");
+        $stmt->execute(['id' => $userId]);
+    }
 }
+?>

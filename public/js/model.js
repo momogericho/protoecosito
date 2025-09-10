@@ -7,20 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById('menuOverlay');
 
   btnMenuToggle.addEventListener('click', () => {
-  menu.classList.add('active');
-  overlay.classList.add('active');
-});
+    menu.classList.add('active');
+    overlay.classList.add('active');
+  });
 
   overlay.addEventListener('click', () => {
-  menu.classList.remove('active');
-  overlay.classList.remove('active');
+    menu.classList.remove('active');
+    overlay.classList.remove('active');
+  });
   
   // bottone login/logout
-  const logoutBtn= document.getElementById("logoutBtn");
-  const loginBtn= document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const loginBtn = document.getElementById("loginBtn");
 
-  loginBtn.addEventListener("click",()=>{window.location.href = "/public/login.php";});
-  logoutBtn.addEventListener("click",()=>{window.location.href = "/public/logout.php";});
+  loginBtn?.addEventListener("click", () => {
+    window.location.href = "/public/login.php";
+  });
+  logoutBtn?.addEventListener("click", () => {
+    window.location.href = "/public/logout.php";
+  });
   
   
   // validazione form registrazione
@@ -57,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function quickValidateArtigiano(e) {
     const f = artForm;
     const credit = f.credit.value;
-    const centsOk = /^\d+(?:\.\d{2})$/.test(credit) && (Math.round(parseFloat(credit)*100) % 5 === 0);
+    const centsOk = /^\d+(?:\.\d{2})$/.test(credit) && (Math.round(parseFloat(credit) * 100) % 5 === 0);
 
     const ok =
       re.name.test(f.name.value) &&
@@ -79,7 +84,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   aziForm?.addEventListener('submit', quickValidateAzienda);
-  artForm?.addEventListener('submit', quickValidateArtigiano);
-  
-})
+  artForm?.addEventListener('submit', quickValidateArtigiano);  
 });

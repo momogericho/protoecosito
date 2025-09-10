@@ -5,7 +5,7 @@ require_once __DIR__ . '/../security/csrf.php';
 require_once __DIR__ . '/../config/db.php';
 
 // Solo aziende
-if (empty($_SESSION['user_id']) || !isset($_SESSION['is_artigiano']) || (int)$_SESSION['is_artigiano'] === 1) {
+if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] === 1) {
     http_response_code(403); exit('Accesso negato');
 }
 

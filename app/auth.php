@@ -26,8 +26,12 @@ class AuthController {
 
         // Se "ricordami" attivo → salvo cookie per 72 ore
         if ($remember) {
-            setcookie("remember_user", $nick, time() + 72*3600, "/");
-            setcookie("remember_pwd", $password, time() + 72*3600, "/");
+            $token = bin2hex(random_bytes(32));
+            $this->userModel->storeRememberToken($user['id'], $token);
+            setcookie('remember_token', $token, time() + 72*3600, '/');
+        } else {
+            $this->userModel->clearRememberToken($user['id']);
+            setcookie('remember_token', '', time() - 3600, '/');
         }
 
         // Redirigi in base al ruolo
@@ -39,8 +43,24 @@ class AuthController {
         exit;
     }
 
+     // Autenticazione tramite token
+    public function loginWithToken($token) {
+        $user = $this->userModel->getByRememberToken($token);
+        if (!$user) {
+            return false;
+        }
+
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['nick']    = $user['nick'];
+        $_SESSION['artigiano'] = $user['artigiano'];
+        $_SESSION['credit'] = $this->userModel->getCredit($user['id'], $user['artigiano']);
+
+        return true;
+    }
+
     // Funzione di logout
     public function logout() {
+        $userId = $_SESSION['user_id'] ?? null;
         $_SESSION = [];
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
@@ -52,6 +72,10 @@ class AuthController {
         session_destroy();
 
         // Elimina cookie remember
+        if ($userId) {
+            $this->userModel->clearRememberToken($userId);
+        }
+        setcookie('remember_token', '', time() - 3600, '/');
         setcookie("remember_user", "", time() - 3600, "/");
         setcookie("remember_pwd", "", time() - 3600, "/");
 

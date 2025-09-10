@@ -1,18 +1,13 @@
 <?php
-function getRememberCookies() {
-    return [
-        'user' => $_COOKIE['remember_user'] ?? "",
-        'pwd'  => $_COOKIE['remember_pwd'] ?? ""
-    ];
+function getRememberToken() {
+    return $_COOKIE['remember_token'] ?? "";
 }
 
-function setRememberCookies($user, $pwd) {
-    setcookie('remember_user', $user, time() + 60*60*24*3, "/");
-    setcookie('remember_pwd', $pwd, time() + 60*60*24*3, "/");
+function setRememberToken($token) {
+    setcookie('remember_token', $token, time() + 60*60*24*3, "/");
 }
 
-function clearRememberCookies() {
-    setcookie('remember_user', '', time() - 3600, "/");
-    setcookie('remember_pwd', '', time() - 3600, "/");
+function clearRememberToken() {
+    setcookie('remember_token', '', time() - 3600, "/");
 }
 ?>

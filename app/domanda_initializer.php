@@ -1,4 +1,13 @@
 <?php
+// Attiva la sessione se non è già avviata
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../security/csrf.php';
+
+
 // ---  CSRF token per i form e le azioni AJAX
 $csrf = generateCsrfToken();
 
