@@ -1,31 +1,27 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-
+// app/offerta_initializer.php
+require_once __DIR__ . '/session_helpers.php';
+startSecureSession();
 require_once __DIR__ . '/../templates/header.php';
 require_once __DIR__ . '/../security/csrf.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../storage/azienda_materiali.php';
+
 
 // Accesso: solo aziende loggate
-if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] === 1) {
-    header('Location: login.php?error=accesso_negato'); exit;
-}
+requireAzienda(['redirect' => 'login.php?error=accesso_negato']);
 
 $aziendaId = (int)$_SESSION['user_id'];
 $csrf = generateCsrfToken();
 
 /**
- * 1) Carico la mappa azienda→materiali da file.
- * 2) Estraggo gli ID materiali della MIA azienda.
+ * 1) Carico la mappa azienda→materiali 
+ * 2) Estraggo gli ID materiali dell' azienda.
  * 3) Se esistono, carico i materiali dal DB con una query IN (...).
  */
 
 // carica mappa
-$mapFile = __DIR__ . '/storage/azienda_materiali.json';
-if (!file_exists($mapFile)) {
-    file_put_contents($mapFile, json_encode(new stdClass(), JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-}
-$map = json_decode(file_get_contents($mapFile), true);
-if (!is_array($map)) $map = [];
+$map = loadAziendaMateriali();
 
 $myIds = array_map('intval', $map[(string)$aziendaId] ?? []);
 

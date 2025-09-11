@@ -50,6 +50,14 @@ class Validation {
         if (!is_string($s) || $s === '') return "Cognome richiesto.";
         return preg_match('/^[\p{L} \']{4,16}$/u', $s) ? null : "Cognome 4-16, solo lettere, spazio o apostrofo.";
     }
+    
+     // Data generica YYYY-M-D (o con zeri)
+    public static function date(?string $s): ?string {
+        if (!is_string($s) || $s === '') return "Data richiesta.";
+        return preg_match('/^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])$/', $s)
+            ? null
+            : "Data non valida (formato aaaa-mm-gg).";
+    }
 
     // Birthdate YYYY-M-D (o con zeri) e data reale
     public static function birthdate(?string $s): ?string {

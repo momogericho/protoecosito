@@ -1,27 +1,26 @@
 <?php
-// Attiva la sessione se non è già avviata
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+// Attiva la sessione se non già avviata
+require_once __DIR__ . '/session_helpers.php';
+startSecureSession();
 
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../security/csrf.php';
+require_once __DIR__ . '/validation.php';
 
 
-// ---  CSRF token per i form e le azioni AJAX
+// CSRF token per i form e le azioni AJAX
 $csrf = generateCsrfToken();
 
-// ---  filtro data (GET)
+// filtro data (GET)
 $filter_date = trim($_GET['after_date'] ?? '');
 $params = [];
 $sql = "SELECT id, nome, descrizione, data, quantita, costo FROM materiali";
 if ($filter_date !== '') {
-    // validazione lato server della data (YYYY-MM-DD)
-    if (preg_match('/^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])$/', $filter_date)) {
+   if (Validation::date($filter_date) === null) {
         $sql .= " WHERE data >= :fdate";
         $params[':fdate'] = $filter_date;
     } else {
-        $filter_date = ''; // ignora filtro non valido
+        $filter_date = ''; 
     }
 }
 $sql .= " ORDER BY data DESC, id DESC";
@@ -29,7 +28,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $materiali = $stmt->fetchAll();
 
-// --- 4) carica selezione corrente dalla sessione (cart: [id => qty])
+// carica selezione corrente dalla sessione (cart: [id => qty])
 $cart = $_SESSION['cart'] ?? [];
 
 ?>

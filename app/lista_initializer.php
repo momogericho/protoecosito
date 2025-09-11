@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/validation.php';
+
 // 1) Determina ruolo: artigiano autenticato?
 $isArtigiano = (!empty($_SESSION['user_id']) && isset($_SESSION['artigiano']) && (int)$_SESSION['artigiano'] === 1);
 
@@ -8,7 +10,7 @@ if (isset($_GET['after_date'])) {
     $candidate = trim($_GET['after_date']);
     if ($candidate === '') {
         unset($_SESSION['materials_after_date']); // rimuovi filtro
-    } else if (preg_match('/^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])$/', $candidate)) {
+    } else if (Validation::date($candidate) === null) {
         $_SESSION['materials_after_date'] = $candidate;
     }
 }

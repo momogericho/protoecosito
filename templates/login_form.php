@@ -12,10 +12,10 @@ $csrf_token = generateCsrfToken();
 
   <form method="post" action="../login.php" id="loginForm">
     <label for="user">Username:</label>
-    <input type="text" id="user" name="user" value="<?= htmlspecialchars($cookie_user) ?>" required>
+    <input type="text" id="user" name="user" required>
 
     <label for="pwd">Password:</label>
-    <input type="password" id="pwd" name="pwd" value="<?= htmlspecialchars($cookie_pwd) ?>" required>
+    <input type="password" id="pwd" name="pwd" required>
     
     <!-- Token CSRF -->
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">

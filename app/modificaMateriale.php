@@ -1,13 +1,11 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-
+require_once __DIR__ . '/session_helpers.php';
+startSecureSession();
 require_once __DIR__ . '/../security/csrf.php';
 require_once __DIR__ . '/../config/db.php';
 
 // Solo aziende
-if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] === 1) {
-    http_response_code(403); exit('Accesso negato');
-}
+requireAzienda();
 
 // CSRF
 if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {

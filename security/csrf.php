@@ -1,6 +1,8 @@
 <?php
 // csrf.php
-session_start();
+require_once __DIR__ . '/../app/session_helpers.php';
+startSecureSession();
+
 
 /**
  * Genera e restituisce un token CSRF univoco

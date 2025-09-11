@@ -1,13 +1,15 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+require_once __DIR__ . '/session_helpers.php';
+startSecureSession();
 
 require_once __DIR__ . '/../security/csrf.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../storage/azienda_materiali.php';
+require_once __DIR__ . '/validation.php';
+
 
 // Solo aziende
-if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] === 1) {
-    http_response_code(403); exit('Accesso negato');
-}
+requireAzienda();
 
 // CSRF
 if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
@@ -23,7 +25,7 @@ $costo = (float)($_POST['costo'] ?? 0);
 // Validazioni
 if (!preg_match('/^[A-Za-z0-9 ]{10,40}$/', $nome)) exit('Nome non valido');
 if (mb_strlen($descrizione) > 250) exit('Descrizione troppo lunga');
-if (!preg_match('/^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])$/', $data)) exit('Data non valida');
+if ($e = Validation::date($data)) exit($e);
 [$y,$m,$d]=array_map('intval', explode('-', $data)); if (!checkdate($m, $d, $y)) exit('Data inesistente');
 if ($quantita <= 0) exit('Quantità non valida');
 $cents = (int)round($costo * 100);
@@ -35,15 +37,10 @@ $st->execute([':n'=>$nome, ':d'=>$descrizione, ':dt'=>$data, ':q'=>$quantita, ':
 $matId = (int)$pdo->lastInsertId();
 
 // Aggiorna la mappa su file per questa azienda
-$mapFile = realpath(__DIR__ . '/../storage') . DIRECTORY_SEPARATOR . 'azienda_materiali.json';
-$map = [];
-if (file_exists($mapFile)) $map = json_decode(file_get_contents($mapFile), true);
-if (!is_array($map)) $map = [];
+$map = loadAziendaMateriali();
 $key = (string)$_SESSION['user_id'];
 $map[$key] = array_values(array_unique(array_map('intval', array_merge($map[$key] ?? [], [$matId]))));
-$tmp = $mapFile . '.tmp';
-file_put_contents($tmp, json_encode($map, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-rename($tmp, $mapFile);
+saveAziendaMateriali($map);
 
 // Redirect
 header('Location: /offerta.php?success=1');

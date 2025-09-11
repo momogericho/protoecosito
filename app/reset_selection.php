@@ -1,6 +1,7 @@
 <?php
 // app/reset_selection.php
-session_start();
+require_once __DIR__ . '/session_helpers.php';
+startSecureSession();
 require_once __DIR__ . '/../security/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

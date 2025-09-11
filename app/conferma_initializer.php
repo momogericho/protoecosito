@@ -1,19 +1,17 @@
 <?php
 // app/conferma_initializer.php
 
-// --- access control
-if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] !== 1) {
-    echo '<main class="card"><p>Attenzione! Questa pagina è riservata agli artigiani registrati.</p></main>';
-    require_once __DIR__ . '/templates/footer.php';
-    exit;
-}
+// Controllo accessi e ruolo
+require_once __DIR__ . '/session_helpers.php';
+startSecureSession();
+requireArtigiano();
 
-// If arrived via POST from domanda: validate CSRF and build cart in session
+// se arriva via POST da domanda: valida CSRF and costruisci cart in sessione
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $_POST['csrf_token'] ?? '';
     if (!validateCsrfToken($token)) die('CSRF non valido.');
 
-    // Extract qty[...] map
+    // Estrai qty[...] map
     $qtys = $_POST['qty'] ?? [];
     $cart = [];
     foreach ($qtys as $id => $q) {
@@ -24,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['cart'] = $cart;
 }
 
-// Use cart from session
+// Usa cart da sessione
 $cart = $_SESSION['cart'] ?? [];
 if (empty($cart)) {
     header('Location: domanda.php'); exit;
 }
 
-// Load selected materials from DB (server trust)
+// Carica materiali selezionati da DB (server trust)
 $ids = array_keys($cart);
 $placeholders = implode(',', array_fill(0, count($ids), '?'));
 $sql = "SELECT id, nome, descrizione, data, quantita, costo FROM materiali WHERE id IN ($placeholders)";
@@ -38,7 +36,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($ids);
 $rows = $stmt->fetchAll();
 
-// Build items, limit quantity to available, compute subtotal/total
+// Costruisci items, limita quantita disponibile , calcola subtotal/total
 $items = []; $total = 0.0;
 foreach ($rows as $r) {
     $id = (int)$r['id'];
@@ -51,13 +49,13 @@ foreach ($rows as $r) {
     $total += $subtotal;
 }
 
-// Fetch artisan credit
+// Carica credito utente
 $stmt = $pdo->prepare("SELECT credit FROM dati_artigiani WHERE id_utente = ? LIMIT 1");
 $stmt->execute([$_SESSION['user_id']]);
 $row = $stmt->fetch();
 $credit = $row ? (float)$row['credit'] : 0.0;
 
-// new CSRF token for actions on this page
+// nuovo CSRF token per azioni su questa pagina
 $csrf2 = generateCsrfToken();
 ?>
 <link rel="stylesheet" href="/public/css/domanda.css">

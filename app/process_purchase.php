@@ -1,6 +1,7 @@
 <?php
 // app/process_purchase.php
-session_start();
+require_once __DIR__ . '/session_helpers.php';
+startSecureSession();
 require_once __DIR__ . '/../security/csrf.php';
 require_once __DIR__ . '/../config/db.php';
 
@@ -10,9 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $token = $_POST['csrf_token'] ?? '';
 if (!validateCsrfToken($token)) die('CSRF non valido');
 
-if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] !== 1) {
-    die('Accesso negato');
-}
+requireArtigiano();
+
 $cart = $_SESSION['cart'] ?? [];
 if (empty($cart)) { header('Location: ../domanda.php'); exit; }
 
@@ -21,14 +21,14 @@ $userId = (int)$_SESSION['user_id'];
 try {
     $pdo->beginTransaction();
 
-    // 1) lock artigiano credit
+    // 1) blocca credit artigiano
     $st = $pdo->prepare('SELECT credit FROM dati_artigiani WHERE id_utente = ? FOR UPDATE');
     $st->execute([$userId]);
     $row = $st->fetch();
     if (!$row) throw new Exception('Dati artigiano non trovati');
     $credit = (float)$row['credit'];
 
-    // 2) load and lock materials
+    // 2) carica e blocca materiali
     $ids = array_map('intval', array_keys($cart));
     if (empty($ids)) throw new Exception('Carrello vuoto');
     $in = implode(',', array_fill(0, count($ids), '?'));
@@ -39,7 +39,7 @@ try {
         $materials[(int)$r['id']] = $r;
     }
 
-    // 3) compute total and availability
+    // 3) calcola totale e disponibilità
     $total = 0.0;
     foreach ($cart as $mid => $q) {
         $mid = (int)$mid; $q = (int)$q;
@@ -50,7 +50,7 @@ try {
         $total += $q * (float)$materials[$mid]['costo'];
     }
 
-    // 4) check credit
+    // 4) controlla credito
     if ($total > $credit) {
         $pdo->rollBack();
         $_SESSION['purchase_error'] = 'Credito insufficiente';
@@ -58,13 +58,13 @@ try {
         exit;
     }
 
-    // 5) update materials quantities
+    // 5) update quantita materiali
     $stmtUpd = $pdo->prepare('UPDATE materiali SET quantita = quantita - ? WHERE id = ?');
     foreach ($cart as $mid => $q) {
         $stmtUpd->execute([(int)$q, (int)$mid]);
     }
 
-    // 6) update artisan credit
+    // 6) update credito artigiano
     $newCredit = $credit - $total;
     $stmtCred = $pdo->prepare('UPDATE dati_artigiani SET credit = ? WHERE id_utente = ?');
     $stmtCred->execute([$newCredit, $userId]);
@@ -72,10 +72,10 @@ try {
     // 7) commit
     $pdo->commit();
 
-     // update session credit for immediate display
+     // update session credit per display immediato
     $_SESSION['credit'] = number_format($newCredit, 2, ',', '.');
 
-    // clear cart, set last_purchase info for fine.php
+    // pulisci cart, set last_purchase info per fine.php
     unset($_SESSION['cart']);
     $_SESSION['last_purchase'] = [
         'total' => $total,
