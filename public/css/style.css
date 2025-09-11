@@ -1,4 +1,21 @@
 /* ===========================
+   ROOT VARIABLES
+   =========================== */
+:root {
+  --font-sans: Inter, Arial, sans-serif;
+  --bg: #f6f7f9;
+  --card: #fff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #0f62fe;
+  --danger: #c53030;
+  --ok: #1f8f55;
+  --err: #c0392b;
+}
+
+
+/* ===========================
    RESET BASE
    =========================== */
 * {
@@ -11,10 +28,10 @@
    BODY
    =========================== */
 body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.6;
-  background: #f5f5f5;
-  color: #333;
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* ===========================
@@ -42,6 +59,13 @@ body {
   height: 40px;
 }
 
+/* Effetto nascondi/mostra header */
+.site-header.hidden {
+  transform: translateY(-100%);
+  transition: transform .3s;
+}
+
+
 /* --- Navigazione principale --- */
 .site-header .main-nav {
   margin-top: 0.8rem;
@@ -56,6 +80,30 @@ body {
   text-decoration: underline;
 }
 
+/* ===========================
+   ZOOM CONTROLS
+   =========================== */
+#zoomControls {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#zoomControls button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid #fff;
+  background: #2c3e50;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#zoomControls button:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 /* ===========================
    HERO SECTION
    =========================== */
@@ -107,11 +155,11 @@ body {
    
 
 
- .login-container {
+.login-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 2rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 8px;
   background: #f9f9f9;
 }
@@ -145,7 +193,7 @@ button {
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 5px;
-  background: #333;
+  background: var(--text);
   color: #fff;
   cursor: pointer;
 }
@@ -164,80 +212,77 @@ button:hover {
    REGISTRATION
    =========================== */
 
-:root {
-  --bg:#f6f7f9; --card:#fff; --text:#222; --muted:#666; --ok:#1f8f55; --err:#c0392b; --bd:#e5e7eb;
-}
 .reg-wrapper { max-width: 1100px;
    margin: 1.5rem auto;
-   padding: 0 1rem; 
+   padding: 0 1rem;
   }
 .reg-wrapper h1 { font-size: 1.8rem;
-   margin-bottom: .25rem; 
+   margin-bottom: .25rem;
   }
 .intro { color: var(--muted);
-   margin-bottom: 1rem; 
+   margin-bottom: 1rem;
   }
 .reg-grid { display: grid;
-   gap: 1rem; 
+   gap: 1rem;
   }
 .card {
   background: var(--card);
-  border: 1px solid var(--bd);
-  border-radius: 12px; 
-  padding: 1rem 1.2rem; 
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
   box-shadow: 0 2px 6px rgba(0,0,0,.05);
 }
-.card h2 { margin: .2rem 0 1rem; 
+.card h2 { margin: .2rem 0 1rem;
 }
-label { display: block; 
-  font-weight: 600; 
-  margin: .75rem 0 .35rem; 
+label { display: block;
+  font-weight: 600;
+  margin: .75rem 0 .35rem;
 }
 input[type=text], input[type=password] {
-  width: 100%; 
-  border: 1px solid var(--bd); 
+  width: 100%;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  padding: .6rem .7rem; 
-  font-size: 1rem; 
-  outline: none; 
+  padding: .6rem .7rem;
+  font-size: 1rem;
+  outline: none;
   background: #fff;
 }
-input:focus { border-color: #2563eb; 
-  box-shadow: 0 0 0 3px rgba(37,99,235,.15); 
+input:focus { border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
 }
-.grid-2 { display: grid; 
-  gap: .75rem; 
+.grid-2 { display: grid;
+  gap: .75rem;
 }
-.actions { display: flex; 
-  gap: .5rem; 
-  margin-top: 1rem; 
+.actions { display: flex;
+  gap: .5rem;
+  margin-top: 1rem;
 }
 button {
-  border: 0; 
-  border-radius: 8px; 
-  padding: .6rem 1rem; 
+  border: 0;
+  border-radius: 8px;
+  padding: .6rem 1rem;
   cursor: pointer;
-  background: #111827; 
-  color: #fff; 
+  background: var(--text);
+  color: #fff;
   font-weight: 600;
 }
-button[type=reset]{ background: #9ca3af; 
+button[type=reset]{ background: #9ca3af;
 }
-button:hover{ filter: brightness(1.05); 
+button:hover{ filter: brightness(1.05);
 }
-.errorbox { border: 1px solid var(--err); 
-  color: var(--err); 
+.errorbox { border: 1px solid var(--err);
+  color: var(--err);
   background: #fdecea;
-  border-radius: 8px; 
-  padding: .6rem .8rem; 
-  margin-bottom: .6rem; 
+  border-radius: 8px;
+  padding: .6rem .8rem;
+  margin-bottom: .6rem;
 }
-.success { border: 1px solid var(--ok); 
-  color: var(--ok); 
+.success { border: 1px solid var(--ok);
+  color: var(--ok);
   background: #ebf9f1;
-  border-radius: 8px; 
-  padding: .6rem .8rem; 
-  margin-bottom: .6rem; 
+  border-radius: 8px;
+  padding: .6rem .8rem;
+  margin-bottom: .6rem;
 }
 
 
@@ -268,7 +313,7 @@ button:hover{ filter: brightness(1.05);
   padding: .4rem .8rem;
   cursor: pointer;
   border: none;
-  background: #333;
+  background: var(--text);
   color: #fff;
   border-radius: 4px;
 }
@@ -305,7 +350,7 @@ button:hover{ filter: brightness(1.05);
 .side-menu h2 {
   margin-top: 0;
   font-size: 1.3rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--text);
   padding-bottom: .5rem;
 }
 .side-menu ul {
@@ -318,7 +363,7 @@ button:hover{ filter: brightness(1.05);
 }
 .side-menu ul li a {
   text-decoration: none;
-  color: #333;
+  color: var(--text);
   font-size: 1.1rem;
 }
 .side-menu.active {
@@ -334,8 +379,8 @@ button:hover{ filter: brightness(1.05);
 }
 
 .side-menu a:hover {
-  background: #e5e7eb;
-  color: #111;
+  background: var(--border);
+  color: var(--text);
 }
 
 /* link disabilitati */
@@ -404,4 +449,34 @@ button:hover{ filter: brightness(1.05);
 @media (min-width: 768px) {
   .reg-grid { grid-template-columns: 1fr 1fr; }
   .reg-wrapper h1 { font-size: 2rem; }
+
+  }
+
+/* ===========================
+   SKIP LINK
+   =========================== */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: -999px;
+  background: #fff;
+  color: #000;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* ===========================
+   FOCUS STYLES
+   =========================== */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
 }

@@ -13,14 +13,15 @@
     'lista.php'     => 'Lista Materiali',
     'offerta.php' => 'Offerta',
     'domanda.php'     => 'Domanda',
-    'dashboard.php' => 'Conferma Acquisti',
+    'conferma.php' => 'Conferma Acquisti',
+    'fine.php' => 'Fine',
  ];
 
 
  $pageName = $pageTitles[$currentPage] ?? $currentPage;
 
 ?>
-    <footer id="footer">
+    <footer id="footer" role="contentinfo">
         <p>&copy; <?= date('Y') ?> - Autore: <strong>Mohamed el Hadi Hadj Mahmoud</strong></p>
         <p>Stai visualizzando: <em><?= htmlspecialchars($pageName) ?></em></p>
     </footer>

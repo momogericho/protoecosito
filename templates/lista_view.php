@@ -1,4 +1,4 @@
-<main class="lista container">
+<main id="mainContent"  role="main" class="lista container">
   <header class="page-head">
     <h1>Materiali disponibili</h1>
     <?php require_once __DIR__ . '/filtro_data_form.php'; ?>
@@ -9,13 +9,13 @@
   <?php endif; ?>
 
   <?php if (empty($materiali)): ?>
-    <section class="card">
+    <section class="card print-section">
       <p class="muted">Nessun materiale da mostrare.</p>
     </section>
   <?php else: ?>
     <!-- Tabella responsive: si trasforma in cards su mobile -->
-    <section class="card table-wrapper">
-      <table class="materials-table" aria-describedby="materials-caption">
+    <section class="card table-wrapper print-section">
+      <table class="materials-table print-table" aria-describedby="materials-caption">
         <caption id="materials-caption" class="visually-hidden">Elenco materiali disponibili</caption>
         <thead>
           <tr>

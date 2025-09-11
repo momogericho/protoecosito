@@ -37,17 +37,23 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
   
   <!-- CSS e JS -->
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" media="print" href="/css/print.css">
   <script src="/js/model.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
+  <a href="#mainContent" class="skip-link">Salta al contenuto</a>
+  <header id="siteHeader" role="banner" class="site-header"></head"er>
+    <nav class="site-nav" role="navigation" aria-label="Main"> 
+        <?php require __DIR__.'/menu.php'; ?>
+    </nav>
     <div class="site-logo">
       <?= htmlspecialchars($siteName) ?>
     </div>
-    <nav class="site-nav">
-        <?php require __DIR__.'/menu.php'; ?>
-    </nav>
-    <div> 
+    <div>
       <?php require __DIR__.'/user_status.php'; ?>
+    </div>
+     <div id="zoomControls">
+      <button id="zoomIn" aria-label="Aumenta dimensione del testo">+</button>
+      <button id="zoomOut" aria-label="Riduci dimensione del testo">&minus;</button>
     </div>
   </header>

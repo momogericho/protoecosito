@@ -1,5 +1,5 @@
 <!-- SEZIONE: inserimento nuovo materiale -->
-  <section class="card">
+  <section class="card print-section">
     <div class="card__head">
       <h2>Inserisci nuovo materiale</h2>
     </div>

@@ -1,21 +1,84 @@
 // public/js/model.js
 document.addEventListener("DOMContentLoaded", () => {
   
+
   // menu laterale
   const btnMenuToggle = document.getElementById('menuToggle');
   const menu = document.getElementById('sideMenu');
   const overlay = document.getElementById('menuOverlay');
+  const focusableSelectors = 'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])';
+  let focusables = [];
 
-  btnMenuToggle.addEventListener('click', () => {
+  // apre menu
+  function openMenu() {
     menu.classList.add('active');
     overlay.classList.add('active');
-  });
+    btnMenuToggle.setAttribute('aria-expanded', 'true');
+    focusables = Array.from(menu.querySelectorAll(focusableSelectors));
+    focusables[0]?.focus();
+  }
 
-  overlay.addEventListener('click', () => {
+  // chiude menu
+  function closeMenu() {
     menu.classList.remove('active');
     overlay.classList.remove('active');
+    btnMenuToggle.setAttribute('aria-expanded', 'false');
+    btnMenuToggle.focus();
+  }
+
+  // alterna stato menu
+  function toggleMenu() {
+    if (menu.classList.contains('active')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  btnMenuToggle.addEventListener('click', toggleMenu);
+  btnMenuToggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
+  overlay.addEventListener('click', closeMenu);
+  
+  // gestione focus trap e chiusura con ESC
+  document.addEventListener('keydown', (e) => {
+    if (!menu.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+      closeMenu();
+      return;
+    }
+    if (e.key === 'Tab') {
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
   
+
+  // effetto nascondi/mostra header
+  let lastScrollY = window.scrollY;
+  const siteHeader = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lastScrollY) {
+      siteHeader?.classList.add('hidden');
+    } else {
+      siteHeader?.classList.remove('hidden');
+    }
+    lastScrollY = window.scrollY;
+  });
+
+
   // bottone login/logout
   const logoutBtn = document.getElementById("logoutBtn");
   const loginBtn = document.getElementById("loginBtn");
@@ -27,7 +90,27 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "/public/logout.php";
   });
   
+
+  // controlli zoom caratteri
+  const zoomInBtn = document.getElementById('zoomIn');
+  const zoomOutBtn = document.getElementById('zoomOut');
+  const root = document.documentElement;
+  const savedSize = localStorage.getItem('rootFontSize');
+  if (savedSize) {
+    root.style.fontSize = savedSize;
+  }
+  // funzione di utilità per cambiare la dimensione del font
+  function adjustFont(delta) {
+    const current = parseFloat(getComputedStyle(root).fontSize);
+    const newSize = current + delta;
+    root.style.fontSize = newSize + 'px';
+    localStorage.setItem('rootFontSize', root.style.fontSize);
+  }
+
+  zoomInBtn?.addEventListener('click', () => adjustFont(1));
+  zoomOutBtn?.addEventListener('click', () => adjustFont(-1));
   
+
   // validazione form registrazione
   const aziForm = document.querySelector('form input[name="type"][value="azienda"]')?.closest('form');
   const artForm = document.querySelector('form input[name="type"][value="artigiano"]')?.closest('form');
@@ -42,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     birth: /^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])$/
   };
 
+  // Controllo rapido prima dell'invio
   function quickValidateAzienda(e) {
     const f = aziForm;
     const ok =
@@ -59,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Controllo rapido prima dell'invio
   function quickValidateArtigiano(e) {
     const f = artForm;
     const credit = f.credit.value;

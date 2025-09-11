@@ -1,10 +1,10 @@
-<main class="card">
+<main id="mainContent" role="main" class="card print-section">
   <h2>Riepilogo acquisto</h2>
 
   <?php if (empty($items)): ?>
     <p>Nessun materiale disponibile tra quelli selezionati. <a href="../domanda.php">Torna a lista</a></p>
   <?php else: ?>
-    <table class="confirm-table">
+    <table class="confirm-table print-table">
       <thead><tr><th>Nome</th><th>Qtà</th><th>Prezzo unit.</th><th>Subtotale</th></tr></thead>
       <tbody>
         <?php foreach ($items as $it): ?>

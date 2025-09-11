@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="/public/css/offerta.css">
 
-<main class="offerta">
+<main class="offerta" id="mainContent">
     <?php require_once __DIR__ . '/../templates/offerta_elenco_materiali.php'; ?>
     <?php require_once __DIR__ . '/../templates/offerta_inserimento_nuovo_materiale.php'; ?>
 </main>

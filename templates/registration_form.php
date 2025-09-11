@@ -1,3 +1,4 @@
+<main role="main" id="mainContent">
 <div class="reg-wrapper">
   <h1>Registrazione</h1>
   <p class="intro">
@@ -117,3 +118,4 @@
     </section>
   </div>
 </div>
+</main>

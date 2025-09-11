@@ -3,7 +3,7 @@
 if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] !== 1) {
     // Utente non autorizzato: mostra solo avviso
     ?>
-    <main class="domanda card">
+    <main id="mainContent" role="main" class="domanda card">
       <h1>Attenzione!</h1>
       <p>Questa pagina è riservata agli artigiani registrati. Inserisci le credenziali prima di procedere all'acquisto.</p>
       <p><a href="login.php">Vai al login</a></p>
@@ -16,16 +16,16 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESS
 
 <?php require_once __DIR__ . '/../app/domanda_initializer.php'; ?>
 
-<main class="domanda">
+<main id="mainContent" role="main" class="domanda">
   <h1>Acquisto materiali</h1>
   
   <!-- FILTRO DATA -->
-  <section class="card filter">
+  <section class="card filter print-section">
   <?php require_once __DIR__ . '/filtro_data_form.php'; ?>
   </section>
   
   <!-- LISTA MATERIALI -->
-  <section class="card materials">
+  <section class="card materials print-section">
     <h2>Materiali disponibili</h2>
 
     <?php if (empty($materiali)): ?>
@@ -68,7 +68,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESS
         </div>
 
         <!-- total & actions -->
-        <div class="cart-summary card">
+        <div class="cart-summary card print-section">
           <div>Totale selezione: <span id="cart-total">0,00</span> €</div>
           <div class="form-actions">
             <button type="button" id="btn-cancella" class="btn btn-secondary">Annulla</button>

@@ -1,6 +1,6 @@
 <?php
 if (empty($_SESSION['last_purchase'])) {
-    echo '<main class="card"><p>Nessuna transazione da visualizzare.</p></main>';
+    echo '<main id="mainContent" role="main" class="card"><p>Nessuna transazione da visualizzare.</p></main>';
     require_once __DIR__ . '/footer.php';
     exit;
 }
@@ -8,7 +8,7 @@ if (empty($_SESSION['last_purchase'])) {
 
 <?php require_once __DIR__ . '/../app/fine_initializer.php'; ?>
 
-<main class="card">
+<main id="mainContent" role="main" class="card">
   <h2>Acquisto eseguito</h2>
   <p>La transazione è andata a buon fine.</p>
   <p>Totale addebitato: <strong><?= $total ?> €</strong></p>

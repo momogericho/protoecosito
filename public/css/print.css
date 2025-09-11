@@ -1,0 +1,29 @@
+@media print {
+  .site-header,
+  .side-menu,
+  .overlay {
+    display: none !important;
+  }
+
+  * {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+
+  .print-section {
+    border: 1px solid #000 !important;
+    padding: 0.5rem;
+  }
+
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .print-table th,
+  .print-table td {
+    border: 1px solid #000;
+    padding: 0.25rem;
+  }
+}

@@ -3,7 +3,7 @@ require_once __DIR__ . "/../security/csrf.php";
 $csrf_token = generateCsrfToken();
 ?>
 
-<main class="login-container">
+<main id="mainContent"  role="main" class="login-container">
   <h2>Login</h2>
 
   <?php if ($error): ?>

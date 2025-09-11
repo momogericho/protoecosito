@@ -19,14 +19,14 @@ $menuItems = [
 
 <!-- Bottone hamburger -->
 <div class="menu-btn">
-  <button id="menuToggle">☰</button>
+  <button id="menuToggle"  aria-controls="sideMenu" aria-expanded="false">☰</button>
 </div>
 
 <!-- Overlay -->
 <div id="menuOverlay" class="overlay"></div>
 
 <!-- Menù laterale -->
-<nav id="sideMenu" class="side-menu">
+<nav id="sideMenu" class="side-menu"  role="dialog" aria-modal="true">
   <h2>Menu</h2>
   <ul>
     <?php foreach ($menuItems as $item): ?>

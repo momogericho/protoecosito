@@ -7,7 +7,7 @@ require_once __DIR__ . "/../security/csrf.php";
 $csrf_token = generateCsrfToken();
 ?>
 
-<main class="logout-container">
+<main id="mainContent"  role="main" class="logout-container">
     <h2>Sei sicuro di voler uscire?</h2>
     <form method="POST" action="logout_controller.php">
         <!-- CSRF token -->
