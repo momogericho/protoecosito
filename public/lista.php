@@ -7,7 +7,8 @@
 // - Supporta filtro "dopo data" (YYYY-MM-DD)
 // ---------------------------------------------
 
-session_start();
+require_once __DIR__ . '/../app/session_helpers.php';
+startSecureSession();
 
 require_once __DIR__ . '/../config/db.php';
 

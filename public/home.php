@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/../app/session_helpers.php';
+startSecureSession();
 $pageTitle = "Home";
 ?>
 

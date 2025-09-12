@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+require_once __DIR__ . '/../app/session_helpers.php';
+startSecureSession();
+?>
 <?php require_once __DIR__ . '/../config/db.php'; ?>
 <?php require_once __DIR__ . '/../security/csrf.php'; ?>
 

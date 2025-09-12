@@ -1,10 +1,12 @@
 <?php
+require_once __DIR__ . '/storage_permissions.php';
 /**
  * Utility helpers per sessioni e controlli di ruolo (azienda/artigiano).
  */
 function startSecureSession(): void {
     // Avvia sessione sicura se non già avviata
     if (session_status() === PHP_SESSION_NONE) {
+        checkStoragePermissions(__DIR__ . '/../storage');
         session_set_cookie_params([
             'lifetime' => 0,
             'path'     => '/',
