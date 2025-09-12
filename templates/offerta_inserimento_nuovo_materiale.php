@@ -5,7 +5,7 @@
     </div>
 
     <form id="nuovoMaterialeForm" class="grid" method="post" action="/../app/inserisciMateriale.php" novalidate>
-      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
+      <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
       <label>Nome (10–40, lettere/numeri/spazi)
         <input type="text" name="nome" id="nome" minlength="10" maxlength="40" required>

@@ -10,7 +10,7 @@ if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
                      die("⚠️ Richiesta non valida: Token CSRF non valido.");
         }
 
-$auth = new AuthController($pdo);
+$auth = new AuthController();
 $auth->logout();
 
 // Redirect a home

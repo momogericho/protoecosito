@@ -3,11 +3,10 @@ require_once __DIR__ . '/session_helpers.php';
 startSecureSession();
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/auth.php";
-require_once __DIR__ . "/remember.php";
 require_once __DIR__ . "/../security/csrf.php";
 require_once __DIR__ . "/validation.php";
 
-$auth = new AuthController($pdo);
+$auth = new AuthController();
 $error = "";
 
 // Se già loggato → ridirigi
@@ -21,15 +20,15 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Login automatico tramite token "ricordami"
-$token = getRememberToken();
-if ($token && $auth->loginWithToken($token)) {
-    if ($_SESSION['artigiano']) {
-        header("Location: domanda.php");
-    } else {
-        header("Location: offerta.php");
-    }
-    exit;
-}
+//$token = getRememberToken();
+//if ($token && $auth->loginWithToken($token)) {
+//    if ($_SESSION['artigiano']) {
+//        header("Location: domanda.php");
+//    } else {
+//        header("Location: offerta.php");
+//    }
+//    exit;
+//}
 
 // Gestione invio form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

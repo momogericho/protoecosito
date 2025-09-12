@@ -13,3 +13,12 @@ The configuration is loaded through [vlucas/phpdotenv](https://github.com/vlucas
 ```
 composer install
 ```
+
+## Security Guidelines
+
+- **Database access**: use the `Db::prepare()` wrapper for every query. Direct calls to `query()` or string interpolation are forbidden; always bind parameters.
+- **Input validation**: validate and normalise all user provided data before use.
+- **Output escaping**: escape dynamic HTML using the `e()` helper (`app/html_utils.php`).
+- **XML parsing**: when parsing XML, use `parseXml()` from `app/html_utils.php`, which keeps `LIBXML_NOENT` and `LIBXML_DTDLOAD` disabled.
+
+Following these rules helps prevent SQL injection, XSS, and XXE vulnerabilities.

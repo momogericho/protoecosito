@@ -32,7 +32,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESS
       <p class="muted">Non ci sono materiali disponibili al momento.</p>
     <?php else: ?>
       <form id="selezioneForm" method="post" action="../conferma.php" novalidate>
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
         <div class="materials-list">
           <?php foreach ($materiali as $m): 
@@ -45,11 +45,11 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESS
           ?>
           <div class="material-item" data-id="<?= $id ?>" data-available="<?= $available ?>" data-unit="<?= number_format($unit, 2, '.', '') ?>">
             <div class="mat-header">
-              <div class="mat-title"><?= htmlspecialchars($m['nome']) ?></div>
-              <div class="mat-date"><?= htmlspecialchars($m['data']) ?></div>
+              <div class="mat-title"><?= e($m['nome']) ?></div>
+              <div class="mat-date"><?= e($m['data']) ?></div>
             </div>
             <div class="mat-body">
-              <div class="mat-desc"><?= nl2br(htmlspecialchars($m['descrizione'])) ?></div>
+              <div class="mat-desc"><?= nl2br(e($m['descrizione'])) ?></div>
               <div class="mat-controls">
                 <div class="control-qty">
                   <button type="button" class="btn-decr" aria-label="Diminuire">−</button>

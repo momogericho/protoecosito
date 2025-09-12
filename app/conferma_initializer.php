@@ -32,7 +32,7 @@ if (empty($cart)) {
 $ids = array_keys($cart);
 $placeholders = implode(',', array_fill(0, count($ids), '?'));
 $sql = "SELECT id, nome, descrizione, data, quantita, costo FROM materiali WHERE id IN ($placeholders)";
-$stmt = $pdo->prepare($sql);
+$stmt = Db::prepare($sql);
 $stmt->execute($ids);
 $rows = $stmt->fetchAll();
 
@@ -50,7 +50,7 @@ foreach ($rows as $r) {
 }
 
 // Carica credito utente
-$stmt = $pdo->prepare("SELECT credit FROM dati_artigiani WHERE id_utente = ? LIMIT 1");
+$stmt = Db::prepare("SELECT credit FROM dati_artigiani WHERE id_utente = ? LIMIT 1");
 $stmt->execute([$_SESSION['user_id']]);
 $row = $stmt->fetch();
 $credit = $row ? (float)$row['credit'] : 0.0;

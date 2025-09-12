@@ -23,7 +23,7 @@
 ?>
     <footer id="footer" role="contentinfo">
         <p>&copy; <?= date('Y') ?> - Autore: <strong>Mohamed el Hadi Hadj Mahmoud</strong></p>
-        <p>Stai visualizzando: <em><?= htmlspecialchars($pageName) ?></em></p>
+        <p>Stai visualizzando: <em><?= e($pageName) ?></em></p>
     </footer>
   </body>
 </html>

@@ -12,16 +12,16 @@
     <div class="list">
       <?php foreach ($materiali as $m): ?>
         <form class="item" method="post" action="/../app/modificaMateriale.php" novalidate>
-          <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
+          <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
           <input type="hidden" name="id" value="<?= (int)$m['id'] ?>">
 
           <div class="item__title">
-            <strong>#<?= (int)$m['id'] ?></strong> — <?= htmlspecialchars($m['nome']) ?>
-            <span class="badge">ins. <?= htmlspecialchars($m['data']) ?></span>
+            <strong>#<?= (int)$m['id'] ?></strong> — <?= e($m['nome']) ?>
+            <span class="badge">ins. <?= e($m['data']) ?></span>
           </div>
 
           <label>Descrizione (max 250)
-            <textarea name="descrizione" maxlength="250"><?= htmlspecialchars($m['descrizione']) ?></textarea>
+            <textarea name="descrizione" maxlength="250"><?= e($m['descrizione']) ?></textarea>
           </label>
 
           <div class="grid-3">

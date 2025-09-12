@@ -24,7 +24,7 @@ if ($filter_date !== '') {
     }
 }
 $sql .= " ORDER BY data DESC, id DESC";
-$stmt = $pdo->prepare($sql);
+$stmt = Db::prepare($sql);
 $stmt->execute($params);
 $materiali = $stmt->fetchAll();
 

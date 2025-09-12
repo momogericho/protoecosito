@@ -4,10 +4,20 @@ function getRememberToken() {
 }
 
 function setRememberToken($token) {
-    setcookie('remember_token', $token, time() + 60*60*24*3, "/");
-}
+    setcookie('remember_token', $token, [
+        'expires'  => time() + 72*3600,
+        'path'     => '/',
+        'httponly' => true,
+        'secure'   => true,
+        'samesite' => 'Lax'
+    ]);}
 
 function clearRememberToken() {
-    setcookie('remember_token', '', time() - 3600, "/");
-}
+    setcookie('remember_token', '', [
+        'expires'  => time() - 3600,
+        'path'     => '/',
+        'httponly' => true,
+        'secure'   => true,
+        'samesite' => 'Lax'
+    ]);}
 ?>

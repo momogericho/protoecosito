@@ -125,9 +125,54 @@ document.addEventListener("DOMContentLoaded", () => {
     birth: /^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])$/
   };
 
-  // Controllo rapido prima dell'invio
+  let aziNickTaken = false;
+  let artNickTaken = false;
+
+  // Controllo disponibilità nick via API
+  function setupNickCheck(form, setTaken) {
+    const input = form?.querySelector('input[name="nick"]');
+    const submit = form?.querySelector('button[type="submit"]');
+    if (!form || !input || !submit) return;
+    const msg = document.createElement('div');
+    msg.style.color = 'red';
+    msg.className = 'nick-error';
+    msg.style.display = 'none';
+    input.insertAdjacentElement('afterend', msg);
+
+    input.addEventListener('input', async () => {
+      const nick = input.value.trim();
+      msg.textContent = '';
+      msg.style.display = 'none';
+      setTaken(false);
+      submit.disabled = false;
+      if (!re.nick.test(nick)) return;
+      try {
+        const r = await fetch(`/api/check_nick.php?nick=${encodeURIComponent(nick)}`);
+        const data = await r.json();
+        if (data.exists) {
+          msg.textContent = 'Nick già in uso';
+          msg.style.display = 'block';
+          setTaken(true);
+          submit.disabled = true;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  }
+
+  setupNickCheck(aziForm, v => aziNickTaken = v);
+  setupNickCheck(artForm, v => artNickTaken = v);
+
+
+  // Controllo rapido azienda prima dell'invio
   function quickValidateAzienda(e) {
     const f = aziForm;
+    if (aziNickTaken) {
+      alert('Username già in uso.');
+      e.preventDefault();
+      return;
+    }
     const ok =
       re.ragione.test(f.ragione.value) &&
       re.indirizzo.test(f.address2.value) &&
@@ -143,12 +188,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Controllo rapido prima dell'invio
+  // Controllo rapido artigiano prima dell'invio
   function quickValidateArtigiano(e) {
     const f = artForm;
     const credit = f.credit.value;
     const centsOk = /^\d+(?:\.\d{2})$/.test(credit) && (Math.round(parseFloat(credit) * 100) % 5 === 0);
 
+    if (artNickTaken) {
+      alert('Username già in uso.');
+      e.preventDefault();
+      return;
+    }
+    
     const ok =
       re.name.test(f.name.value) &&
       re.surname.test(f.surname.value) &&

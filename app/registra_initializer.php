@@ -16,7 +16,7 @@ $pageTitle = "Registrazione";
 // CSRF
 $csrf_token = generateCsrfToken();
 
-$controller = new RegistrationController($pdo);
+$controller = new RegistrationController();
 $okA = $okR = false;
 $errorsA = $errorsR = [];
 $oldA = $oldR = [];

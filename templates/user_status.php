@@ -8,8 +8,8 @@ if (!isset($_SESSION['user_id'])) {
          '<button id="loginBtn">Login</button>' .
          '</div>';
 } else {
-    $nick = htmlspecialchars($_SESSION['nick']);
-    $credit = htmlspecialchars($_SESSION['credit']);
+    $nick = e($_SESSION['nick']);
+    $credit = e($_SESSION['credit']);
      echo '<div class="user-status">' .
          $nick . ' | Saldo: €' . $credit . ' ' .
          '<button id="logoutBtn">Logout</button>' .

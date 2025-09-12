@@ -1,6 +1,42 @@
 <?php
 require_once __DIR__ . '/storage_permissions.php';
 /**
+ * Aggiorna i dati dell'utente in sessione interrogando il DB.
+ * Ritorna false se l'utente non esiste o se il ruolo non coincide.
+ */
+function refreshUserInfo(): bool {
+    if (empty($_SESSION['user_id'])) {
+        return true; // nulla da aggiornare
+    }
+
+    require_once __DIR__ . '/../config/db.php';
+    require_once __DIR__ . '/../models/User.php';
+
+    $userModel = new User();
+
+    $st = Db::prepare('SELECT artigiano FROM utenti WHERE id = :id LIMIT 1');
+    $st->execute([':id' => $_SESSION['user_id']]);
+    $row = $st->fetch(PDO::FETCH_ASSOC);
+
+    if (!$row) {
+        return false; // utente non trovato
+    }
+
+    $role = (int)$row['artigiano'];
+
+    if (isset($_SESSION['artigiano']) && (int)$_SESSION['artigiano'] !== $role) {
+        return false; // ruolo modificato → possibile hijacking
+    }
+
+    // allinea sessione con i dati correnti
+    $_SESSION['artigiano'] = $role;
+    $_SESSION['credit'] = $userModel->getCredit($_SESSION['user_id'], $role);
+
+    return true;
+}
+
+
+/**
  * Utility helpers per sessioni e controlli di ruolo (azienda/artigiano).
  */
 function startSecureSession(): void {
@@ -18,6 +54,11 @@ function startSecureSession(): void {
         // Limitiamo la cache della sessione a 60 minuti, in linea con la durata media di utilizzo.
         session_cache_expire(60);
         session_start();
+    }
+    if (!refreshUserInfo()) {
+        // dati incoerenti → invalida sessione
+        $_SESSION = [];
+        session_destroy();
     }
 }
 

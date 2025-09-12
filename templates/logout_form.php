@@ -11,7 +11,7 @@ $csrf_token = generateCsrfToken();
     <h2>Sei sicuro di voler uscire?</h2>
     <form method="POST" action="logout_controller.php">
         <!-- CSRF token -->
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
+        <input type="hidden" name="csrf_token" value="<?php echo e($csrf_token); ?>">
         <button type="submit">Logout</button>
     </form>
 </main>

@@ -1,6 +1,6 @@
 <main role="main" id="mainContent">
   <section class="hero">
-    <h1>Benvenuto su <?= htmlspecialchars($siteName) ?></h1>
+    <h1>Benvenuto su <?= e($siteName) ?></h1>
     <p>
       Ogni anno, tonnellate di materiali tessili, cartacei, plastici e compositi
       vengono scartati dalle aziende e finiscono in discarica.  

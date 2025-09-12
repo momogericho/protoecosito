@@ -30,7 +30,7 @@ $materiali = [];
 if ($myIds) {
     $in  = implode(',', array_fill(0, count($myIds), '?'));
     $sql = "SELECT id, nome, descrizione, data, quantita, costo FROM materiali WHERE id IN ($in) ORDER BY id DESC";
-    $st = $pdo->prepare($sql);
+    $st = Db::prepare($sql);
     $st->execute($myIds);
     $materiali = $st->fetchAll(PDO::FETCH_ASSOC) ?: [];
 }

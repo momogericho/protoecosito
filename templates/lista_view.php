@@ -5,7 +5,7 @@
   </header>
 
   <?php if ($filterDate !== ''): ?>
-    <p class="filter-note">Filtro attivo: materiali inseriti dal <strong><?= htmlspecialchars($filterDate) ?></strong> in poi.</p>
+    <p class="filter-note">Filtro attivo: materiali inseriti dal <strong><?= e($filterDate) ?></strong> in poi.</p>
   <?php endif; ?>
 
   <?php if (empty($materiali)): ?>
@@ -31,13 +31,13 @@
         <tbody>
         <?php foreach ($materiali as $m): ?>
           <tr>
-            <td data-label="Nome"><?= htmlspecialchars($m['nome']) ?></td>
-            <td data-label="Descrizione"><?= nl2br(htmlspecialchars($m['descrizione'])) ?></td>
+            <td data-label="Nome"><?= e($m['nome']) ?></td>
+            <td data-label="Descrizione"><?= nl2br(e($m['descrizione'])) ?></td>
             <?php if ($isArtigiano): ?>
               <td data-label="Quantità"><?= (int)$m['quantita'] ?></td>
               <td data-label="Costo unitario"><?= number_format((float)$m['costo'], 2, ',', '.') ?> €</td>
             <?php endif; ?>
-            <td data-label="Data"><?= htmlspecialchars($m['data']) ?></td>
+            <td data-label="Data"><?= e($m['data']) ?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>

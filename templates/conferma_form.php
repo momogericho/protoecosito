@@ -9,7 +9,7 @@
       <tbody>
         <?php foreach ($items as $it): ?>
           <tr>
-            <td><?= htmlspecialchars($it['nome']) ?></td>
+            <td><?= e($it['nome']) ?></td>
             <td><?= (int)$it['qty'] ?> (disp <?= (int)$it['available'] ?>)</td>
             <td><?= number_format($it['unit'],2,',','.') ?> €</td>
             <td><?= number_format($it['subtotal'],2,',','.') ?> €</td>
@@ -25,22 +25,22 @@
     <?php if ($total > $credit): ?>
       <p class="error">Credito insufficiente per completare l'acquisto.</p>
       <form method="post" action="../conferma.php" style="display:inline">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <!-- Indietro: mantiene cart in sessione, torna a domanda -->
         <button type="submit" name="action" value="back" class="btn">Indietro</button>
       </form>
       <form method="post" action="../app/reset_selection.php" style="display:inline">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <button type="submit" class="btn btn-secondary">Reset</button>
       </form>
     <?php else: ?>
       <!-- Totale <= credito -->
       <form method="post" action="../app/process_purchase.php" style="display:inline">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <button type="submit" class="btn btn-primary">Concludi</button>
       </form>
       <form method="post" action="../app/reset_selection.php" style="display:inline">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf2) ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <button type="submit" class="btn btn-secondary">Reset</button>
       </form>
     <?php endif; ?>

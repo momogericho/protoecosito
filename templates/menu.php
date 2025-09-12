@@ -32,11 +32,11 @@ $menuItems = [
     <?php foreach ($menuItems as $item): ?>
       <li class="<?= $item['enabled'] ? '' : 'disabled' ?>">
         <?php if ($item['enabled']): ?>
-          <a href="<?= htmlspecialchars($item['url']) ?>">
-            <?= htmlspecialchars($item['label']) ?>
+          <a href="<?= e($item['url']) ?>">
+            <?= e($item['label']) ?>
           </a>
         <?php else: ?>
-          <span><?= htmlspecialchars($item['label']) ?></span>
+          <span><?= e($item['label']) ?></span>
         <?php endif; ?>
       </li>
     <?php endforeach; ?>

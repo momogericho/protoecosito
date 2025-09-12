@@ -5,16 +5,15 @@ require_once __DIR__ . '/../models/AziendaRepository.php';
 require_once __DIR__ . '/../models/ArtigianoRepository.php';
 
 class RegistrationController {
-    public function __construct(private PDO $pdo) {}
-
+   
     public function handleAzienda(array $post): array {
         $errors = [];
 
         // CSRF
         
         if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
-                     die("⚠️ Richiesta non valida: Token CSRF non valido.");
-            }
+            die("⚠️ Richiesta non valida: Token CSRF non valido.");
+        }
 
         // Validazioni
         if ($e = Validation::ragione($post['ragione'] ?? null))  $errors['ragione']  = $e;
@@ -25,24 +24,24 @@ class RegistrationController {
         if ($errors) return ['ok'=>false, 'errors'=>$errors];
 
         // Nick univoco
-        $userRepo = new UserRepository($this->pdo);
+        $userRepo = new UserRepository();
         if ($userRepo->findByNick($post['nick'])) {
             return ['ok'=>false, 'errors'=>['nick'=>"Username già in uso."]];
         }
 
         // Creazione utente + azienda (transazione)
-        $this->pdo->beginTransaction();
+        Db::beginTransaction();
         try {
-            $hash = password_hash($post['password'], PASSWORD_DEFAULT);
+            $hash = password_hash($post['password'] . PEPPER, PASSWORD_DEFAULT);
             $userId = $userRepo->create($post['nick'], $hash, false); // azienda => artigiano = false
 
-            $azRepo = new AziendaRepository($this->pdo);
+            $azRepo = new AziendaRepository();
             $azRepo->create($userId, $post['ragione'], $post['address2']);
 
-            $this->pdo->commit();
+            Db::commit();
             return ['ok'=>true];
         } catch (Throwable $ex) {
-            $this->pdo->rollBack();
+            Db::rollBack();
             return ['ok'=>false, 'errors'=>['general'=>"Errore salvataggio: ".$ex->getMessage()]];
         }
     }
@@ -51,8 +50,8 @@ class RegistrationController {
         $errors = [];
 
          if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
-                     die("⚠️ Richiesta non valida: Token CSRF non valido.");
-            }
+            die("⚠️ Richiesta non valida: Token CSRF non valido.");
+        }
 
         if ($e = Validation::name($post['name'] ?? null))        $errors['name']     = $e;
         if ($e = Validation::surname($post['surname'] ?? null))  $errors['surname']  = $e;
@@ -64,27 +63,27 @@ class RegistrationController {
 
         if ($errors) return ['ok'=>false, 'errors'=>$errors];
 
-        $userRepo = new UserRepository($this->pdo);
+        $userRepo = new UserRepository();
         if ($userRepo->findByNick($post['nick'])) {
             return ['ok'=>false, 'errors'=>['nick'=>"Username già in uso."]];
         }
 
-        $this->pdo->beginTransaction();
+        Db::beginTransaction();
         try {
-            $hash = password_hash($post['password'], PASSWORD_DEFAULT);
+            $hash = password_hash($post['password'] . PEPPER, PASSWORD_DEFAULT);
             $userId = $userRepo->create($post['nick'], $hash, true); // artigiano = true
 
-            $arRepo = new ArtigianoRepository($this->pdo);
+            $arRepo = new ArtigianoRepository();
             $arRepo->create(
                 $userId,
                 $post['name'], $post['surname'],
                 $post['birthdate'], $post['credit'], $post['address']
             );
 
-            $this->pdo->commit();
+            Db::commit();
             return ['ok'=>true];
         } catch (Throwable $ex) {
-            $this->pdo->rollBack();
+            Db::rollBack();
             return ['ok'=>false, 'errors'=>['general'=>"Errore salvataggio: ".$ex->getMessage()]];
         }
     }

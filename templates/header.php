@@ -4,6 +4,8 @@
 if (function_exists('ob_gzhandler')) {
     ob_start('ob_gzhandler');
 }
+require_once __DIR__ . '/../app/html_utils.php';
+
 // Valori di default per SEO e social sharing
 $pageTitle       = $pageTitle ?? "Riuso Sostenibile - Marketplace di materiali riciclati";
 $siteName        = "Riuso Sostenibile";
@@ -19,23 +21,23 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO Base -->
-  <title><?= htmlspecialchars($pageTitle) ?></title>
-  <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
-  <meta name="keywords" content="<?= htmlspecialchars($pageKeywords) ?>">
+  <title><?= e($pageTitle) ?></title>
+  <meta name="description" content="<?= e($pageDescription) ?>">
+  <meta name="keywords" content="<?= e($pageKeywords) ?>">
   <meta name="author" content="Nome Autore">
 
   <!-- Open Graph (per Facebook & LinkedIn) -->
-  <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
-  <meta property="og:description" content="<?= htmlspecialchars($pageDescription) ?>">
+  <meta property="og:title" content="<?= e($pageTitle) ?>">
+  <meta property="og:description" content="<?= e($pageDescription) ?>">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="<?= htmlspecialchars($pageUrl) ?>">
-  <meta property="og:image" content="<?= htmlspecialchars($pageImage) ?>">
+  <meta property="og:url" content="<?= e($pageUrl) ?>">
+  <meta property="og:image" content="<?= e($pageImage) ?>">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="<?= htmlspecialchars($pageTitle) ?>">
-  <meta name="twitter:description" content="<?= htmlspecialchars($pageDescription) ?>">
-  <meta name="twitter:image" content="<?= htmlspecialchars($pageImage) ?>">
+  <meta name="twitter:title" content="<?= e($pageTitle) ?>">
+  <meta name="twitter:description" content="<?= e($pageDescription) ?>">
+  <meta name="twitter:image" content="<?= e($pageImage) ?>">
 
   <!-- Favicon -->
   <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
@@ -52,7 +54,7 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
         <?php require __DIR__.'/menu.php'; ?>
     </nav>
     <div class="site-logo">
-      <?= htmlspecialchars($siteName) ?>
+      <?= e($siteName) ?>
     </div>
     <div>
       <?php require __DIR__.'/user_status.php'; ?>

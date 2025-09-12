@@ -1,26 +1,3 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php'; // autoload è un file generato automaticamente da composer
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->safeLoad();
-
-// Connessione al DB con PDO (sicuro)
-$dsn = getenv('DB_DSN');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
-
-$caCert = getenv('MYSQL_CA_CERT');
-if (!$caCert) {
-    die('Certificato CA non configurato.');
-}
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false,
-        PDO::MYSQL_ATTR_SSL_CA => $caCert,
-        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true
-    ]);
-} catch (PDOException $e) {
-    die("Errore di connessione DB: " . $e->getMessage());
-}
+require_once __DIR__ . '/../app/Db.php';
+// La connessione al database viene gestita dalla classe Db
