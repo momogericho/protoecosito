@@ -1,9 +1,15 @@
 
-<?php require_once __DIR__ . '/../app/offerta_initializer.php'; ?>
+<?php
+require_once __DIR__ . '/../app/offerta_initializer.php';
+// Abilita la compressione gzip se supportata dal client
+if (function_exists('ob_gzhandler')) {
+    ob_start('ob_gzhandler');
+}
 
-<?php if (!isset($materiali, $csrf, $aziendaId)) {
+if (!isset($materiali, $csrf, $aziendaId)) {
     throw new RuntimeException('Variabili necessarie non disponibili');
-} ?>
+} 
+?>
 
 <link rel="stylesheet" href="/public/css/offerta.css">
 

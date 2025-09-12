@@ -1,0 +1,51 @@
+# Enable compression if supported
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/javascript application/javascript application/json
+</IfModule>
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>
+
+
+# Caching for static assets
+Header append Vary Accept-Encoding
+CacheFile public/
+
+
+# Security Headers
+Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://apis.google.com"
+
+
+# Prevent Clickjacking
+Header set X-Frame-Options "DENY"
+# or use CSP
+Header always set Content-Security-Policy "frame-ancestors 'none'"
+
+
+# Prevent MIME-type sniffing
+Header set X-Content-Type-Options "nosniff"
+
+
+# Enforce HTTPS with HSTS
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+
+# Referrer Policy
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Disable directory listing
+Options -Indexes
+
+# Cross-Origin Policies
+Header set Cross-Origin-Resource-Policy "same-origin"
+Header set Cross-Origin-Opener-Policy "same-origin"
+
+
+# Error logging
+php_flag display_errors Off
+php_value error_reporting 0
+php_flag log_errors On
+php_value error_log "../storage/logs/php_errors.log"

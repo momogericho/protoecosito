@@ -1,5 +1,10 @@
 <?php
 // templates/header.php
+// Abilita la compressione gzip se supportata dal client
+if (function_exists('ob_gzhandler')) {
+    ob_start('ob_gzhandler');
+}
+// Valori di default per SEO e social sharing
 $pageTitle       = $pageTitle ?? "Riuso Sostenibile - Marketplace di materiali riciclati";
 $siteName        = "Riuso Sostenibile";
 $pageDescription = $pageDescription ?? "Connetti aziende che scartano materiali con artigiani, designer e startup sostenibili. Riduci gli sprechi e promuovi il riciclo creativo.";

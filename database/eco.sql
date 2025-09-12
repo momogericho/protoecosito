@@ -43,7 +43,7 @@ CREATE USER IF NOT EXISTS 'lettore'@'localhost' IDENTIFIED BY 'P@ssw0rd!';
 CREATE USER IF NOT EXISTS 'modificatore'@'localhost' IDENTIFIED BY 'Str0ng#Admin9';
 
 GRANT SELECT ON eco_scambio.* TO 'lettore'@'localhost';
-GRANT ALL PRIVILEGES ON eco_scambio.* TO 'modificatore'@'localhost';
+GRANT ALL PRIVILEGES ON eco_scambio.* TO 'modificatore'@'localhost'; --GRANT SELECT, INSERT, UPDATE, DELETE ON eco_scambio.* TO 'modificatore'@'localhost';
 
 FLUSH PRIVILEGES;
 

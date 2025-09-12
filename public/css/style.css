@@ -443,14 +443,31 @@ button:hover{ filter: brightness(1.05);
   }
 }
 
-/*============================
-    RESPONSIVE REGISTRATION
+/*  ============================
+    REGISTRATION GRID
     ============================*/
 @media (min-width: 768px) {
   .reg-grid { grid-template-columns: 1fr 1fr; }
   .reg-wrapper h1 { font-size: 2rem; }
-
   }
+
+  
+/* ===========================
+   PRINT STYLES
+   =========================== */
+@media print {
+  #zoomControls,
+  .site-header,
+  nav,
+  #footer,
+  .no-print,
+  button,
+  input,
+  select,
+  textarea {
+    display: none !important;
+  }
+}
 
 /* ===========================
    SKIP LINK
