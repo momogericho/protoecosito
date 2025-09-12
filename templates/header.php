@@ -40,7 +40,7 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
   <meta name="twitter:image" content="<?= e($pageImage) ?>">
 
   <!-- Favicon -->
-  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+  <!-- <link rel="icon" href="/img/favicon.ico" type="image/x-icon"> -->
   
   <!-- CSS e JS -->
   <link rel="stylesheet" href="/css/style.css">
@@ -49,11 +49,11 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
 </head>
 <body>
   <a href="#mainContent" class="skip-link">Salta al contenuto</a>
-  <header id="siteHeader" role="banner" class="site-header"></head"er>
-    <nav class="site-nav" role="navigation" aria-label="Main"> 
+  <header id="siteHeader" role="banner" class="site-header">
+    <nav class="main-nav" role="navigation" aria-label="Main"> 
         <?php require __DIR__.'/menu.php'; ?>
     </nav>
-    <div class="site-logo">
+    <div class="logo">
       <?= e($siteName) ?>
     </div>
     <div>
@@ -61,6 +61,6 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
     </div>
      <div id="zoomControls">
       <button id="zoomIn" aria-label="Aumenta dimensione del testo">+</button>
-      <button id="zoomOut" aria-label="Riduci dimensione del testo">&minus;</button>
+      <button id="zoomOut" aria-label="Riduci dimensione del testo">-</button>
     </div>
   </header>

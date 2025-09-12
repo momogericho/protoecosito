@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDec = it.querySelector('.btn-decr');
     const btnInc = it.querySelector('.btn-incr');
     const input  = it.querySelector('.qty-input');
+    const errEl  = it.querySelector('.error-msg');
     const available = parseInt(it.dataset.available, 10);
 
     btnDec.addEventListener('click', () => {
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       v = v - 1;
       if (v < 0) v = 0;
       input.value = v;
+      errEl.textContent = '';
       updateTotals();
     });
 
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       v = v + 1;
       if (v > available) v = available;
       input.value = v;
+      errEl.textContent = '';
       updateTotals();
     });
 
@@ -56,13 +59,23 @@ document.addEventListener('DOMContentLoaded', () => {
       // solo cifre intere
       if (!/^\d*$/.test(v)) {
         input.value = v.replace(/[^\d]/g, '');
+        errEl.textContent = 'Solo numeri.';
+      } else {
+        errEl.textContent = '';
       }
     });
     input.addEventListener('blur', () => {
       let v = parseInt(input.value, 10);
-      if (isNaN(v) || v < 0) v = 0;
-      if (v > available) v = available;
+      let msg = '';
+      if (isNaN(v) || v < 0) {
+        v = 0;
+        msg = 'Valore non valido.';
+      } else if (v > available) {
+        v = available;
+        msg = `Disponibilità massima: ${available}`;
+      }
       input.value = v;
+      errEl.textContent = msg;
       updateTotals();
     });
   });

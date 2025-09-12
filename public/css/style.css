@@ -2,13 +2,14 @@
    ROOT VARIABLES
    =========================== */
 :root {
-  --font-sans: Inter, Arial, sans-serif;
+  --font-sans: 'Poppins' ,Inter, Arial, sans-serif;
   --bg: #f6f7f9;
   --card: #fff;
   --border: #e5e7eb;
   --text: #111827;
   --muted: #6b7280;
-  --primary: #0f62fe;
+  --primary: #2f855a;
+  --accent: #b7791f;  
   --danger: #c53030;
   --ok: #1f8f55;
   --err: #c0392b;
@@ -42,7 +43,7 @@ body {
   flex-direction: column; /* mobile-first */
   align-items: center;
   justify-content: center;
-  background: #2c3e50;
+  background: var(--primary);
   color: #fff;
   padding: 1rem;
 }
@@ -80,6 +81,26 @@ body {
   text-decoration: underline;
 }
 
+
+/* --- User Status --- */
+.user-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  margin-top: 0.5rem;
+}
+
+.user-status button {
+  border: 1px solid #fff;
+  background: #2c3e50;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
 /* ===========================
    ZOOM CONTROLS
    =========================== */
@@ -111,6 +132,10 @@ body {
   background: #ecf0f1;
   padding: 2rem 1rem;
   text-align: center;
+}
+.hero img {
+  max-width: 100%;
+  height: auto;
 }
 .hero h1 {
   font-size: 1.8rem;
@@ -238,7 +263,7 @@ label { display: block;
   font-weight: 600;
   margin: .75rem 0 .35rem;
 }
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=number], input[type=date] {  
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;

@@ -19,7 +19,7 @@ $menuItems = [
 
 <!-- Bottone hamburger -->
 <div class="menu-btn">
-  <button id="menuToggle"  aria-controls="sideMenu" aria-expanded="false">☰</button>
+  <button id="menuToggle"  aria-label="Apri menu" aria-controls="sideMenu" aria-expanded="false">☰</button>
 </div>
 
 <!-- Overlay -->

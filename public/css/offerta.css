@@ -10,7 +10,7 @@ body{background:var(--bg); color:var(--text);}
 }
 .card__head{ display:flex; align-items:baseline; justify-content:space-between; gap:.5rem; }
 .card__head h2{ margin:0; font-size:1.25rem; }
-.badge{ font-size:.8rem; color:#374151; background:#eef2ff; border:1px solid #c7d2fe; padding:.15rem .4rem; border-radius:6px; }
+.badge{ font-size:.8rem; color:#fff; background:var(--accent); border:1px solid var(--accent); padding:.15rem .4rem; border-radius:6px; }
 
 .list{ display:grid; gap:1rem; }
 .item{ border:1px dashed var(--border); border-radius:10px; padding:.75rem; }
@@ -18,7 +18,7 @@ body{background:var(--bg); color:var(--text);}
 
 label{ display:block; font-weight:600; margin:.5rem 0 .25rem; }
 input[type="text"], input[type="date"], input[type="number"], textarea{
-  width:100%; border:1px solid var(--border); border-radius:8px; padding:.6rem .7rem; background:#fff;
+  width:100%; border:1px solid var(--border); border-radius:8px; padding:.6rem .7rem; background:var(--card);
 }
 textarea{ min-height:80px; resize:vertical; }
 
@@ -27,11 +27,11 @@ textarea{ min-height:80px; resize:vertical; }
 
 .actions{ display:flex; gap:.6rem; align-items:center; }
 button{
-  border:0; background:var(--text); color:#fff; font-weight:700; padding:.6rem 1rem;
+  border:0; background:var(--primary); color:#fff; font-weight:700; padding:.6rem 1rem;
   border-radius:8px; cursor:pointer; transition:filter .2s ease;
 }
 button:hover{ filter:brightness(1.05); }
-button[type="reset"]{ background:#9ca3af; }
+button[type="reset"]{ background:var(--accent); }
 
 @media (min-width:768px){
   .offerta h1{ font-size:1.9rem; }

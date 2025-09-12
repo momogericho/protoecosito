@@ -9,11 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const focusableSelectors = 'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])';
   let focusables = [];
 
+  // aggiorna aria-expanded sul bottone
+  function setMenuExpanded(expanded) {
+    btnMenuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  }
+
   // apre menu
   function openMenu() {
     menu.classList.add('active');
     overlay.classList.add('active');
-    btnMenuToggle.setAttribute('aria-expanded', 'true');
+    setMenuExpanded(true);
     focusables = Array.from(menu.querySelectorAll(focusableSelectors));
     focusables[0]?.focus();
   }
@@ -22,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeMenu() {
     menu.classList.remove('active');
     overlay.classList.remove('active');
-    btnMenuToggle.setAttribute('aria-expanded', 'false');
+    setMenuExpanded(true);
     btnMenuToggle.focus();
   }
 
@@ -115,6 +120,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const aziForm = document.querySelector('form input[name="type"][value="azienda"]')?.closest('form');
   const artForm = document.querySelector('form input[name="type"][value="artigiano"]')?.closest('form');
 
+  function clearError(element) {
+    const msg = element?.nextElementSibling;
+    if (msg && msg.classList.contains('error-message')) {
+      msg.remove();
+    }
+  }
+
+  function showError(message, element) {
+    if (!element) return;
+    let msg = element.nextElementSibling;
+    if (!msg || !msg.classList.contains('error-message')) {
+      msg = document.createElement('div');
+      msg.className = 'error-message';
+      msg.style.color = 'red';
+      msg.setAttribute('aria-live', 'polite');
+      element.insertAdjacentElement('afterend', msg);
+      element.addEventListener('input', () => clearError(element), { once: true });
+    }
+    msg.textContent = message;
+  }
+
   const re = {
     nick: /^[A-Za-z][A-Za-z0-9_-]{3,9}$/,
     passAllowed: /^[A-Za-z0-9.;+=]{8,16}$/,
@@ -133,25 +159,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = form?.querySelector('input[name="nick"]');
     const submit = form?.querySelector('button[type="submit"]');
     if (!form || !input || !submit) return;
-    const msg = document.createElement('div');
-    msg.style.color = 'red';
-    msg.className = 'nick-error';
-    msg.style.display = 'none';
-    input.insertAdjacentElement('afterend', msg);
+    
 
     input.addEventListener('input', async () => {
       const nick = input.value.trim();
-      msg.textContent = '';
-      msg.style.display = 'none';
-      setTaken(false);
-      submit.disabled = false;
-      if (!re.nick.test(nick)) return;
-      try {
-        const r = await fetch(`/api/check_nick.php?nick=${encodeURIComponent(nick)}`);
-        const data = await r.json();
-        if (data.exists) {
-          msg.textContent = 'Nick già in uso';
-          msg.style.display = 'block';
+      clearError(input);
+       setTaken(false);
+       submit.disabled = false;
+       if (!re.nick.test(nick)) return;
+       try {
+         const r = await fetch(`/api/check_nick.php?nick=${encodeURIComponent(nick)}`);
+         const data = await r.json();
+         if (data.exists) {
+          showError('Nick già in uso', input);
           setTaken(true);
           submit.disabled = true;
         }
@@ -169,21 +189,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function quickValidateAzienda(e) {
     const f = aziForm;
     if (aziNickTaken) {
-      alert('Username già in uso.');
+      showError('Username già in uso.', f.nick);
       e.preventDefault();
       return;
     }
-    const ok =
-      re.ragione.test(f.ragione.value) &&
-      re.indirizzo.test(f.address2.value) &&
-      re.nick.test(f.nick.value) &&
-      re.passAllowed.test(f.password.value) &&
-      /[A-Z]/.test(f.password.value) &&
-      /[a-z]/.test(f.password.value) &&
-      /\d/.test(f.password.value) &&
-      /[.;+=]/.test(f.password.value);
-    if (!ok) {
-      alert('Controlla i campi Azienda (formato non valido).');
+     let invalid = null;
+    if (!re.ragione.test(f.ragione.value)) invalid = f.ragione;
+    else if (!re.indirizzo.test(f.address2.value)) invalid = f.address2;
+    else if (!re.nick.test(f.nick.value)) invalid = f.nick;
+    else if (!(re.passAllowed.test(f.password.value) && /[A-Z]/.test(f.password.value) && /[a-z]/.test(f.password.value) && /\d/.test(f.password.value) && /[.;+=]/.test(f.password.value))) invalid = f.password;
+    if (invalid) {
+      showError('Controlla i campi Azienda (formato non valido).', invalid);
       e.preventDefault();
     }
   }
@@ -191,30 +207,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // Controllo rapido artigiano prima dell'invio
   function quickValidateArtigiano(e) {
     const f = artForm;
-    const credit = f.credit.value;
-    const centsOk = /^\d+(?:\.\d{2})$/.test(credit) && (Math.round(parseFloat(credit) * 100) % 5 === 0);
+    const credit = f.credit.valueAsNumber;
+    const creditOk = Number.isFinite(credit) && (Math.round(credit * 100) % 5 === 0);
 
     if (artNickTaken) {
-      alert('Username già in uso.');
+      showError('Username già in uso.', f.nick);
       e.preventDefault();
       return;
     }
     
-    const ok =
-      re.name.test(f.name.value) &&
-      re.surname.test(f.surname.value) &&
-      re.birth.test(f.birthdate.value) &&
-      centsOk &&
-      re.indirizzo.test(f.address.value) &&
-      re.nick.test(f.nick.value) &&
-      re.passAllowed.test(f.password.value) &&
-      /[A-Z]/.test(f.password.value) &&
-      /[a-z]/.test(f.password.value) &&
-      /\d/.test(f.password.value) &&
-      /[.;+=]/.test(f.password.value);
+    let invalid = null;
+    if (!re.name.test(f.name.value)) invalid = f.name;
+    else if (!re.surname.test(f.surname.value)) invalid = f.surname;
+    else if (!re.birth.test(f.birthdate.value)) invalid = f.birthdate;
+    else if (!creditOk) invalid = f.credit;
+    else if (!re.indirizzo.test(f.address.value)) invalid = f.address;
+    else if (!re.nick.test(f.nick.value)) invalid = f.nick;
+    else if (!(re.passAllowed.test(f.password.value) && /[A-Z]/.test(f.password.value) && /[a-z]/.test(f.password.value) && /\d/.test(f.password.value) && /[.;+=]/.test(f.password.value))) invalid = f.password;
 
-    if (!ok) {
-      alert('Controlla i campi Artigiano (formato non valido).');
+    if (invalid) {
+      showError('Controlla i campi Artigiano (formato non valido).', invalid);
       e.preventDefault();
     }
   }

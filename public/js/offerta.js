@@ -23,21 +23,37 @@
   // UX: validazione veloce del form nuovo materiale
   const form = document.getElementById('nuovoMaterialeForm');
   if (form) {
+    const nomeEl = document.getElementById('nome');
+    const quantitaEl = document.getElementById('quantita');
+    const costoEl = document.getElementById('costo');
+    const msgNome = nomeEl.nextElementSibling;
+    const msgQuantita = quantitaEl.nextElementSibling;
+    const msgCosto = costoEl.nextElementSibling;
     form.addEventListener('submit', (e) => {
-      const nome = document.getElementById('nome').value.trim();
-      const costo = parseFloat(document.getElementById('costo').value || '0');
-      const quantita = parseInt(document.getElementById('quantita').value || '0', 10);
+      msgNome.textContent = '';
+      msgQuantita.textContent = '';
+      msgCosto.textContent = '';
+
+      const nome = nomeEl.value.trim();
+      const costo = parseFloat(costoEl.value || '0');
+      const quantita = parseInt(quantitaEl.value || '0', 10);
+
+      let valid = true;
 
       if (!/^[A-Za-z0-9 ]{10,40}$/.test(nome)) {
-        alert('Il nome deve avere 10–40 caratteri (lettere/numeri/spazi).');
-        e.preventDefault(); return;
+        msgNome.textContent = 'Il nome deve avere 10–40 caratteri (lettere/numeri/spazi).';
+        valid = false;
       }
       if (!(Number.isInteger(quantita) && quantita > 0)) {
-        alert('Quantità non valida.'); e.preventDefault(); return;
-      }
+        msgQuantita.textContent = 'Quantità non valida.';
+        valid = false;      }
       if (Math.round(costo*100) % 5 !== 0) {
-        alert('Il costo deve avere centesimi multipli di 5.'); e.preventDefault(); return;
+        msgCosto.textContent = 'Il costo deve avere centesimi multipli di 5.';
+        valid = false;
       }
+
+      if (!valid) {
+        e.preventDefault();      }
     });
   }
 

@@ -15,7 +15,7 @@ $rememberedUser = e(getRememberToken());
 
   <form method="post" action="../login.php" id="loginForm">
     <label for="user">Username:</label>
-    <input type="text" id="user" name="user" value="<?= $rememberedUser ?>"  required>
+    <input type="text" id="user" name="user" value="<?= $rememberedUser ?>" placeholder="Username" autocomplete="username" required>
 
     <label for="pwd">Password:</label>
     <input type="password" id="pwd" name="pwd" required>

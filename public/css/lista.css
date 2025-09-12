@@ -9,12 +9,12 @@ body{ background:var(--bg); color:var(--text); font-family:var(--font-sans); }
 .filter-form input[type="date"]{ padding:.4rem; border-radius:6px; border:1px solid var(--border); }
 .btn{ padding:.5rem .8rem; border-radius:8px; border:0; cursor:pointer; background:var(--primary); color:#fff; }
 .btn-link{ background:transparent; color:var(--text); text-decoration:underline; }
-.filter-note{ margin:.4rem 0 .8rem; color:#374151; }
+.filter-note{ margin:.4rem 0 .8rem; color:var(--accent); }
 
 .table-wrapper{ overflow:auto; }
 .materials-table{ width:100%; border-collapse:collapse; }
 .materials-table th, .materials-table td{ border-bottom:1px solid var(--border); padding:.6rem; text-align:left; }
-.materials-table th{ background:#f8fafc; font-weight:600; }
+.materials-table th{ background:var(--bg); font-weight:600; }
 
 /* Accessibilità: helper per nascondere caption visivamente ma non agli screen reader */
 .visually-hidden {
@@ -26,7 +26,7 @@ body{ background:var(--bg); color:var(--text); font-family:var(--font-sans); }
 @media (max-width: 640px) {
   .materials-table thead { display:none; }
   .materials-table tr {
-    display:block; border:1px solid var(--border); border-radius:10px; margin-bottom:.8rem; background:#fff;
+    display:block; border:1px solid var(--border); border-radius:10px; margin-bottom:.8rem; background:var(--card);
   }
   .materials-table td {
     display:flex; justify-content:space-between; align-items:flex-start;
@@ -35,6 +35,6 @@ body{ background:var(--bg); color:var(--text); font-family:var(--font-sans); }
   .materials-table td:last-child { border-bottom:none; }
   .materials-table td::before {
     content: attr(data-label);
-    font-weight:600; margin-right:1rem; color:#374151;
+    font-weight:600; margin-right:1rem; color:var(--accent);
   }
 }

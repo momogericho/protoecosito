@@ -31,7 +31,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESS
     <?php if (empty($materiali)): ?>
       <p class="muted">Non ci sono materiali disponibili al momento.</p>
     <?php else: ?>
-      <form id="selezioneForm" method="post" action="../conferma.php" novalidate>
+      <form id="selezioneForm" method="post" action="../conferma.php" >
         <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
         <div class="materials-list">
@@ -55,6 +55,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESS
                   <button type="button" class="btn-decr" aria-label="Diminuire">−</button>
                   <input type="number" class="qty-input" name="qty[<?= $id ?>]" min="0" max="<?= $available ?>" value="<?= $selQty ?>" aria-label="Quantità desiderata">
                   <button type="button" class="btn-incr" aria-label="Aumentare">+</button>
+                  <span class="error-msg" aria-live="polite"></span>
                 </div>
                 <div class="mat-meta">
                   <div>Disponibilità: <strong><?= $available ?></strong></div>
