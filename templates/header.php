@@ -4,7 +4,7 @@
 if (function_exists('ob_gzhandler')) {
     ob_start('ob_gzhandler');
 }
-require_once __DIR__ . '/../app/html_utils.php';
+require_once __DIR__ . '/../app/helpers/html_utils.php';
 
 // Valori di default per SEO e social sharing
 $pageTitle       = $pageTitle ?? "Riuso Sostenibile - Marketplace di materiali riciclati";

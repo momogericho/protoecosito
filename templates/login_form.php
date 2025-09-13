@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../security/csrf.php";
-require_once __DIR__ . "/../app/remember.php";
+require_once __DIR__ . "/../app/helpers/remember.php";
 $csrf_token = generateCsrfToken();
 $rememberedUser = e(getRememberToken());
 

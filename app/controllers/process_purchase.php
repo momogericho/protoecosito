@@ -1,11 +1,11 @@
 <?php
-// app/process_purchase.php
-require_once __DIR__ . '/../bootstrap.php';
-require_once __DIR__ . '/../security/csrf.php';
+// app/controllers/process_purchase.php
+require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../../security/csrf.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../domanda.php'); exit;
+    header('Location: ../../domanda.php'); exit;
 }
 $token = $_POST['csrf_token'] ?? '';
 if (!validateCsrfToken($token)) die('CSRF non valido');
@@ -13,7 +13,7 @@ if (!validateCsrfToken($token)) die('CSRF non valido');
 requireArtigiano();
 
 $cart = $_SESSION['cart'] ?? [];
-if (empty($cart)) { header('Location: ../domanda.php'); exit; }
+if (empty($cart)) { header('Location: ../../domanda.php'); exit; }
 
 $userId = (int)$_SESSION['user_id'];
 
@@ -53,7 +53,7 @@ try {
     if ($total > $credit) {
         Db::rollBack();
         $_SESSION['purchase_error'] = 'Credito insufficiente';
-        header('Location: ../conferma.php');
+        header('Location: ../../conferma.php');
         exit;
     }
 
@@ -82,7 +82,7 @@ try {
         'items' => $cart
     ];
 
-    header('Location: ../fine.php?ok=1');
+    header('Location: ../../fine.php?ok=1');
     exit;
 
 } catch (Exception $ex) {

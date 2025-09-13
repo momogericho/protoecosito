@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../bootstrap.php';
-require_once __DIR__ . '/registration_controller.php';
-require_once __DIR__ . '/../security/csrf.php';
+require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../controllers/registration_controller.php';
+require_once __DIR__ . '/../../security/csrf.php';
 
 // Possibile iniezione risorse 
 $pageTitle = "Registrazione";

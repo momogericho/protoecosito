@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/../models/User.php";
-require_once __DIR__ . "/remember.php";
+require_once __DIR__ . '/../../models/User.php';
+require_once __DIR__ . '/../helpers/remember.php';
 
 
 class AuthController {
@@ -28,7 +28,7 @@ class AuthController {
 
         // Se "ricordami" attivo → salvo username nel cookie per 72 ore
         if ($remember) {
-            $token = $user['nick']
+            $token = $user['nick'];
             setRememberToken($token);
             //$token = bin2hex(random_bytes(32));
             //$this->userModel->storeRememberToken($user['id'], $token);

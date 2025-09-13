@@ -4,7 +4,7 @@
       <h2>Inserisci nuovo materiale</h2>
     </div>
 
-    <form id="nuovoMaterialeForm" class="grid" method="post" action="/../app/inserisciMateriale.php" >
+    <form id="nuovoMaterialeForm" class="grid" method="post" action="/app/controllers/inserisciMateriale.php" >
       <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
       <label>Nome (10–40, lettere/numeri/spazi)

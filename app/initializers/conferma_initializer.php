@@ -2,7 +2,7 @@
 // app/conferma_initializer.php
 
 // Controllo accessi e ruolo
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../../bootstrap.php';
 requireArtigiano();
 
 // se arriva via POST da domanda: valida CSRF and costruisci cart in sessione

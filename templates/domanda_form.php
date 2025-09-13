@@ -14,7 +14,7 @@ if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESS
 }
 ?>
 
-<?php require_once __DIR__ . '/../app/domanda_initializer.php'; ?>
+<?php require_once __DIR__ . '/../app/initializers/domanda_initializer.php'; ?>
 
 <main id="mainContent" role="main" class="domanda">
   <h1>Acquisto materiali</h1>

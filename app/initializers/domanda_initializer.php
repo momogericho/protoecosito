@@ -1,8 +1,8 @@
 <?php
 // Attiva la sessione se non già avviata
-require_once __DIR__ . '/../bootstrap.php';
-require_once __DIR__ . '/../security/csrf.php';
-require_once __DIR__ . '/validation.php';
+require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../../security/csrf.php';
+require_once __DIR__ . '/../helpers/validation.php';
 
 
 // CSRF token per i form e le azioni AJAX

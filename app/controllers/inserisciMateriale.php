@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../bootstrap.php';
-require_once __DIR__ . '/../security/csrf.php';
-require_once __DIR__ . '/../storage/azienda_materiali.php';
-require_once __DIR__ . '/validation.php';
+require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../../security/csrf.php';
+require_once __DIR__ . '/../../storage/azienda_materiali.php';
+require_once __DIR__ . '/../helpers/validation.php';
 
 
 // Solo aziende

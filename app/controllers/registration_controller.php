@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../app/validation.php';
-require_once __DIR__ . '/../models/UserRepository.php';
-require_once __DIR__ . '/../models/AziendaRepository.php';
-require_once __DIR__ . '/../models/ArtigianoRepository.php';
+require_once __DIR__ . '/../helpers/validation.php';
+require_once __DIR__ . '/../../models/UserRepository.php';
+require_once __DIR__ . '/../../models/AziendaRepository.php';
+require_once __DIR__ . '/../../models/ArtigianoRepository.php';
 
 class RegistrationController {
    

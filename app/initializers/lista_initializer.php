@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/validation.php';
+require_once __DIR__ . '/../helpers/validation.php';
 
 // 1) Determina ruolo: artigiano autenticato?
 $isArtigiano = (!empty($_SESSION['user_id']) && isset($_SESSION['artigiano']) && (int)$_SESSION['artigiano'] === 1);

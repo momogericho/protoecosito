@@ -11,7 +11,7 @@
   <?php else: ?>
     <div class="list">
       <?php foreach ($materiali as $m): ?>
-        <form class="item" method="post" action="/../app/modificaMateriale.php" >
+        <form class="item" method="post" action="/app/controllers/modificaMateriale.php" >
           <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
           <input type="hidden" name="id" value="<?= (int)$m['id'] ?>">
 

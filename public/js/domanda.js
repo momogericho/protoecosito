@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const body = new URLSearchParams();
       body.append('csrf_token', window.__CSRF__);
-      const res = await fetch('/app/reset_selection.php', {
+      const res = await fetch('/app/controllers/reset_selection.php', {
         method: 'POST', body, credentials: 'same-origin'
       });
       // non obbligatorio fare nulla con la risposta; pagina rimane con selezione azzerata

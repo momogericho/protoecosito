@@ -6,7 +6,7 @@ if (empty($_SESSION['last_purchase'])) {
 }
 ?>
 
-<?php require_once __DIR__ . '/../app/fine_initializer.php'; ?>
+<?php require_once __DIR__ . '/../app/initializers/fine_initializer.php'; ?>
 
 <main id="mainContent" role="main" class="card">
   <h2>Acquisto eseguito</h2>

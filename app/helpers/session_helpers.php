@@ -9,8 +9,8 @@ function refreshUserInfo(): bool {
         return true; // nulla da aggiornare
     }
 
-    require_once __DIR__ . '/../Db.php';
-    require_once __DIR__ . '/../models/User.php';
+   require_once __DIR__ . '/../../Db.php';
+    require_once __DIR__ . '/../../models/User.php';
 
     $userModel = new User();
 
@@ -42,7 +42,7 @@ function refreshUserInfo(): bool {
 function startSecureSession(): void {
     // Avvia sessione sicura se non già avviata
     if (session_status() === PHP_SESSION_NONE) {
-        checkStoragePermissions(__DIR__ . '/../storage');
+        checkStoragePermissions(__DIR__ . '/../../storage');
         session_set_cookie_params([
             'lifetime' => 0,
             'path'     => '/',
