@@ -7,10 +7,7 @@
 // - Supporta filtro "dopo data" (YYYY-MM-DD)
 // ---------------------------------------------
 
-require_once __DIR__ . '/../app/session_helpers.php';
-startSecureSession();
-
-require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 require_once __DIR__ . '/../templates/header.php'; // include anche user_status
 

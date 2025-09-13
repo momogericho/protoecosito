@@ -1,5 +1,6 @@
 
 <?php
+require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/../app/offerta_initializer.php';
 // Abilita la compressione gzip se supportata dal client
 if (function_exists('ob_gzhandler')) {

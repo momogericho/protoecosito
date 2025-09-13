@@ -9,7 +9,7 @@ function refreshUserInfo(): bool {
         return true; // nulla da aggiornare
     }
 
-    require_once __DIR__ . '/../config/db.php';
+    require_once __DIR__ . '/../Db.php';
     require_once __DIR__ . '/../models/User.php';
 
     $userModel = new User();

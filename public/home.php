@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../app/session_helpers.php';
-startSecureSession();
+require_once __DIR__ . '/../bootstrap.php';
+
 $pageTitle = "Home";
 ?>
 
