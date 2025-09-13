@@ -53,3 +53,4 @@ class Db {
         return self::$pdo?->inTransaction() ?? false;
     }
 }
+
