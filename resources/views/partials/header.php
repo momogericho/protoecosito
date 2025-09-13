@@ -41,11 +41,15 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
 
   <!-- Favicon -->
   <!-- <link rel="icon" href="/img/favicon.ico" type="image/x-icon"> -->
-  
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+
   <!-- CSS e JS -->
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" media="print" href="/css/print.css">
   <script src="/js/model.js" defer></script>
+
 </head>
 <body>
   <a href="#mainContent" class="skip-link">Salta al contenuto</a>
