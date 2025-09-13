@@ -6,7 +6,37 @@ if ('serviceWorker' in navigator) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  
+
+  // banner stato connessione
+  const connectionBanner = document.createElement('div');
+  connectionBanner.id = 'connectionBanner';
+  Object.assign(connectionBanner.style, {
+    position: 'fixed',
+    bottom: '0',
+    left: '0',
+    right: '0',
+    padding: '0.5rem',
+    textAlign: 'center',
+    color: '#fff',
+    zIndex: '1000',
+    display: 'none'
+  });
+
+  function updateConnectionStatus() {
+    if (navigator.onLine) {
+      connectionBanner.textContent = 'Sei online';
+      connectionBanner.style.backgroundColor = '#4caf50';
+    } else {
+      connectionBanner.textContent = 'Sei offline';
+      connectionBanner.style.backgroundColor = '#f44336';
+    }
+    connectionBanner.style.display = 'block';
+  }
+
+  window.addEventListener('online', updateConnectionStatus);
+  window.addEventListener('offline', updateConnectionStatus);
+  document.body.appendChild(connectionBanner);
+  updateConnectionStatus();
 
   // menu laterale
   const btnMenuToggle = document.getElementById('menuToggle');
