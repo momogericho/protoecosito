@@ -11,12 +11,12 @@ require_once __DIR__ . '/../app/init.php';
 $csrf = AppInitializer::init();
 require_once __DIR__ . '/../app/initializers/lista_initializer.php';
 
-require_once __DIR__ . '/../templates/header.php'; // include anche user_status
+require BASE_VIEW_PATH.'/partials/header.php'; // include anche user_status
 
 ?>
 
 <link rel="stylesheet" href="/public/css/lista.css">
-<?php require_once __DIR__ . '/../templates/lista_view.php'; ?>
+<?php require BASE_VIEW_PATH.'/pages/lista_view.php'; ?>
 <script src="/public/js/lista.js" defer></script>
 
-<?php require_once __DIR__ . '/../templates/footer.php'; ?>
+<?php require BASE_VIEW_PATH.'/partials/footer.php'; ?>

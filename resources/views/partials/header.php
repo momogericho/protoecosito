@@ -1,10 +1,10 @@
 <?php
-// templates/header.php
+// resources/views/partials/header.php
 // Abilita la compressione gzip se supportata dal client
 if (function_exists('ob_gzhandler')) {
     ob_start('ob_gzhandler');
 }
-require_once __DIR__ . '/../app/helpers/html_utils.php';
+require_once BASE_PATH . '/app/helpers/html_utils.php';
 
 // Valori di default per SEO e social sharing
 $pageTitle       = $pageTitle ?? "Riuso Sostenibile - Marketplace di materiali riciclati";
@@ -50,14 +50,14 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
 <body>
   <a href="#mainContent" class="skip-link">Salta al contenuto</a>
   <header id="siteHeader" role="banner" class="site-header">
-    <nav class="main-nav" role="navigation" aria-label="Main"> 
-        <?php require __DIR__.'/menu.php'; ?>
+    <nav class="main-nav" role="navigation" aria-label="Main">
+        <?php require BASE_VIEW_PATH.'/partials/menu.php'; ?>
     </nav>
     <div class="logo">
       <?= e($siteName) ?>
     </div>
     <div>
-      <?php require __DIR__.'/user_status.php'; ?>
+      <?php require BASE_VIEW_PATH.'/partials/user_status.php'; ?>
     </div>
      <div id="zoomControls">
       <button id="zoomIn" aria-label="Aumenta dimensione del testo">+</button>

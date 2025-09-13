@@ -54,6 +54,23 @@ logic to controllers and uses helpers as needed.
 4. Handle request data and make variables available to templates.
 5. Include the initializer from a `public/*.php` entry point.
 
+
+## `resources/views/`
+View templates live under `resources/views/` and are split by purpose:
+
+- `pages/` contains full-page templates such as `home_view.php` or
+  `lista_view.php`.
+- `partials/` holds reusable fragments like `header.php`, `footer.php`,
+  `menu.php`, and `user_status.php`.
+  
+Templates are included via the `BASE_VIEW_PATH` constant defined in
+`bootstrap.php` to avoid fragile relative paths:
+
+```php
+require BASE_VIEW_PATH.'/partials/header.php';
+require BASE_VIEW_PATH.'/pages/home_view.php';
+```
+
 ## Loading flow overview
 1. A `public/*.php` entry point requires `bootstrap.php`.
 2. `bootstrap.php` loads Composer autoloading, database configuration, and the

@@ -1,7 +1,7 @@
 <main id="mainContent"  role="main" class="lista container">
   <header class="page-head">
     <h1>Materiali disponibili</h1>
-    <?php require_once __DIR__ . '/filtro_data_form.php'; ?>
+    <?php require BASE_VIEW_PATH.'/partials/filtro_data_form.php'; ?>
   </header>
 
   <?php if ($filterDate !== ''): ?>

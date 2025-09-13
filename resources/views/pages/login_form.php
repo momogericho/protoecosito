@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../app/helpers/remember.php";
+require_once BASE_PATH . '/app/helpers/remember.php';
 $rememberedUser = e(getRememberToken());
 ?>
 

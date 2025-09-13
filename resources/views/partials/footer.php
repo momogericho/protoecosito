@@ -1,6 +1,5 @@
 <?php
- // templates/footer.php
-
+ //resources/views/partials/footer.php
  // Ricava il nome file della pagina corrente (es: "login.php")
  $currentPage = basename($_SERVER['PHP_SELF']);
 

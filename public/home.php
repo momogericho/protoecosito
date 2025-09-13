@@ -4,8 +4,8 @@ AppInitializer::init();
 $pageTitle = "Home";
 ?>
 
-<?php require_once __DIR__ . "/../templates/header.php"; ?>
-
-<?php require_once __DIR__ . "/../templates/home_view.php"; ?>
-
-<?php require_once __DIR__ . "/../templates/footer.php"; ?>
+<?php 
+require BASE_VIEW_PATH.'/partials/header.php';
+require BASE_VIEW_PATH.'/pages/home_view.php'; 
+require BASE_VIEW_PATH.'/partials/footer.php'; 
+?>

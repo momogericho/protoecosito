@@ -12,19 +12,19 @@ if (!isset($materiali, $csrf, $aziendaId)) {
     throw new RuntimeException('Variabili necessarie non disponibili');
 }
 
-require_once __DIR__ . '/../templates/header.php';
+require BASE_VIEW_PATH.'/partials/header.php';
 ?>
 
 <link rel="stylesheet" href="/public/css/offerta.css">
 
 <main class="offerta" id="mainContent">
-    <?php require_once __DIR__ . '/../templates/offerta_elenco_materiali.php'; ?>
-    <?php require_once __DIR__ . '/../templates/offerta_inserimento_nuovo_materiale.php'; ?>
+    <?php require BASE_VIEW_PATH.'/pages/offerta_elenco_materiali.php'; ?>
+  <?php require BASE_VIEW_PATH.'/pages/offerta_inserimento_nuovo_materiale.php'; ?>
 </main>
 
 <?php require_once __DIR__ . '/../app/helpers/offerta_bootstrap_js.php'; ?>
 
-<?php require_once __DIR__ . '/../templates/footer.php'; ?>
+<?php require BASE_VIEW_PATH.'/partials/footer.php'; ?>
 
 
 

@@ -1,5 +1,5 @@
 <?php
-// templates/menu.php
+// resources/views/partials/user_status.php
 
 // Recupero stato utente
 $isLogged = !empty($_SESSION['user_id']);
