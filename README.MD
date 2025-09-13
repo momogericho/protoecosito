@@ -16,11 +16,14 @@ composer install
 
 ## Application Structure
 
-The 'app/' directory now groups code by responsibility:
+The `app/` directory groups code by responsibility:
 
--'app/controllers/' -request handlers
--'app/helpers/' -reusable utilities
--'app/initializers/' -setup scripts runby public pages
+- `app/controllers/` – request handlers
+- `app/helpers/` – reusable utilities
+- `app/initializers/` – setup scripts run by public pages
+
+See [docs/architecture.md](docs/architecture.md) for details on how these
+components interact and guidance on adding new ones.
 
 ## Security Guidelines
 
