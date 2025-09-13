@@ -30,3 +30,13 @@ The 'app/' directory now groups code by responsibility:
 - **XML parsing**: when parsing XML, use `parseXml()` from `app/helpers/html_utils.php`, which keeps `LIBXML_NOENT` and `LIBXML_DTDLOAD` disabled.
 
 Following these rules helps prevent SQL injection, XSS, and XXE vulnerabilities.
+
+## Request lifecycle
+
+All entry points (files in `public/` and `api/`) bootstrap the application through `app/init.php`:
+
+```php
+$csrf = AppInitializer::init();
+```
+
+This centralized initializer loads Composer, database configuration, and session management, then prepares a CSRF token for use in forms. Controllers and page initializers assume this step has already run. Any script handling a request should invoke the initializer before executing its own logic.

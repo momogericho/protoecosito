@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../bootstrap.php';
-require_once __DIR__ . '/../../security/csrf.php';
+require_once __DIR__ . '/../init.php';
+AppInitializer::init();
 require_once __DIR__ . '/../../storage/azienda_materiali.php';
 require_once __DIR__ . '/../helpers/validation.php';
 require_once __DIR__ . '/../helpers/session/AccessControl.php';

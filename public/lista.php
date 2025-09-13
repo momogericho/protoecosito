@@ -7,11 +7,12 @@
 // - Supporta filtro "dopo data" (YYYY-MM-DD)
 // ---------------------------------------------
 
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../app/init.php';
+$csrf = AppInitializer::init();
+require_once __DIR__ . '/../app/initializers/lista_initializer.php';
 
 require_once __DIR__ . '/../templates/header.php'; // include anche user_status
 
-require_once __DIR__ . '/../app/initializers/lista_initializer.php';
 ?>
 
 <link rel="stylesheet" href="/public/css/lista.css">

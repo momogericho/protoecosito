@@ -2,7 +2,6 @@
 // app/conferma_initializer.php
 
 // Controllo accessi e ruolo
-require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../helpers/session/AccessControl.php';
 AccessControl::requireArtigiano();
 

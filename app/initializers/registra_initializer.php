@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../controllers/registration_controller.php';
-require_once __DIR__ . '/../../security/csrf.php';
 
 // Possibile iniezione risorse 
 $pageTitle = "Registrazione";
@@ -11,8 +9,6 @@ $pageTitle = "Registrazione";
 //nel caso fosse supportata e si volesse optare per questa decisione procedere a creare i file css e js 
 //con le parti labeled per la registrazione presenti nei rispettivi documenti style.css e model.jss
 
-// CSRF
-$csrf_token = generateCsrfToken();
 
 $controller = new RegistrationController();
 $okA = $okR = false;

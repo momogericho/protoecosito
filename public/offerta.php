@@ -1,6 +1,7 @@
 
 <?php
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../app/init.php';
+$csrf = AppInitializer::init();
 require_once __DIR__ . '/../app/initializers/offerta_initializer.php';
 // Abilita la compressione gzip se supportata dal client
 if (function_exists('ob_gzhandler')) {
@@ -9,7 +10,9 @@ if (function_exists('ob_gzhandler')) {
 
 if (!isset($materiali, $csrf, $aziendaId)) {
     throw new RuntimeException('Variabili necessarie non disponibili');
-} 
+}
+
+require_once __DIR__ . '/../templates/header.php';
 ?>
 
 <link rel="stylesheet" href="/public/css/offerta.css">

@@ -21,7 +21,7 @@
 
       <form method="post" >
         <input type="hidden" name="type" value="azienda">
-        <input type="hidden" name="csrf_token" value="<?= e($csrf_token) ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
         <label>Ragione sociale
           <input type="text" name="ragione" maxlength="30" required
@@ -70,7 +70,7 @@
 
       <form method="post" >
         <input type="hidden" name="type" value="artigiano">
-        <input type="hidden" name="csrf_token" value="<?= e($csrf_token) ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
         <div class="grid-2">
           <label>Nome
@@ -97,7 +97,8 @@
           <label>Credito (€)
             <input type="number" name="credit" required
                    value="<?= e($oldR['credit'] ?? '') ?>"
-                   placeholder="es. 12.50 (multipli di 0.05)" step="0.05" min="0" pattern="\d+(\.\d{2})" autocomplete="off">            <span class="error-msg" aria-live="polite"></span>
+                   placeholder="es. 12.50 (multipli di 0.05)" step="0.05" min="0" pattern="\d+(\.\d{2})" autocomplete="off">            
+            <span class="error-msg" aria-live="polite"></span>
           </label>
         </div>
 

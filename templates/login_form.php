@@ -1,9 +1,6 @@
 <?php
-require_once __DIR__ . "/../security/csrf.php";
 require_once __DIR__ . "/../app/helpers/remember.php";
-$csrf_token = generateCsrfToken();
 $rememberedUser = e(getRememberToken());
-
 ?>
 
 <main id="mainContent"  role="main" class="login-container">
@@ -21,7 +18,7 @@ $rememberedUser = e(getRememberToken());
     <input type="password" id="pwd" name="pwd" required>
     
     <!-- Token CSRF -->
-    <input type="hidden" name="csrf_token" value="<?php echo e($csrf_token); ?>">
+    <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
 
     <label>

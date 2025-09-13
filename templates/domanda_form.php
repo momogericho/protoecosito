@@ -1,21 +1,3 @@
-<?php
-// ---  controllo accesso: solo artigiani
-if (empty($_SESSION['user_id']) || !isset($_SESSION['artigiano']) || (int)$_SESSION['artigiano'] !== 1) {
-    // Utente non autorizzato: mostra solo avviso
-    ?>
-    <main id="mainContent" role="main" class="domanda card">
-      <h1>Attenzione!</h1>
-      <p>Questa pagina è riservata agli artigiani registrati. Inserisci le credenziali prima di procedere all'acquisto.</p>
-      <p><a href="login.php">Vai al login</a></p>
-    </main>
-    <?php
-    require_once __DIR__ . '/footer.php';
-    exit;
-}
-?>
-
-<?php require_once __DIR__ . '/../app/initializers/domanda_initializer.php'; ?>
-
 <main id="mainContent" role="main" class="domanda">
   <h1>Acquisto materiali</h1>
   

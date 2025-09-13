@@ -1,11 +1,12 @@
 <?php
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../app/init.php';
+$csrf = AppInitializer::init();
 
-include __DIR__ . '/../app/initializers/registra_initializer.php';
+require_once __DIR__ . '/../app/initializers/registra_initializer.php';
 
-include __DIR__ . '/../templates/header.php'; 
+require_once __DIR__ . '/../templates/header.php'; 
 
-include __DIR__ . '/../templates/registration_form.php';
+require_once __DIR__ . '/../templates/registration_form.php';
 
-include __DIR__ . '/../templates/footer.php'; 
+require_once __DIR__ . '/../templates/footer.php'; 
 ?>

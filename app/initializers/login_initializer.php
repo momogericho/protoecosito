@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../controllers/auth_controller.php';
-require_once __DIR__ . '/../../security/csrf.php';
 require_once __DIR__ . '/../helpers/validation.php';
 
 $auth = new AuthController();

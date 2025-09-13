@@ -1,8 +1,5 @@
 <?php
 // app/initializers/offerta_initializer.php
-require_once __DIR__ . '/../../bootstrap.php';
-require_once __DIR__ . '/../../templates/header.php';
-require_once __DIR__ . '/../../security/csrf.php';
 require_once __DIR__ . '/../../storage/azienda_materiali.php';
 require_once __DIR__ . '/../helpers/session/AccessControl.php';
 
@@ -12,7 +9,6 @@ require_once __DIR__ . '/../helpers/session/AccessControl.php';
 AccessControl::requireAzienda(['redirect' => 'login.php?error=accesso_negato']);
 
 $aziendaId = (int)$_SESSION['user_id'];
-$csrf = generateCsrfToken();
 
 /**
  * 1) Carico la mappa azienda→materiali 

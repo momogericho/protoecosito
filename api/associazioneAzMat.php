@@ -1,8 +1,10 @@
 <?php
 // api/associazione.php
-require_once __DIR__ . '/../bootstrap.php';
-require_once __DIR__ . '/../security/csrf.php';
+require_once __DIR__ . '/../app/init.php';
+AppInitializer::init();
 require_once __DIR__ . '/../app/helpers/session/AccessControl.php';
+require_once __DIR__ . '/../storage/azienda_materiali.php';
+
 
 
 // Solo autenticati e solo aziende

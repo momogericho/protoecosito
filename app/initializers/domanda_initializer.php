@@ -1,12 +1,10 @@
 <?php
 // Attiva la sessione se non già avviata
-require_once __DIR__ . '/../../bootstrap.php';
-require_once __DIR__ . '/../../security/csrf.php';
 require_once __DIR__ . '/../helpers/validation.php';
+require_once __DIR__ . '/../helpers/session/AccessControl.php';
 
+AccessControl::requireArtigiano();
 
-// CSRF token per i form e le azioni AJAX
-$csrf = generateCsrfToken();
 
 // filtro data (GET)
 $filter_date = trim($_GET['after_date'] ?? '');
