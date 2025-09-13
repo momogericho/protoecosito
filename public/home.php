@@ -5,7 +5,7 @@ $pageTitle = "Home";
 ?>
 
 <?php 
-require BASE_VIEW_PATH.'/partials/header.php';
-require BASE_VIEW_PATH.'/pages/home_view.php'; 
-require BASE_VIEW_PATH.'/partials/footer.php'; 
+render('partials/header.php');
+render('pages/home_view.php');
+render('partials/footer.php'); 
 ?>

@@ -51,13 +51,13 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
   <a href="#mainContent" class="skip-link">Salta al contenuto</a>
   <header id="siteHeader" role="banner" class="site-header">
     <nav class="main-nav" role="navigation" aria-label="Main">
-        <?php require BASE_VIEW_PATH.'/partials/menu.php'; ?>
+        <?php render('partials/menu.php'); ?>
     </nav>
     <div class="logo">
       <?= e($siteName) ?>
     </div>
     <div>
-      <?php require BASE_VIEW_PATH.'/partials/user_status.php'; ?>
+      <?php render('partials/user_status.php'); ?>
     </div>
      <div id="zoomControls">
       <button id="zoomIn" aria-label="Aumenta dimensione del testo">+</button>

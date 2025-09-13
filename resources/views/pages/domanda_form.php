@@ -3,7 +3,7 @@
   
   <!-- FILTRO DATA -->
   <section class="card filter print-section">
-  <?php require BASE_VIEW_PATH.'/partials/filtro_data_form.php'; ?>
+  <?php render('partials/filtro_data_form.php'); ?>
   </section>
   
   <!-- LISTA MATERIALI -->

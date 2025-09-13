@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
+require_once BASE_PATH . '/app/helpers/view_renderer.php';
 require_once BASE_PATH . '/security/csrf.php';
 
 class AppInitializer
