@@ -1,7 +1,7 @@
 <?php
 // csrf.php
-require_once __DIR__ . '/../app/helpers/session_helpers.php';
-startSecureSession();
+require_once __DIR__ . '/../app/helpers/session/SessionManager.php';
+SessionManager::startSecureSession();
 
 
 /**

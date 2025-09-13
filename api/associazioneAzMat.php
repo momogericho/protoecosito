@@ -2,9 +2,11 @@
 // api/associazione.php
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/../security/csrf.php';
+require_once __DIR__ . '/../app/helpers/session/AccessControl.php';
+
 
 // Solo autenticati e solo aziende
-requireAzienda(['mode' => 'json']);
+AccessControl::requireAzienda(['mode' => 'json']);
 
 header('Content-Type: application/json; charset=utf-8');
 

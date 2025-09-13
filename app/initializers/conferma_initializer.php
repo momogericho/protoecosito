@@ -3,7 +3,9 @@
 
 // Controllo accessi e ruolo
 require_once __DIR__ . '/../../bootstrap.php';
-requireArtigiano();
+require_once __DIR__ . '/../helpers/session/AccessControl.php';
+AccessControl::requireArtigiano();
+
 
 // se arriva via POST da domanda: valida CSRF and costruisci cart in sessione
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

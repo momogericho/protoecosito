@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../../security/csrf.php';
+require_once __DIR__ . '/../helpers/session/AccessControl.php';
+
 
 // Solo aziende
-requireAzienda();
+AccessControl::requireAzienda();
 
 // CSRF
 if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {

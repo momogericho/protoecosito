@@ -2,6 +2,7 @@
 // app/controllers/process_purchase.php
 require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../../security/csrf.php';
+require_once __DIR__ . '/../helpers/session/AccessControl.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -10,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $token = $_POST['csrf_token'] ?? '';
 if (!validateCsrfToken($token)) die('CSRF non valido');
 
-requireArtigiano();
+AccessControl::requireArtigiano();
 
 $cart = $_SESSION['cart'] ?? [];
 if (empty($cart)) { header('Location: ../../domanda.php'); exit; }
