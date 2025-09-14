@@ -15,10 +15,18 @@ function checkStoragePermissions(string $dir): void {
 
     // Controlla che i permessi siano 0750 e che il proprietario sia l'utente web server
     // Nota: posix_* richiede l'estensione POSIX abilitata in PHP
-    $currentUid = posix_getuid();
-    $currentGid = posix_getgid();
+    $hasPosix = function_exists('posix_getuid') && function_exists('posix_getgid');
 
-    if ($perm !== $expectedPerm || $uid !== $currentUid || $gid !== $currentGid) {
-        error_log("Permessi/ownership errati per $dir");
+
+    if ($hasPosix) {
+        $currentUid = posix_getuid();
+        $currentGid = posix_getgid();
+        if ($perm !== $expectedPerm || $uid !== $currentUid || $gid !== $currentGid) {
+            error_log("Permessi/ownership errati per $dir");
+        }
+    } else {
+        if ($perm !== $expectedPerm) {
+            error_log("Permessi errati per $dir");
+        }
     }
 }

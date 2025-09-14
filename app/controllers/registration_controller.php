@@ -10,10 +10,7 @@ class RegistrationController {
         $errors = [];
 
         // CSRF
-        
-        if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
-            die("⚠️ Richiesta non valida: Token CSRF non valido.");
-        }
+        if ($e = $this->checkCsrf($post['csrf_token'] ?? '')) return $e;
 
         // Validazioni
         if ($e = Validation::ragione($post['ragione'] ?? null))  $errors['ragione']  = $e;
@@ -49,10 +46,10 @@ class RegistrationController {
     public function handleArtigiano(array $post): array {
         $errors = [];
 
-         if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
-            die("⚠️ Richiesta non valida: Token CSRF non valido.");
-        }
+        // CSRF
+        if ($e = $this->checkCsrf($post['csrf_token'] ?? '')) return $e;
 
+        // Validazioni
         if ($e = Validation::name($post['name'] ?? null))        $errors['name']     = $e;
         if ($e = Validation::surname($post['surname'] ?? null))  $errors['surname']  = $e;
         if ($e = Validation::birthdate($post['birthdate'] ?? null)) $errors['birthdate'] = $e;
@@ -88,7 +85,10 @@ class RegistrationController {
         }
     }
 
-    private function checkCsrf(string $token): bool {
-        return isset($_SESSION['csrf']) && hash_equals($_SESSION['csrf'], $token);
+     private function checkCsrf(string $token): ?array {
+        if (!isset($_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], $token)) {
+            return ['ok'=>false, 'errors'=>['general'=>"⚠️ Richiesta non valida: Token CSRF non valido."]];
+        }
+        return null;
     }
 }

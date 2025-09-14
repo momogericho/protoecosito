@@ -4,4 +4,4 @@
   window.__AZIENDA_ID__ = <?= (int)$aziendaId ?>;
   window.__MATERIALI_IDS__ = <?= json_encode(array_values($myIds)) ?>; // array di id numerici
 </script>
-<script src="/public/js/offerta.js"></script>
+<script src="<?= BASE_URL ?>/js/offerta.js"></script>

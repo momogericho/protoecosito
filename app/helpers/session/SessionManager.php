@@ -11,9 +11,6 @@ class SessionManager {
             return true; // nothing to refresh
         }
 
-        require_once __DIR__ . '/../../../config/db.php';
-        require_once __DIR__ . '/../../../models/User.php';
-
         $userModel = new User();
 
         $st = Db::prepareRead('SELECT artigiano FROM utenti WHERE id = :id LIMIT 1');

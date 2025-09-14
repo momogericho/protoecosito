@@ -15,7 +15,7 @@ if (!isset($materiali, $csrf, $aziendaId)) {
 render('partials/header.php');
 ?>
 
-<link rel="stylesheet" href="/public/css/offerta.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/css/offerta.css">
 
 <main class="offerta" id="mainContent">
     <?php render('pages/offerta_elenco_materiali.php'); ?>

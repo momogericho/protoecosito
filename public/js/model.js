@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeMenu() {
     menu.classList.remove('active');
     overlay.classList.remove('active');
-    setMenuExpanded(true);
+    setMenuExpanded(false);
     btnMenuToggle.focus();
   }
 
@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
        submit.disabled = false;
        if (!re.nick.test(nick)) return;
        try {
-         const r = await fetch(`/api/check_nick.php?nick=${encodeURIComponent(nick)}`);
+        const r = await fetch(`api/check_nick.php?nick=${encodeURIComponent(nick)}`);
          const data = await r.json();
          if (data.exists) {
           showError('Nick già in uso', input);
