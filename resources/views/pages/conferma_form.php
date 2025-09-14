@@ -29,17 +29,17 @@
         <!-- Indietro: mantiene cart in sessione, torna a domanda -->
         <button type="submit" name="action" value="back" class="btn">Indietro</button>
       </form>
-      <form method="post" action="../app/controllers/reset_selection.php" style="display:inline">
+      <form method="post" action="/api/reset_selection.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <button type="submit" class="btn btn-secondary">Reset</button>
       </form>
     <?php else: ?>
       <!-- Totale <= credito -->
-      <form method="post" action="../app/controllers/process_purchase.php" style="display:inline">
+      <form method="post" action="/api/process_purchase.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <button type="submit" class="btn btn-primary">Concludi</button>
       </form>
-      <form method="post" action="../app/controllers/reset_selection.php" style="display:inline">
+      <form method="post" action="/api/reset_selection.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <button type="submit" class="btn btn-secondary">Reset</button>
       </form>

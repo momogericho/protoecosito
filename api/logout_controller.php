@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../init.php';
+require_once __DIR__ . '/../app/init.php';
 AppInitializer::init();
-require_once __DIR__ . '/auth_controller.php';
+require_once __DIR__ . '/../app/controllers/auth.php';
 
 
 if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
@@ -12,5 +12,5 @@ $auth = new AuthController();
 $auth->logout();
 
 // Redirect a home
-header("Location: home.php");
+header("Location: /home.php");
 exit;

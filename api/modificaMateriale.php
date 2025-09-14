@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../init.php';
+require_once __DIR__ . '/../app/init.php';
 AppInitializer::init();
-require_once __DIR__ . '/../helpers/session/AccessControl.php';
+require_once __DIR__ . '/../app/helpers/session/AccessControl.php';
 
 
 // Solo aziende
@@ -18,7 +18,7 @@ $quantita = (int)($_POST['quantita'] ?? 0);
 $costo = (float)($_POST['costo'] ?? 0);
 
 // Verifica: il materiale è nella mappa dell’azienda?
-$mapFile = realpath(__DIR__ . '/../../storage') . DIRECTORY_SEPARATOR . 'azienda_materiali.json';
+$mapFile = realpath(__DIR__ . '/../storage') . DIRECTORY_SEPARATOR . 'azienda_materiali.json';
 $map = [];
 if (file_exists($mapFile)) $map = json_decode(file_get_contents($mapFile), true);
 $myIds = array_map('intval', $map[(string)$_SESSION['user_id']] ?? []);

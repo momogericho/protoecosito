@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const body = new URLSearchParams();
       body.append('csrf_token', window.__CSRF__);
-            await postWithFallback('/app/controllers/reset_selection.php', body);
+            await postWithFallback('/api/reset_selection.php', body);
     } catch (err) {
       console.warn('Reset server-side fallito', err);
     }
