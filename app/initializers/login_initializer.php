@@ -16,8 +16,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Login automatico tramite token "ricordami"
-//$token = getRememberToken();
-//if ($token && $auth->loginWithToken($token)) {
+//$creds = getRememberedCredentials();
+//if ($creds && $auth->loginWithToken($creds[0])) {
 //    if ($_SESSION['artigiano']) {
 //        header("Location: domanda.php");
 //    } else {
