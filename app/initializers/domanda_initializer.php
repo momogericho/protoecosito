@@ -27,4 +27,3 @@ $materiali = $stmt->fetchAll();
 $cart = $_SESSION['cart'] ?? [];
 
 ?>
-<link rel="stylesheet" href="/public/css/domanda.css">

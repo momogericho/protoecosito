@@ -24,8 +24,9 @@ $pageUrl         = $pageUrl ?? "https://www.riusosostenibile.it";
   <title><?= e($pageTitle) ?></title>
   <meta name="description" content="<?= e($pageDescription) ?>">
   <meta name="keywords" content="<?= e($pageKeywords) ?>">
-  <meta name="author" content="Nome Autore">
-
+ <meta name="author" content="Mohamed el Hadi Hadj Mahmoud">
+  <link rel="canonical" href="<?= e($pageUrl) ?>">
+  
   <!-- Open Graph (per Facebook & LinkedIn) -->
   <meta property="og:title" content="<?= e($pageTitle) ?>">
   <meta property="og:description" content="<?= e($pageDescription) ?>">
@@ -48,6 +49,11 @@ $pageUrl         = $pageUrl ?? "https://www.riusosostenibile.it";
   <!-- CSS e JS -->
   <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css">
   <link rel="stylesheet" media="print" href="<?= BASE_URL ?>/css/print.css">
+  <?php if (!empty($pageStyles)): ?>
+    <?php foreach ((array)$pageStyles as $css): ?>
+      <link rel="stylesheet" href="<?= BASE_URL ?>/css/<?= e($css) ?>">
+    <?php endforeach; ?>
+  <?php endif; ?>
   <script src="<?= BASE_URL ?>/js/model.js" defer></script>
 
 </head>

@@ -10,6 +10,7 @@
 require_once __DIR__ . '/../app/init.php';
 $csrf = AppInitializer::init();
 require_once __DIR__ . '/../app/initializers/lista_initializer.php';
+$pageUrl = BASE_URL . '/lista.php';
 
 render('partials/header.php'); // include anche user_status
 

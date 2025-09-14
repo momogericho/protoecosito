@@ -61,4 +61,3 @@ $credit = $row ? (float)$row['credit'] : 0.0;
 // nuovo CSRF token per azioni su questa pagina
 $csrf2 = generateCsrfToken();
 ?>
-<link rel="stylesheet" href="/public/css/domanda.css">

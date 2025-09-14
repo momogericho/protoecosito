@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../app/init.php';
 $csrf = AppInitializer::init();
 require_once __DIR__ . '/../app/initializers/offerta_initializer.php';
+$pageUrl = BASE_URL . '/offerta.php';
+
 // Abilita la compressione gzip se supportata dal client
 if (function_exists('ob_gzhandler')) {
     ob_start('ob_gzhandler');
