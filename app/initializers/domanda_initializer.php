@@ -7,15 +7,15 @@ AccessControl::requireArtigiano();
 
 
 // filtro data (GET)
-$filter_date = trim($_GET['after_date'] ?? '');
+$filterDate = trim($_GET['after_date'] ?? '');
 $params = [];
 $sql = "SELECT id, nome, descrizione, data, quantita, costo FROM materiali";
-if ($filter_date !== '') {
-   if (Validation::date($filter_date) === null) {
+if ($filterDate !== '') {
+   if (Validation::date($filterDate) === null) {
         $sql .= " WHERE data >= :fdate";
-        $params[':fdate'] = $filter_date;
+        $params[':fdate'] = $filterDate;
     } else {
-        $filter_date = ''; 
+        $filterDate = ''; 
     }
 }
 $sql .= " ORDER BY data DESC, id DESC";
