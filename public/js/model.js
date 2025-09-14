@@ -5,6 +5,38 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+async function savePostRequest(url, body) {
+  return new Promise((resolve, reject) => {
+    const open = indexedDB.open('offline-posts', 1);
+    open.onupgradeneeded = () => {
+      open.result.createObjectStore('requests', { autoIncrement: true });
+    };
+    open.onerror = () => reject(open.error);
+    open.onsuccess = async () => {
+      const db = open.result;
+      const tx = db.transaction('requests', 'readwrite');
+      tx.objectStore('requests').add({ url, body, timestamp: Date.now() });
+      tx.oncomplete = async () => {
+        const reg = await navigator.serviceWorker.ready;
+        try { await reg.sync.register('sync-post-requests'); } catch (e) {}
+        resolve();
+      };
+      tx.onerror = () => reject(tx.error);
+    };
+  });
+}
+
+async function postWithFallback(url, body) {
+  if (!navigator.onLine) {
+    return savePostRequest(url, body);
+  }
+  try {
+    return await fetch(url, { method: 'POST', body, credentials: 'same-origin' });
+  } catch (err) {
+    return savePostRequest(url, body);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
   // banner stato connessione

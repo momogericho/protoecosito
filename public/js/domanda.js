@@ -1,4 +1,36 @@
 // public/js/domanda.js
+
+async function savePostRequest(url, body) {
+  return new Promise((resolve, reject) => {
+    const open = indexedDB.open('offline-posts', 1);
+    open.onupgradeneeded = () => {
+      open.result.createObjectStore('requests', { autoIncrement: true });
+    };
+    open.onerror = () => reject(open.error);
+    open.onsuccess = async () => {
+      const db = open.result;
+      const tx = db.transaction('requests', 'readwrite');
+      tx.objectStore('requests').add({ url, body, timestamp: Date.now() });
+      tx.oncomplete = async () => {
+        const reg = await navigator.serviceWorker.ready;
+        try { await reg.sync.register('sync-post-requests'); } catch (e) {}
+        resolve();
+      };
+      tx.onerror = () => reject(tx.error);
+    };
+  });
+}
+
+async function postWithFallback(url, body) {
+  if (!navigator.onLine) {
+    return savePostRequest(url, body);
+  }
+  try {
+    return await fetch(url, { method: 'POST', body, credentials: 'same-origin' });
+  } catch (err) {
+    return savePostRequest(url, body);
+  }
+}
 document.addEventListener('DOMContentLoaded', () => {
   const items = Array.from(document.querySelectorAll('.material-item'));
   const totalEl = document.getElementById('cart-total');
@@ -92,10 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const body = new URLSearchParams();
       body.append('csrf_token', window.__CSRF__);
-      const res = await fetch('/app/controllers/reset_selection.php', {
-        method: 'POST', body, credentials: 'same-origin'
-      });
-      // non obbligatorio fare nulla con la risposta; pagina rimane con selezione azzerata
+            await postWithFallback('/app/controllers/reset_selection.php', body);
     } catch (err) {
       console.warn('Reset server-side fallito', err);
     }
