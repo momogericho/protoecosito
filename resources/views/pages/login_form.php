@@ -1,6 +1,8 @@
 <?php
 require_once BASE_PATH . '/app/helpers/remember.php';
-[$rememberedUser, $rememberedPwd] = array_map('e', getRememberedCredentials());
+$credentials = getRememberedCredentials();
+$rememberedUser = $credentials['user'] ?? '';
+$rememberedPwd = $credentials['pwd'] ?? '';
 ?>
 
 <main id="mainContent"  role="main" class="login-container">
@@ -12,10 +14,10 @@ require_once BASE_PATH . '/app/helpers/remember.php';
 
   <form method="post" action="../login.php" id="loginForm">
     <label for="user">Username:</label>
-    <input type="text" id="user" name="user" value="<?= $rememberedUser ?>" placeholder="Username" autocomplete="username" required>
+    <input type="text" id="user" name="user" value="<?= e($rememberedUser) ?>" placeholder="Username" autocomplete="username" required>
 
     <label for="pwd">Password:</label>
-    <input type="password" id="pwd" name="pwd" value="<?= $rememberedPwd ?>" required>
+    <input type="password" id="pwd" name="pwd" value="<?= e($rememberedPwd) ?>" autocomplete="current-passwor" required>
     
     <!-- Token CSRF -->
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">

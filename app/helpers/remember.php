@@ -1,6 +1,6 @@
 <?php
 /**
- * Retrieve remembered credentials from cookie.
+ * Retrieve remembered credentials from the remember_token cookie.
  *
  * @return array{0:string,1:string} Array with username and password.
  */
@@ -44,7 +44,7 @@ function getRememberedCredentials() {
 }
 
 /**
- * Store credentials in a secure cookie for 72 hours.
+ * Store credentials in a remember_token cookie for 72 hours.
  */
 function setRememberedCredentials($user, $pwd) {
     $cipher = 'aes-256-gcm';
@@ -75,7 +75,7 @@ function setRememberedCredentials($user, $pwd) {
 }
 
 /**
- * Clear the remember-me cookie.
+ * Clear the remember_token cookie.
  */
 function clearRememberedCredentials() {
         setcookie('remember_token', '', [

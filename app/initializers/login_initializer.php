@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Login automatico tramite token "ricordami"
+// Login automatico tramite cookie remember_token
 //$creds = getRememberedCredentials();
 //if ($creds && $auth->loginWithToken($creds[0])) {
 //    if ($_SESSION['artigiano']) {

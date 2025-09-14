@@ -26,9 +26,9 @@ class AuthController {
 
          session_regenerate_id(true);
 
-        // Se "ricordami" attivo → salvo credenziali nel cookie per 72 ore
+        // Se "ricordami" attivo → salvo credenziali nel cookie remember_token per 72 ore
         if ($remember) {
-            setRememberedCredentials($user['nick'], $password);
+            setRememberedCredentials($nick, $password);
         } else {
             clearRememberedCredentials();
         }
@@ -72,7 +72,7 @@ class AuthController {
         }
         session_destroy();
 
-        // Elimina cookie remember
+        // Elimina cookie remember_token
         if ($userId) {
             $this->userModel->clearRememberToken($userId);
         }
