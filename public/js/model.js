@@ -157,10 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("loginBtn");
 
   loginBtn?.addEventListener("click", () => {
-    window.location.href = "/public/login.php";
+    window.location.href = "/login.php";
   });
   logoutBtn?.addEventListener("click", () => {
-    window.location.href = "/public/logout.php";
+    window.location.href = "/logout.php";
   });
   
 

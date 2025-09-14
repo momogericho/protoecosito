@@ -12,7 +12,7 @@
     body.append('action','set');
     body.append('csrf_token', csrf);
     mappa[aziendaId].forEach((id, idx) => body.append(`materialiIds[${idx}]`, String(id)));
-    const res = await fetch('/api/associazione.php', { method: 'POST', body, credentials: 'same-origin' });
+    const res = await fetch('/api/associazioneAzMat.php', { method: 'POST', body, credentials: 'same-origin' });
     return res.json();
   }
 
