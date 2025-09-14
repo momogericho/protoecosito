@@ -97,7 +97,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(request.clone()).catch(() =>
         request.clone().text().then(body =>
-          storePostRequest(request.url, body)
+          storePostRequest(url.pathname + url.search, body)
             .then(() => self.registration.sync.register('sync-post-requests'))
             .then(() => new Response(JSON.stringify({ ok: false, offline: true }), {
               headers: { 'Content-Type': 'application/json' }

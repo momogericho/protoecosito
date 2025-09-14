@@ -43,3 +43,7 @@ $csrf = AppInitializer::init();
 ```
 
 This centralized initializer loads Composer, database configuration, and session management, then prepares a CSRF token for use in forms. Controllers and page initializers assume this step has already run. Any script handling a request should invoke the initializer before executing its own logic.
+
+## HTTPS and Service Worker
+
+The application forces HTTPS for all requests (see `config/nginx.conf` or `public/.htaccess`). Service workers operate only over secure contexts: deploy the site via `https://` in production. During development the service worker works on `https://` or on `http://localhost`..
