@@ -1,0 +1,8 @@
+Il progetto propone una piattaforma per l'incontro tra aziende che vogliono offrire materiale di scarto e artigiani interessati a riutilizzarlo.
+La struttura segue un approccio modulare: i file nella cartella public fungono da controller sottili che delegano la logica a inizializzatori dedicati e renderizzano viste separate.
+Sono state rispettate diverse norme di buona programmazione e di accessibilità:
+- separazione tra logica applicativa e presentazione tramite viste in resources;
+- uso di controlli CSRF e gestione sicura della sessione per prevenire attacchi;
+- validazione lato server e attributi HTML per vincolare gli input dell'utente;
+- organizzazione del codice secondo convenzioni chiare e riuso di componenti comuni (header, footer, menu).
+Queste scelte favoriscono manutenzione, sicurezza e leggibilità del codice.
