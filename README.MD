@@ -8,7 +8,11 @@ DB_USER_READ="lettore"
 DB_PASS_READ="P@ssw0rd!"
 DB_USER_WRITE="modificatore"
 DB_PASS_WRITE="Str0ng#Admin9"
+PEPPER="change_me"
+REMEMBER_KEY="change_me"
 ```
+
+Both `PEPPER` and `REMEMBER_KEY` must be set in the environment (e.g., in your `.env` file or deployment configuration) to enable secure password hashing and remember-me cookies.
 
 The configuration is loaded through [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv). Ensure dependencies are installed with Composer:
 
