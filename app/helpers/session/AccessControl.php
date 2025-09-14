@@ -26,6 +26,12 @@ class AccessControl {
         $ok = !empty($_SESSION['user_id']) && isset($_SESSION['artigiano']) && (int)$_SESSION['artigiano'] === 1;
         if ($ok) return;
 
+        // Allow rendering of domanda.php even when the user is not authenticated.
+        // The page itself will handle showing a warning message.
+        $script = basename($_SERVER['PHP_SELF'] ?? '');
+        if ($script === 'domanda.php') return;
+
+
         $mode = $opts['mode'] ?? 'web';
         $redirect = $opts['redirect'] ?? null;
 
