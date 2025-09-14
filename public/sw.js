@@ -1,5 +1,6 @@
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const CACHE_VERSION = 'v1';
+const STATIC_CACHE = `static-${CACHE_VERSION}`;
+const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
 const POST_DB = 'offline-posts';
 
 // Apri il database IndexedDB per memorizzare le richieste POST

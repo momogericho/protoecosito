@@ -44,6 +44,10 @@ $csrf = AppInitializer::init();
 
 This centralized initializer loads Composer, database configuration, and session management, then prepares a CSRF token for use in forms. Controllers and page initializers assume this step has already run. Any script handling a request should invoke the initializer before executing its own logic.
 
+## Service Worker Cache Versioning
+
+The progressive web app uses a service worker (`public/sw.js`) to cache static and dynamic assets for offline support. Caches are named with a `CACHE_VERSION` identifier. When a new release requires cached assets to be refreshed, increment the value of `CACHE_VERSION`. During the `activate` event the service worker removes caches that do not match the current version, forcing clients to fetch the updated resources.
+
 ## HTTPS and Service Worker
 
 The application forces HTTPS for all requests (see `config/nginx.conf` or `public/.htaccess`). Service workers operate only over secure contexts: deploy the site via `https://` in production. During development the service worker works on `https://` or on `http://localhost`..
