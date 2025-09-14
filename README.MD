@@ -51,3 +51,21 @@ The progressive web app uses a service worker (`public/sw.js`) to cache static a
 ## HTTPS and Service Worker
 
 The application forces HTTPS for all requests (see `config/nginx.conf` or `public/.htaccess`). Service workers operate only over secure contexts: deploy the site via `https://` in production. During development the service worker works on `https://` or on `http://localhost`..
+
+## Testing
+
+Run the offline cache test to verify that the service worker stores assets for use without a network connection:
+
+```
+npm run test:offline
+```
+
+The test succeeds when it prints `Offline cache check passed`.
+
+To audit performance, accessibility, best practices and PWA compliance, execute Lighthouse (requires a local server):
+
+```
+php -S localhost:8080 -t public & sleep 5 && npm run lighthouse
+```
+
+Lighthouse completes when scores for the selected categories are reported without errors.
