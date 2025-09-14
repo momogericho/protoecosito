@@ -10,19 +10,16 @@ function getRememberedCredentials() {
     }
 
     $cipher = 'aes-256-gcm';
-    $cookie = base64_decode($_COOKIE['remember_token'], true);
-    if ($cookie === false) {
-        return ["", ""];
-    }
+    $cookie = $_COOKIE['remember_token'];
 
     $data = json_decode($cookie, true);
     if (!is_array($data) || !isset($data['ciphertext'], $data['iv'], $data['tag'])) {
         return ["", ""];
     }
 
-    $iv = base64_decode($data['iv'], true);
-    $ciphertext = base64_decode($data['ciphertext'], true);
-    $tag = base64_decode($data['tag'], true);
+    $iv = hex2bin($data['iv']);
+    $ciphertext = hex2bin($data['ciphertext']);
+    $tag = hex2bin($data['tag']);
 
     if ($iv === false || $ciphertext === false || $tag === false) {
         return ["", ""];
@@ -34,8 +31,8 @@ function getRememberedCredentials() {
     }
 
     $creds = json_decode($json, true);
-    if (!is_array($creds) || !isset($creds['user'], $creds['pwd'])) {        return ["", ""];
-    }
+    if (!is_array($creds) || !isset($creds['user'], $creds['pwd'])) {
+        return ["", ""];    }
 
     return [$creds['user'], $creds['pwd']];
 }
@@ -53,12 +50,12 @@ function setRememberedCredentials($user, $pwd) {
     $ciphertext = openssl_encrypt($payload, $cipher, REMEMBER_KEY, OPENSSL_RAW_DATA, $iv, $tag);
     
     $data = [
-        'ciphertext' => base64_encode($ciphertext),
-        'iv' => base64_encode($iv),
-        'tag' => base64_encode($tag)
+        'ciphertext' => bin2hex($ciphertext),
+        'iv' => bin2hex($iv),
+        'tag' => bin2hex($tag)
     ];
 
-    $cookieValue = base64_encode(json_encode($data));
+    $cookieValue = json_encode($data);
 
     setcookie('remember_token', $cookieValue, [
         'expires'  => time() + 72 * 3600,
