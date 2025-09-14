@@ -24,10 +24,8 @@
 
     <?php if ($total > $credit): ?>
       <p class="error">Credito insufficiente per completare l'acquisto.</p>
-      <form method="post" action="../conferma.php" style="display:inline">
-        <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
-        <!-- Indietro: mantiene cart in sessione, torna a domanda -->
-        <button type="submit" name="action" value="back" class="btn">Indietro</button>
+      <form method="get" action="../domanda.php" style="display:inline">
+        <button type="submit" class="btn">Indietro</button>
       </form>
       <form method="post" action="<?= BASE_URL ?>/api/reset_selection.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
@@ -35,6 +33,9 @@
       </form>
     <?php else: ?>
       <!-- Totale <= credito -->
+      <form method="get" action="../domanda.php" style="display:inline">
+        <button type="submit" class="btn">Indietro</button>
+      </form>
       <form method="post" action="<?= BASE_URL ?>/api/process_purchase.php" style="display:inline">
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
         <button type="submit" class="btn btn-primary">Concludi</button>

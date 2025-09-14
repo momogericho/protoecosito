@@ -6,20 +6,23 @@ require_once __DIR__ . '/../helpers/session/AccessControl.php';
 AccessControl::requireArtigiano();
 
 
-// se arriva via POST da domanda: valida CSRF and costruisci cart in sessione
+// se arriva via POST da domanda: valida CSRF e costruisci cart in sessione
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $token = $_POST['csrf_token'] ?? '';
-    if (!validateCsrfToken($token)) die('CSRF non valido.');
+    $action = $_POST['action'] ?? '';
+    if ($action !== 'back') {
+        $token = $_POST['csrf_token'] ?? '';
+        if (!validateCsrfToken($token)) die('CSRF non valido.');
 
-    // Estrai qty[...] map
-    $qtys = $_POST['qty'] ?? [];
-    $cart = [];
-    foreach ($qtys as $id => $q) {
-        $id = (int)$id;
-        $q = (int)$q;
-        if ($q > 0) $cart[$id] = $q;
+        // Estrai qty[...] map
+        $qtys = $_POST['qty'] ?? [];
+        $cart = [];
+        foreach ($qtys as $id => $q) {
+            $id = (int)$id;
+            $q = (int)$q;
+            if ($q > 0) $cart[$id] = $q;
+        }
+        $_SESSION['cart'] = $cart;
     }
-    $_SESSION['cart'] = $cart;
 }
 
 // Usa cart da sessione
