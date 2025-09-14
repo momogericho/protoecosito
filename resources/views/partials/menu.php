@@ -7,14 +7,14 @@ $isAzienda = $isLogged && isset($_SESSION['artigiano']) && !$_SESSION['artigiano
 $isArtigiano = $isLogged && !empty($_SESSION['artigiano']);
 
 $menuItems = [
-    ['label' => 'Home',    'url' => '/home.php',    'enabled' => true],
-    ['label' => 'Login',   'url' => '/login.php',   'enabled' => !$isLogged],
-    ['label' => 'Registra','url' => '/registra.php','enabled' => true],
-    ['label' => 'Lista',   'url' => '/lista.php',   'enabled' => true],
-    ['label' => 'Offerta', 'url' => '/offerta.php', 'enabled' => $isAzienda],
-    ['label' => 'Domanda', 'url' => '/domanda.php', 'enabled' => $isArtigiano],
-    ['label' => 'Logout',  'url' => '/logout.php',  'enabled' => $isLogged],
-];
+      ['label' => 'Home',    'url' => BASE_URL . '/home.php',    'enabled' => true],
+      ['label' => 'Login',   'url' => BASE_URL . '/login.php',   'enabled' => !$isLogged],
+      ['label' => 'Registra','url' => BASE_URL . '/registra.php','enabled' => true],
+      ['label' => 'Lista',   'url' => BASE_URL . '/lista.php',   'enabled' => true],
+      ['label' => 'Offerta', 'url' => BASE_URL . '/offerta.php', 'enabled' => $isAzienda],
+      ['label' => 'Domanda', 'url' => BASE_URL . '/domanda.php', 'enabled' => $isArtigiano],
+      ['label' => 'Logout',  'url' => BASE_URL . '/logout.php',  'enabled' => $isLogged],
+  ];
 ?>
 
 <!-- Bottone hamburger -->

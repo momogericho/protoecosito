@@ -22,17 +22,17 @@ try {
     Db::beginTransaction();
 
     // 1) blocca credit artigiano
-    $st = Db::prepare('SELECT credit FROM dati_artigiani WHERE id_utente = ? FOR UPDATE');
+    $st = Db::prepareWrite('SELECT credit FROM dati_artigiani WHERE id_utente = ? FOR UPDATE');
     $st->execute([$userId]);
     $row = $st->fetch();
-    if (!$row) throw new Exception('Dati artigiano non trovati');
+    if (!$row) {throw new Exception('Dati artigiano non trovati');}
     $credit = (float)$row['credit'];
 
     // 2) carica e blocca materiali
     $ids = array_map('intval', array_keys($cart));
     if (empty($ids)) throw new Exception('Carrello vuoto');
     $in = implode(',', array_fill(0, count($ids), '?'));
-    $st = Db::prepare("SELECT id, quantita, costo FROM materiali WHERE id IN ($in) FOR UPDATE");
+    $st = Db::prepareWrite('SELECT id, quantita, costo FROM materiali WHERE id IN ($in) FOR UPDATE');
     $st->execute($ids);
     $materials = [];
     while ($r = $st->fetch()) {
@@ -59,14 +59,14 @@ try {
     }
 
     // 5) update quantita materiali
-    $stmtUpd = Db::prepare('UPDATE materiali SET quantita = quantita - ? WHERE id = ?');
+    $stmtUpd = Db::prepareWrite('UPDATE materiali SET quantita = quantita - ? WHERE id = ?');
     foreach ($cart as $mid => $q) {
         $stmtUpd->execute([(int)$q, (int)$mid]);
     }
 
     // 6) update credito artigiano
     $newCredit = $credit - $total;
-    $stmtCred = Db::prepare('UPDATE dati_artigiani SET credit = ? WHERE id_utente = ?');
+    $stmtCred = Db::prepareWrite('UPDATE dati_artigiani SET credit = ? WHERE id_utente = ?');
     $stmtCred->execute([$newCredit, $userId]);
 
     // 7) commit

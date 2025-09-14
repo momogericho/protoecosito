@@ -31,7 +31,7 @@ $cents = (int)round($costo * 100);
 if ($cents < 0 || $cents % 5 !== 0) exit('Costo non valido (centesimi multipli di 5)');
 
 // Inserisci materiale
-$st = Db::prepare('INSERT INTO materiali (nome, descrizione, data, quantita, costo) VALUES (:n,:d,:dt,:q,:c)');
+$st = Db::prepareWrite('INSERT INTO materiali (nome, descrizione, data, quantita, costo) VALUES (:n,:d,:dt,:q,:c)');
 $st->execute([':n'=>$nome, ':d'=>$descrizione, ':dt'=>$data, ':q'=>$quantita, ':c'=>$costo]);
 $matId = (int)Db::lastInsertId();
 

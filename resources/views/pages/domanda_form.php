@@ -66,4 +66,4 @@
 <script>
   window.__CSRF__ = <?= json_encode($csrf) ?>;
 </script>
-<script src="/public/js/domanda.js" defer></script>
+  <script src="<?= BASE_URL ?>/js/domanda.js" defer></script>

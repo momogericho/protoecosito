@@ -12,7 +12,7 @@ $siteName        = "Riuso Sostenibile";
 $pageDescription = $pageDescription ?? "Connetti aziende che scartano materiali con artigiani, designer e startup sostenibili. Riduci gli sprechi e promuovi il riciclo creativo.";
 $pageKeywords    = $pageKeywords ?? "riciclo, riuso, sostenibilità, materiali, artigiani, startup, economia circolare, green";
 $pageUrl         = $pageUrl ?? "https://www.riusosostenibile.it";
-$pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
+  $pageImage       = $pageImage ?? BASE_URL . '/img/logo.png'; // immagine per social sharing
 ?>
 <!doctype html>
 <html lang="it">
@@ -41,14 +41,14 @@ $pageImage       = $pageImage ?? "/img/logo.png"; // immagine per social sharing
 
   <!-- Favicon -->
   <!-- <link rel="icon" href="/img/favicon.ico" type="image/x-icon"> -->
-  <link rel="manifest" href="/manifest.json">
-  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+  <link rel="manifest" href="<?= BASE_URL ?>/manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="<?= BASE_URL ?>/icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="<?= BASE_URL ?>/icons/icon-512x512.png">
 
   <!-- CSS e JS -->
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" media="print" href="/css/print.css">
-  <script src="/js/model.js" defer></script>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css">
+  <link rel="stylesheet" media="print" href="<?= BASE_URL ?>/css/print.css">
+  <script src="<?= BASE_URL ?>/js/model.js" defer></script>
 
 </head>
 <body>

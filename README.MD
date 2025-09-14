@@ -4,8 +4,10 @@ This application uses environment variables for database configuration. Copy the
 
 ```
 DB_DSN="mysql:host=localhost;dbname=eco_scambio;charset=utf8mb4"
-DB_USER="modificatore"
-DB_PASS="Str0ng#Admin9"
+DB_USER_READ="lettore"
+DB_PASS_READ="P@ssw0rd!"
+DB_USER_WRITE="modificatore"
+DB_PASS_WRITE="Str0ng#Admin9"
 ```
 
 The configuration is loaded through [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv). Ensure dependencies are installed with Composer:
@@ -27,7 +29,7 @@ components interact and guidance on adding new ones.
 
 ## Security Guidelines
 
-- **Database access**: use the `Db::prepare()` wrapper for every query. Direct calls to `query()` or string interpolation are forbidden; always bind parameters.
+- **Database access**: use `Db::prepareRead()` for SELECTs and `Db::prepareWrite()` for modifications. Direct calls to `query()` or string interpolation are forbidden; always bind parameters.
 - **Input validation**: validate and normalise all user provided data before use.
 - **Output escaping**: escape dynamic HTML using the `e()` helper (`app/helpers/html_utils.php`).
 - **XML parsing**: when parsing XML, use `parseXml()` from `app/helpers/html_utils.php`, which keeps `LIBXML_NOENT` and `LIBXML_DTDLOAD` disabled.

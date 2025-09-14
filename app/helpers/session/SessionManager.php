@@ -16,7 +16,7 @@ class SessionManager {
 
         $userModel = new User();
 
-        $st = Db::prepare('SELECT artigiano FROM utenti WHERE id = :id LIMIT 1');
+        $st = Db::prepareRead('SELECT artigiano FROM utenti WHERE id = :id LIMIT 1');
         $st->execute([':id' => $_SESSION['user_id']]);
         $row = $st->fetch(PDO::FETCH_ASSOC);
 

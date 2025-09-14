@@ -19,7 +19,7 @@ if ($filterDate !== '') {
     }
 }
 $sql .= " ORDER BY data DESC, id DESC";
-$stmt = Db::prepare($sql);
+$stmt = Db::prepareRead($sql);
 $stmt->execute($params);
 $materiali = $stmt->fetchAll();
 

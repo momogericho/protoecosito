@@ -33,7 +33,7 @@ $cents = (int)round($costo*100);
 if ($cents < 0 || $cents % 5 !== 0) exit('Costo non valido (centesimi multipli di 5)');
 
 // Aggiorna
-$st = Db::prepare('UPDATE materiali SET descrizione=:d, quantita=:q, costo=:c WHERE id=:id');
+$st = Db::prepareWrite('UPDATE materiali SET descrizione=:d, quantita=:q, costo=:c WHERE id=:id');
 $st->execute([':d'=>$descrizione, ':q'=>$quantita, ':c'=>$costo, ':id'=>$id]);
 
 header('Location: /offerta.php?updated=1');
