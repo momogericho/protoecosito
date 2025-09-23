@@ -28,8 +28,8 @@ $rememberedPwd = $credentials['pwd'] ?? '';
     </label>
 
     <div class="buttons">
-      <button type="reset">Cancella</button>
-      <button type="submit">Invia</button>
+      <button type="reset" id="btnLoginReset">Cancella</button>
+      <button type="submit" id="btnLoginSubmit">Invia</button>
     </div>
   </form>
 </main>

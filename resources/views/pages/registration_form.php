@@ -19,7 +19,7 @@
         </div>
       <?php endif; ?>
 
-      <form method="post" >
+      <form method="post" id="aziendaForm">
         <input type="hidden" name="type" value="azienda">
         <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
@@ -50,8 +50,8 @@
         </label>
 
         <div class="actions">
-          <button type="reset">Cancella</button>
-          <button type="submit">Registra Azienda</button>
+          <button type="reset" id="btnAziendaReset">Cancella</button>
+          <button type="submit" id="btnAziendaSubmit">Registra Azienda</button>
         </div>
       </form>
     </section>
@@ -68,7 +68,7 @@
         </div>
       <?php endif; ?>
 
-      <form method="post" >
+      <form method="post" id="artigianoForm">
         <input type="hidden" name="type" value="artigiano">
         <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
@@ -122,8 +122,8 @@
         </div>
 
         <div class="actions">
-          <button type="reset">Cancella</button>
-          <button type="submit">Registra Artigiano</button>
+          <button type="reset" id="btnArtigianoReset">Cancella</button>
+          <button type="submit" id="btnArtigianoSubmit">Registra Artigiano</button>
         </div>
       </form>
     </section>

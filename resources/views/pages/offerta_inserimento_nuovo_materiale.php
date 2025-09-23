@@ -35,8 +35,8 @@
       </div>
 
       <div class="actions">
-        <button type="reset">Cancella</button>
-        <button type="submit">Aggiungi</button>
+        <button type="reset" id="btnNuovoReset">Cancella</button>
+        <button type="submit" id="btnNuovoSubmit">Aggiungi</button>
       </div>
     </form>
   </section>

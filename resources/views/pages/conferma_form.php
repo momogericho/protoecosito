@@ -24,25 +24,25 @@
 
     <?php if ($total > $credit): ?>
       <p class="error">Credito insufficiente per completare l'acquisto.</p>
-      <form method="get" action="../domanda.php" style="display:inline">
-        <button type="submit" class="btn">Indietro</button>
+      <form method="get" action="../domanda.php" style="display:inline" id="returnToDomandaForm">
+        <button type="submit" class="btn" id="btnReturn">Indietro</button>
       </form>
-      <form method="post" action="<?= BASE_URL ?>/api/reset_selection.php" style="display:inline">
+      <form method="post" action="<?= BASE_URL ?>/api/reset_selection.php" style="display:inline" id="resetSelectionForm">
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
-        <button type="submit" class="btn btn-secondary">Reset</button>
+        <button type="submit" class="btn btn-secondary" id="btnReset">Reset</button>
       </form>
     <?php else: ?>
       <!-- Totale <= credito -->
-      <form method="get" action="../domanda.php" style="display:inline">
-        <button type="submit" class="btn">Indietro</button>
+      <form method="get" action="../domanda.php" style="display:inline" id="returnToDomandaForm">
+        <button type="submit" class="btn" id="btnReturn">Indietro</button>
       </form>
-      <form method="post" action="<?= BASE_URL ?>/api/process_purchase.php" style="display:inline">
+      <form method="post" action="<?= BASE_URL ?>/api/process_purchase.php" style="display:inline" id="processPurchaseForm">        
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
-        <button type="submit" class="btn btn-primary">Concludi</button>
+        <button type="submit" class="btn btn-primary" id="btnConcludi">Concludi</button>      
       </form>
-      <form method="post" action="<?= BASE_URL ?>/api/reset_selection.php" style="display:inline">
+      <form method="post" action="<?= BASE_URL ?>/api/reset_selection.php" style="display:inline" id="resetSelectionForm">
         <input type="hidden" name="csrf_token" value="<?= e($csrf2) ?>">
-        <button type="submit" class="btn btn-secondary">Reset</button>
+        <button type="submit" class="btn btn-secondary" id="btnReset">Reset</button>
       </form>
     <?php endif; ?>
   <?php endif; ?>

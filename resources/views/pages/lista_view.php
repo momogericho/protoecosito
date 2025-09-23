@@ -1,8 +1,13 @@
 <main id="mainContent"  role="main" class="lista container">
   <header class="page-head">
     <h1>Materiali disponibili</h1>
-  <?php render('partials/filtro_data_form.php', ['filterDate' => $filterDate ?? '', 'resetUrl' => 'lista.php']); ?>
-  </header>
+    <?php render('partials/filtro_data_form.php', [
+      'filterDate' => $filterDate ?? '',
+      'resetUrl' => 'lista.php',
+      'formId' => 'listaFilterForm'
+    ]); 
+    ?>  
+    </header>
 
   <?php if ($filterDate !== ''): ?>
     <p class="filter-note">Filtro attivo: materiali inseriti dal <strong><?= e($filterDate) ?></strong> in poi.</p>

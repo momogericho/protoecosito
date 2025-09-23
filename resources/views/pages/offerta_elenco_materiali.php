@@ -35,7 +35,7 @@
               <span class="error-msg" aria-live="polite"></span>
             </label>
             <div class="actions">
-              <button type="submit">Aggiorna</button>
+              <button type="submit" name="update">Aggiorna</button>
             </div>
           </div>
         </form>

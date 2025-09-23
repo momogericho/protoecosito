@@ -3,7 +3,11 @@
   
   <!-- FILTRO DATA -->
   <section class="card filter print-section">
-  <?php render('partials/filtro_data_form.php', ['filterDate' => $filterDate ?? '', 'resetUrl' => 'domanda.php']); ?>  </section>
+  <?php render('partials/filtro_data_form.php', [
+    'filterDate' => $filterDate ?? '',
+    'resetUrl' => 'domanda.php',
+    'formId' => 'domandaFilterForm'
+  ]); ?>  </section>
   
   <!-- LISTA MATERIALI -->
   <section class="card materials print-section">
