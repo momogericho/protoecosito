@@ -55,4 +55,4 @@ The progressive web app uses a service worker (`public/sw.js`) to cache static a
 
 ## HTTPS and Service Worker
 
-The application forces HTTPS for all requests (see `config/nginx.conf` or `public/.htaccess`). Service workers operate only over secure contexts: deploy the site via `https://` in production. During development the service worker works on `https://` or on `http://localhost`..
+Service workers operate only over secure contexts. Deploy the site via `https://` in production or use `http://localhost` during development to allow the offline features to register correctly.

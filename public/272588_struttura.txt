@@ -6,7 +6,7 @@ public/lista.php,form:filter-form,date:after_date
 public/login.php,form:loginForm,text:user,password:pwd,hidden:csrf_token,checkbox:remember
 public/logout.php,form,hidden:csrf_token
 public/offerta.php,form:nuovoMaterialeForm,hidden:csrf_token,text:nome,textarea:descrizione,date:data,number:quantita,number:costo,form:item,hidden:csrf_token,hidden:id,textarea:descrizione,number:quantita,number:costo
-public/registra.php,form,hidden:type,hidden:csrf_token,text:ragione,text:address2,text:nick,password:password,text:name,text:surname,text:birthdate,number:credit,text:address,password:password
+public/registrazione.php,form,hidden:type,hidden:csrf_token,text:ragione,text:address2,text:nick,password:password,text:name,text:surname,text:birthdate,number:credit,text:address,password:password
 app/init.php
 app/controllers/auth.php
 app/controllers/registration_controller.php
