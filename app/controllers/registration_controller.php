@@ -29,8 +29,7 @@ class RegistrationController {
         // Creazione utente + azienda (transazione)
         Db::beginTransaction();
         try {
-            $hash = password_hash($post['password'] . PEPPER, PASSWORD_DEFAULT);
-            $userId = $userRepo->create($post['nick'], $hash, false); // azienda => artigiano = false
+            $userId = $userRepo->create($post['nick'], $post['password'], false); // azienda => artigiano = false
 
             $azRepo = new AziendaRepository();
             $azRepo->create($userId, $post['ragione'], $post['address2']);
@@ -67,9 +66,8 @@ class RegistrationController {
 
         Db::beginTransaction();
         try {
-            $hash = password_hash($post['password'] . PEPPER, PASSWORD_DEFAULT);
-            $userId = $userRepo->create($post['nick'], $hash, true); // artigiano = true
-
+            $userId = $userRepo->create($post['nick'], $post['password'], true); // artigiano = true
+            
             $arRepo = new ArtigianoRepository();
             $arRepo->create(
                 $userId,

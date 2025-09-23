@@ -8,13 +8,13 @@ class UserRepository {
         return $u ?: null;
     }
 
-    public function create(string $nick, string $passwordHash, bool $isArtigiano): int {
+    public function create(string $nick, string $password, bool $isArtigiano): int {
         $st = Db::prepareWrite(
             "INSERT INTO utenti (nick, password, artigiano) VALUES (:n, :p, :a)"
         );
         $st->execute([
             ':n' => $nick,
-            ':p' => $passwordHash,
+            ':p' => $password,
             ':a' => $isArtigiano ? 1 : 0
         ]);
         return (int)Db::lastInsertId();

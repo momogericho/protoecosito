@@ -14,7 +14,7 @@ class AuthController {
     public function login($nick, $password, $remember) {
         $user = $this->userModel->getByNick($nick);
 
-        if (!$user || !password_verify($password . PEPPER, $user['password'])) {
+        if (!$user || $user['password'] !== $password) {
             return false; // credenziali errate
         }
 
@@ -61,7 +61,6 @@ class AuthController {
 
     // Funzione di logout
     public function logout() {
-        $userId = $_SESSION['user_id'] ?? null;
         $_SESSION = [];
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
@@ -73,9 +72,6 @@ class AuthController {
         session_destroy();
 
         // Elimina cookie remember_token
-        if ($userId) {
-            $this->userModel->clearRememberToken($userId);
-        }
         clearRememberedCredentials();
 
         header("Location: login.php");
