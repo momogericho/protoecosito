@@ -13,11 +13,7 @@ REMEMBER_KEY="change_me"
 
 Set `REMEMBER_KEY` in the environment (e.g., in your `.env` file or deployment configuration) to enable encrypted "ricordami" cookies.
 
-The configuration is loaded through [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv). Ensure dependencies are installed with Composer:
-
-```
-composer install
-```
+Configuration variables are loaded by the built-in `EnvLoader` (see `config/env_loader.php`), therefore no external framework or Composer dependency is required.
 
 ## Application Structure
 
@@ -47,7 +43,7 @@ All entry points (files in `public/` and `api/`) bootstrap the application throu
 $csrf = AppInitializer::init();
 ```
 
-This centralized initializer loads Composer, database configuration, and session management, then prepares a CSRF token for use in forms. Controllers and page initializers assume this step has already run. Any script handling a request should invoke the initializer before executing its own logic.
+This centralized initializer loads the internal autoloader, database configuration, and session management, then prepares a CSRF token for use in forms. Controllers and page initializers assume this step has already run. Any script handling a request should invoke the initializer before executing its own logic.
 
 ## Service Worker Cache Versioning
 

@@ -16,10 +16,18 @@ if (!defined('BASE_URL')) {
     define('BASE_URL', $baseUrl);
 }
 
-require_once BASE_PATH . '/vendor/autoload.php';
-// Load environment variables
-$dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
-$dotenv->safeLoad();
+require_once BASE_PATH . '/config/env_loader.php';
+require_once BASE_PATH . '/app/autoload.php';
+
+// Load environment variables and register the autoloader
+EnvLoader::load(BASE_PATH);
+AppAutoloader::register([
+    BASE_PATH . '/app',
+    BASE_PATH . '/models',
+    BASE_PATH . '/config',
+    BASE_PATH . '/security',
+]);
+
 // Define security constants
 require_once BASE_PATH . '/config/security.php';
 require_once BASE_PATH . '/config/db.php';

@@ -4,6 +4,6 @@ offerta.php,form:nuovoMaterialeForm,hidden:csrf_token,text:nome,textarea:descriz
 domanda.php,form:domandaFilterForm,date:after_date,submit:domandaFilterForm-submit,form:selezioneForm,hidden:csrf_token,number:qty[],button:btn-cancella,submit:btn-acquista
 conferma.php,form:returnToDomandaForm,submit:btnReturn,form:resetSelectionForm,hidden:csrf_token,submit:btnReset,form:processPurchaseForm,hidden:csrf_token,submit:btnConcludi
 fine.php
-registra.php,form:aziendaForm,hidden:type,hidden:csrf_token,text:ragione,text:address2,text:nick,password:password,reset:btnAziendaReset,submit:btnAziendaSubmit,form:artigianoForm,hidden:type,hidden:csrf_token,text:name,text:surname,text:birthdate,number:credit,text:address,text:nick,password:password,reset:btnArtigianoReset,submit:btnArtigianoSubmit
+registrazione.php,form:aziendaForm,hidden:type,hidden:csrf_token,text:ragione,text:address2,text:nick,password:password,reset:btnAziendaReset,submit:btnAziendaSubmit,form:artigianoForm,hidden:type,hidden:csrf_token,text:name,text:surname,text:birthdate,number:credit,text:address,text:nick,password:password,reset:btnArtigianoReset,submit:btnArtigianoSubmit
 login.php,form:loginForm,text:user,password:pwd,hidden:csrf_token,checkbox:remember,reset:btnLoginReset,submit:btnLoginSubmit
 logout.php,form:logoutForm,hidden:csrf_token,submit:btnLogout

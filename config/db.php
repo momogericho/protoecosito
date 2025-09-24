@@ -1,21 +1,21 @@
 <?php
+
+require_once __DIR__ . '/env_loader.php';
 class Db {
 
     private static ?\PDO $pdoRead = null;
     private static ?\PDO $pdoWrite = null;
     private static bool $envLoaded = false;
 
-     private static function loadEnv(): void {
+    private static function loadEnv(): void {
         if (self::$envLoaded) {
             return;
         }
 
-        require_once __DIR__ . '/../vendor/autoload.php';
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-        $dotenv->safeLoad();
+        EnvLoader::load(__DIR__ . '/..');
         self::$envLoaded = true;
     }
-        public static function connectRead(): \PDO {
+    public static function connectRead(): \PDO {
         if (self::$pdoRead !== null) {
             return self::$pdoRead;
         }
@@ -36,7 +36,7 @@ class Db {
         return self::$pdoRead;
     }
 
-public static function connectWrite(): \PDO {
+    public static function connectWrite(): \PDO {
         if (self::$pdoWrite !== null) {
             return self::$pdoWrite;
         }
@@ -48,10 +48,11 @@ public static function connectWrite(): \PDO {
         if (!$caCert) {
             throw new \RuntimeException('Certificato CA non configurato.');
         }
-        self::$pdoWrite = new \PDO($dsn, $user, $pass, [            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+        self::$pdoWrite = new \PDO($dsn, $user, $pass, [
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
             \PDO::ATTR_EMULATE_PREPARES => false,
             \PDO::MYSQL_ATTR_SSL_CA => $caCert,
-            \PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true, // verifica il certificato del server,disattivare solo in sviluppo
+            \PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
         ]);
         return self::$pdoWrite;
     }
