@@ -1,8 +1,35 @@
-Il progetto propone una piattaforma per l'incontro tra aziende che vogliono offrire materiale di scarto e artigiani interessati a riutilizzarlo.
-La struttura segue un approccio modulare: i file nella cartella public fungono da controller sottili che delegano la logica a inizializzatori dedicati e renderizzano viste separate.
+Il progetto propone una piattaforma per l'incontro tra aziende che vogliono offrire materiale di scarto e artigiani interessati a riutilizzarlo con responsabilità.
+La struttura segue un approccio modulare: i file nella cartella public fungono da controller sottili che delegano la logica a inizializzatori dedicati e renderizzano viste separate per favorire ordine e facilità di manutenzione.
+Ogni pagina condivide intestazione, menu e footer caricati da componenti comuni, così l'esperienza rimane coerente e le modifiche grafiche richiedono interventi in un solo punto.
+Per la gestione dell'autenticazione sfruttiamo sessioni PHP protette da identificatori rigenerati e limitiamo i privilegi degli utenti database usando gli account lettore e modificatore indicati nella traccia.
+La suddivisione dei ruoli consente alle aziende di pubblicare materiali e agli artigiani di selezionare solo ciò che rientra nel proprio budget, mantenendo le azioni ben separate.
+Abbiamo previsto controlli per ricordare le credenziali solo quando l'utente lo desidera e memorizziamo username e password cifrata in cookie temporanei con scadenza a 72 ore.
+La home introduce il progetto, presenta le opportunità e orienta i visitatori verso le sezioni chiave di riciclo consapevole.
+La pagina offerta consente alle aziende di elencare materiali, aggiornare disponibilità e prezzo e convalida ogni campo con espressioni regolari per evitare dati incoerenti o fuori formato.
+La pagina domanda mostra i materiali filtrabili per data di inserimento, salva la selezione in sessione e guida gli artigiani verso un acquisto consapevole con feedback immediati.
+La pagina conferma riepiloga i materiali scelti, calcola il totale e impedisce la conclusione se il credito disponibile non è sufficiente, proponendo il ritorno alla lista con i dati intatti.
+La pagina conclusione comunica l'esito dell'acquisto, aggiorna crediti e quantità.
+La pagina lista rende visibili materiali e descrizioni a tutti, mentre mostra anche costi e quantità agli artigiani autenticati per trasparenza e pianificazione.
+La pagina registra è divisa in due sezioni con validazioni differenti per aziende e artigiani, controlla la robustezza delle password e applica filtri su lunghezze e caratteri consentiti.
+Il login offre messaggi chiari in caso di errore e consente la cancellazione rapida dei campi, riducendo la frustrazione dell'utente durante il tentativo di accesso.
+Gestiamo gli errori applicativi con messaggi gentili che spiegano cosa è andato storto e come procedere, così l'utente non si sente lasciato solo.
+Per il frontend impieghiamo un foglio di stile unico che controlla palette di colori, tipografie e spaziature per trasmettere un'identità visiva coerente e rispettosa dell'ambiente.
+L'accessibilità è garantita con etichette per i campi, contrasti adeguati e pulsanti grandi abbastanza da essere raggiungibili anche su dispositivi touch.
+Ogni rotta controlla l'autorizzazione prima di eseguire operazioni sensibili e ridirige verso il login quando serve autenticarsi, evitando comportamenti imprevisti.
+Per migliorare le prestazioni utilizziamo query parametriche e limitiamo la quantità di dati caricati, privilegiando pagine leggere e veloci anche su connessioni lente.
+I controlli lato server sono accompagnati da controlli lato client per offrire riscontri istantanei senza rinunciare alla sicurezza.
+Salviamo i dati sensibili dopo averli filtrati e normalizzati per prevenire attacchi di iniezione e mantenere il database pulito.
+Il codice è organizzato in classi e funzioni dedicate alla gestione di sessioni, input, viste e operazioni sul database, così ciascun modulo ha responsabilità chiare.
+La gestione delle transazioni assicura che gli acquisti riducano il credito e la quantità in modo atomico, evitando stati intermedi incoerenti.
+Abbiamo previsto logica di rollback per ripristinare la situazione precedente qualora un aggiornamento fallisse durante l'acquisto.
+Per le notifiche all'utente usiamo messaggi flash che restano visibili fino al successivo refresh, rendendo evidente l'esito delle azioni intraprese.
+Monitoriamo le azioni principali con registri di attività che consentono agli amministratori di verificare chi ha inserito o modificato un materiale.
+Il menu principale è pensato per essere navigabile da tastiera e usa aria-current per indicare la pagina attiva, migliorando l'usabilità.
+Abbiamo documentato nel codice le funzioni cruciali con commenti brevi ma significativi per aiutare futuri manutentori a comprendere scelte e vincoli.
+Ogni componente è testato su scenari tipici e su casi limite relativi a filtri di data, formattazione dei costi e gestione delle sessioni per garantire affidabilità nel tempo.
 Sono state rispettate diverse norme di buona programmazione e di accessibilità:
-- separazione tra logica applicativa e presentazione tramite viste in resources;
-- uso di controlli CSRF e gestione sicura della sessione per prevenire attacchi;
-- validazione lato server e attributi HTML per vincolare gli input dell'utente;
-- organizzazione del codice secondo convenzioni chiare e riuso di componenti comuni (header, footer, menu).
-Queste scelte favoriscono manutenzione, sicurezza e leggibilità del codice.
+- separazione tra logica applicativa e presentazione tramite viste in resources e controller snelli che orchestrano il flusso dei dati senza duplicazioni superflue.
+- uso di controlli CSRF e gestione sicura della sessione per prevenire attacchi, includendo token rigenerati a ogni richiesta sensibile e cookie di sessione marcati come HttpOnly.
+- validazione lato server e attributi HTML per vincolare gli input dell'utente, con messaggi di aiuto che spiegano i motivi delle regole senza risultare tecnici.
+- organizzazione del codice secondo convenzioni chiare e riuso di componenti comuni, così header, footer e menu vengono aggiornati una sola volta e restano sincronizzati su ogni pagina.
+Queste scelte favoriscono manutenzione, sicurezza e leggibilità del codice, permettono una crescita graduale del progetto e testimoniano la cura rivolta alla sostenibilità digitale.

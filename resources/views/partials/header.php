@@ -17,7 +17,6 @@ $pageKeywords    = $pageKeywords ?? $defaults['keywords'];
 $pageUrl         = $pageUrl ?? $defaults['url'];
 $defaultImage    = $defaults['image'];
 if (isset($pageImage)) {
-    $pageImage = $pageImage;
 } else {
     $pageImage = (strncmp($defaultImage, 'http', 4) === 0) ? $defaultImage : BASE_URL . $defaultImage;
 }
