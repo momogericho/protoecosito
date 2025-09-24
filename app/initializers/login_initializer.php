@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__ . '/../controllers/auth_controller.php';
+require_once __DIR__ . '/../controllers/auth.php';
 require_once __DIR__ . '/../helpers/validation.php';
+require_once __DIR__ . '/../helpers/remember.php';
 
 $auth = new AuthController();
 $error = "";
@@ -16,15 +17,15 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Login automatico tramite cookie remember_token
-//$creds = getRememberedCredentials();
-//if ($creds && $auth->loginWithToken($creds[0])) {
-//    if ($_SESSION['artigiano']) {
-//        header("Location: domanda.php");
-//    } else {
-//        header("Location: offerta.php");
-//    }
-//    exit;
-//}
+$rememberCookie = $_COOKIE[remember_token_cookie_name()] ?? null;
+if ($rememberCookie && $auth->loginWithToken($rememberCookie)) {
+    if ($_SESSION['artigiano']) {
+        header("Location: domanda.php");
+    } else {
+        header("Location: offerta.php");
+    }
+    exit;
+}
 
 // Gestione invio form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

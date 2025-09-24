@@ -1,5 +1,12 @@
 <main role="main" id="mainContent">
 <div class="reg-wrapper">
+  
+  <nav class="quick-links" aria-label="Scorciatoie registrazione">
+    <a href="#aziendaForm">Vai al modulo aziende</a>
+    <a href="#artigianoForm">Vai al modulo artigiani</a>
+    <a href="#mainContent">Torna all'inizio</a>
+  </nav>
+
   <h1>Registrazione</h1>
   <p class="intro">
     Registrati come <strong>Azienda</strong> per offrire materiali,
@@ -11,10 +18,10 @@
     <section class="card">
       <h2>Azienda</h2>
       <?php if ($okA): ?>
-        <div class="success">Registrazione completata! Ora puoi <a href="login.php">accedere</a>.</div>
+        <div class="success" role="status" aria-live="polite">Registrazione completata! Ora puoi <a href="login.php">accedere</a>.</div>
       <?php endif; ?>
       <?php if ($errorsA): ?>
-        <div class="errorbox">
+        <div class="errorbox" role="alert" aria-live="assertive">
           <?php foreach ($errorsA as $e) echo '<div>'.e($e).'</div>'; ?>
         </div>
       <?php endif; ?>
@@ -60,10 +67,10 @@
     <section class="card">
       <h2>Artigiano / Designer</h2>
       <?php if ($okR): ?>
-        <div class="success">Registrazione completata! Ora puoi <a href="login.php">accedere</a>.</div>
+        <div class="success" role="status" aria-live="polite">Registrazione completata! Ora puoi <a href="login.php">accedere</a>.</div>
       <?php endif; ?>
       <?php if ($errorsR): ?>
-        <div class="errorbox">
+        <div class="errorbox" role="alert" aria-live="assertive">
           <?php foreach ($errorsR as $e) echo '<div>'.e($e).'</div>'; ?>
         </div>
       <?php endif; ?>

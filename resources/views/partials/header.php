@@ -7,12 +7,35 @@ if (function_exists('ob_gzhandler')) {
 require_once BASE_PATH . '/app/helpers/html_utils.php';
 
 // Valori di default per SEO e social sharing
-$pageTitle       = $pageTitle ?? "Riuso Sostenibile - Marketplace di materiali riciclati";
-$siteName        = "Riuso Sostenibile";
-$pageDescription = $pageDescription ?? "Connetti aziende che scartano materiali con artigiani, designer e startup sostenibili. Riduci gli sprechi e promuovi il riciclo creativo.";
-$pageKeywords    = $pageKeywords ?? "riciclo, riuso, sostenibilità, materiali, artigiani, startup, economia circolare, green";
-$pageUrl         = $pageUrl ?? "https://www.riusosostenibile.it";
-  $pageImage       = $pageImage ?? BASE_URL . '/img/logo.png'; // immagine per social sharing
+$seoConfig = require BASE_PATH . '/config/seo.php';
+$defaults = $seoConfig['defaults'];
+
+$pageTitle       = $pageTitle ?? $defaults['title'];
+$siteName        = $defaults['site_name'] ?? 'Riuso Sostenibile';
+$pageDescription = $pageDescription ?? $defaults['description'];
+$pageKeywords    = $pageKeywords ?? $defaults['keywords'];
+$pageUrl         = $pageUrl ?? $defaults['url'];
+$defaultImage    = $defaults['image'];
+if (isset($pageImage)) {
+    $pageImage = $pageImage;
+} else {
+    $pageImage = (strncmp($defaultImage, 'http', 4) === 0) ? $defaultImage : BASE_URL . $defaultImage;
+}
+
+$requiredMap = [
+    'title' => $pageTitle,
+    'description' => $pageDescription,
+    'url' => $pageUrl,
+    'image' => $pageImage,
+];
+$missingSeo = [];
+foreach ($seoConfig['required'] as $key) {
+    $value = trim((string)($requiredMap[$key] ?? ''));
+    if ($value === '') {
+        $missingSeo[] = $key;
+    }
+}
+$seoChecklistMessage = $missingSeo ? 'Elementi mancanti: ' . implode(', ', $missingSeo) : 'Completo';
 ?>
 <!doctype html>
 <html lang="it">
@@ -45,6 +68,8 @@ $pageUrl         = $pageUrl ?? "https://www.riusosostenibile.it";
   <link rel="manifest" href="<?= BASE_URL ?>/manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="<?= BASE_URL ?>/icons/icon-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="<?= BASE_URL ?>/icons/icon-512x512.png">
+
+  <!-- SEO checklist: <?= e($seoChecklistMessage) ?> -->
 
   <!-- CSS e JS -->
   <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css">

@@ -1,4 +1,8 @@
 <h1>Gestione materiali (Azienda)</h1>
+<p class="microcopy" role="note">
+  Aggiorna descrizioni e disponibilità: i cambiamenti vengono applicati subito e sono visibili agli artigiani nella pagina domanda.
+  Ricorda di indicare un costo coerente con il valore residuo del materiale.
+</p>
 <!-- SEZIONE: elenco materiali esistenti -->
 <section class="card">
   <div class="card__head">
@@ -19,19 +23,21 @@
             <strong>#<?= (int)$m['id'] ?></strong> — <?= e($m['nome']) ?>
             <span class="badge">ins. <?= e($m['data']) ?></span>
           </div>
+          
+          <p class="microcopy" id="material-hint-<?= (int)$m['id'] ?>">Aggiorna solo le informazioni realmente cambiate: ogni modifica è tracciata nel registro attività.</p>
 
           <label>Descrizione (max 250)
-            <textarea name="descrizione" maxlength="250"><?= e($m['descrizione']) ?></textarea>
+            <textarea name="descrizione" maxlength="250" aria-describedby="material-hint-<?= (int)$m['id'] ?>"><?= e($m['descrizione']) ?></textarea>
             <span class="error-msg" aria-live="polite"></span>
           </label>
 
           <div class="grid-3">
             <label>Quantità
-              <input type="number" name="quantita" min="1" required value="<?= (int)$m['quantita'] ?>">
+              <input type="number" name="quantita" min="1" required value="<?= (int)$m['quantita'] ?>" aria-describedby="material-hint-<?= (int)$m['id'] ?>">
               <span class="error-msg" aria-live="polite"></span>
             </label>
             <label>Costo (€)
-              <input type="number" name="costo" step="0.05" min="0" required value="<?= number_format((float)$m['costo'], 2, '.', '') ?>">
+              <input type="number" name="costo" step="0.05" min="0" required value="<?= number_format((float)$m['costo'], 2, '.', '') ?>" aria-describedby="material-hint-<?= (int)$m['id'] ?>">
               <span class="error-msg" aria-live="polite"></span>
             </label>
             <div class="actions">

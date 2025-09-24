@@ -8,6 +8,13 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    // Recupera utente da ID
+    public function getById(int $id) {
+        $stmt = Db::prepareRead("SELECT * FROM utenti WHERE id = :id LIMIT 1");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // Recupera saldo se artigiano, altrimenti zero
     public function getCredit($userId, $isArtigiano) {
         if ($isArtigiano) {
@@ -17,27 +24,6 @@ class User {
             return $row ? number_format($row['credit'], 2, ',', '.') : "0.00";
         }
         return "0.00";
-    }
-
-    // Salva token "ricordami" per l'utente
-    public function storeRememberToken($userId, $token) {
-        $hash = hash('sha256', $token);
-        $stmt = Db::prepareWrite("UPDATE utenti SET remember_token = :token WHERE id = :id");
-        $stmt->execute(['token' => $hash, 'id' => $userId]);
-    }
-
-    // Recupera utente tramite token "ricordami"
-    public function getByRememberToken($token) {
-        $hash = hash('sha256', $token);
-        $stmt = Db::prepareRead("SELECT * FROM utenti WHERE remember_token = :token LIMIT 1");
-        $stmt->execute(['token' => $hash]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Cancella il token "ricordami"
-    public function clearRememberToken($userId) {
-        $stmt = Db::prepareWrite("UPDATE utenti SET remember_token = NULL WHERE id = :id");
-        $stmt->execute(['id' => $userId]);
     }
 }
 ?>

@@ -1,11 +1,14 @@
 <?php
 require_once __DIR__ . '/../helpers/validation.php';
+require_once __DIR__ . '/../helpers/credential_store.php';
 require_once __DIR__ . '/../../models/UserRepository.php';
 require_once __DIR__ . '/../../models/AziendaRepository.php';
 require_once __DIR__ . '/../../models/ArtigianoRepository.php';
+require_once __DIR__ . '/../../security/csrf.php';
 
 class RegistrationController {
    
+    // Gestione registrazione azienda
     public function handleAzienda(array $post): array {
         $errors = [];
 
@@ -28,8 +31,11 @@ class RegistrationController {
 
         // Creazione utente + azienda (transazione)
         Db::beginTransaction();
+        $credentialId = null;
         try {
-            $userId = $userRepo->create($post['nick'], $post['password'], false); // azienda => artigiano = false
+            $created = $userRepo->create($post['nick'], $post['password'], false); // azienda => artigiano = false
+            $userId = $created['userId'];
+            $credentialId = $created['credentialId'];
 
             $azRepo = new AziendaRepository();
             $azRepo->create($userId, $post['ragione'], $post['address2']);
@@ -38,10 +44,14 @@ class RegistrationController {
             return ['ok'=>true];
         } catch (Throwable $ex) {
             Db::rollBack();
+            if ($credentialId) {
+                CredentialStore::delete($credentialId);
+            }
             return ['ok'=>false, 'errors'=>['general'=>"Errore salvataggio: ".$ex->getMessage()]];
         }
     }
 
+    // Gestione registrazione artigiano
     public function handleArtigiano(array $post): array {
         $errors = [];
 
@@ -65,9 +75,12 @@ class RegistrationController {
         }
 
         Db::beginTransaction();
+        $credentialId = null;
         try {
-            $userId = $userRepo->create($post['nick'], $post['password'], true); // artigiano = true
-            
+            $created = $userRepo->create($post['nick'], $post['password'], true); // artigiano = true
+            $userId = $created['userId'];
+            $credentialId = $created['credentialId'];
+
             $arRepo = new ArtigianoRepository();
             $arRepo->create(
                 $userId,
@@ -79,12 +92,16 @@ class RegistrationController {
             return ['ok'=>true];
         } catch (Throwable $ex) {
             Db::rollBack();
+            if ($credentialId) {
+                CredentialStore::delete($credentialId);
+            }
             return ['ok'=>false, 'errors'=>['general'=>"Errore salvataggio: ".$ex->getMessage()]];
         }
     }
 
-     private function checkCsrf(string $token): ?array {
-        if (!isset($_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], $token)) {
+    // Controllo token CSRF
+    private function checkCsrf(string $token): ?array {
+        if (!validateCsrfToken($token)) {
             return ['ok'=>false, 'errors'=>['general'=>"⚠️ Richiesta non valida: Token CSRF non valido."]];
         }
         return null;

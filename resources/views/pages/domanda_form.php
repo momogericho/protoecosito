@@ -1,6 +1,11 @@
 <main id="mainContent" role="main" class="domanda">
+
   <h1>Acquisto materiali</h1>
-  
+  <p class="microcopy" role="note" id="domandaHint">
+    Scegli le quantità necessarie: il totale tiene conto dei materiali già selezionati e del credito disponibile.
+    Puoi modificare o annullare la richiesta prima della conferma finale.
+  </p>
+
   <!-- FILTRO DATA -->
   <section class="card filter print-section">
   <?php render('partials/filtro_data_form.php', [
@@ -38,7 +43,7 @@
               <div class="mat-controls">
                 <div class="control-qty">
                   <button type="button" class="btn-decr" aria-label="Diminuire">−</button>
-                  <input type="number" class="qty-input" name="qty[<?= $id ?>]" min="0" max="<?= $available ?>" value="<?= $selQty ?>" aria-label="Quantità desiderata">
+                  <input type="number" class="qty-input" name="qty[<?= $id ?>]" min="0" max="<?= $available ?>" value="<?= $selQty ?>" aria-label="Quantità desiderata" aria-describedby="hint-<?= $id ?>">
                   <button type="button" class="btn-incr" aria-label="Aumentare">+</button>
                   <span class="error-msg" aria-live="polite"></span>
                 </div>
@@ -47,6 +52,7 @@
                   <div>Prezzo unitario: <strong><?= number_format($unit,2,',','.') ?> €</strong></div>
                   <div>Subtotale: <strong class="line-subtotal"><?= number_format($selQty * $unit, 2, ',', '.') ?> €</strong></div>
                 </div>
+                <p class="microcopy" id="hint-<?= $id ?>">I materiali sono riservati solo dopo la conferma: aggiorna qui la quantità finale.</p>
               </div>
             </div>
           </div>
