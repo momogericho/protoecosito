@@ -31,8 +31,9 @@ try {
     // 2) carica e blocca materiali
     $ids = array_map('intval', array_keys($cart));
     if (empty($ids)) throw new Exception('Carrello vuoto');
-    $in = implode(',', array_fill(0, count($ids), '?'));
-    $st = Db::prepareWrite('SELECT id, quantita, costo FROM materiali WHERE id IN ($in) FOR UPDATE');
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $sql = 'SELECT id, quantita, costo FROM materiali WHERE id IN (' . $placeholders . ') FOR UPDATE';
+    $st = Db::prepareWrite($sql);
     $st->execute($ids);
     $materials = [];
     while ($r = $st->fetch()) {
